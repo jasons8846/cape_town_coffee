@@ -1,0 +1,49 @@
+2025-12-24T06:43:07.964+02:00  INFO 29932 --- [coffeewiki] [main] c.j.coffeewiki.CoffeewikiApplication     : Starting CoffeewikiApplication using Java 21.0.1 with PID 29932 (C:\Spring\coffeewiki\coffeewiki\target\classes started by OWNER in C:\Spring\coffeewiki\coffeewiki)
+2025-12-24T06:43:07.973+02:00  INFO 29932 --- [coffeewiki] [main] c.j.coffeewiki.CoffeewikiApplication     : The following 1 profile is active: "test"
+2025-12-24T06:43:10.571+02:00  INFO 29932 --- [coffeewiki] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-24T06:43:10.813+02:00  INFO 29932 --- [coffeewiki] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 211 ms. Found 3 JPA repository interfaces.
+2025-12-24T06:43:12.347+02:00  INFO 29932 --- [coffeewiki] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2025-12-24T06:43:12.393+02:00  INFO 29932 --- [coffeewiki] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-24T06:43:12.394+02:00  INFO 29932 --- [coffeewiki] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
+2025-12-24T06:43:12.612+02:00  INFO 29932 --- [coffeewiki] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 4466 ms
+2025-12-24T06:43:13.369+02:00  INFO 29932 --- [coffeewiki] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2025-12-24T06:43:13.745+02:00  INFO 29932 --- [coffeewiki] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.0.Final
+2025-12-24T06:43:15.287+02:00  INFO 29932 --- [coffeewiki] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-24T06:43:15.428+02:00  INFO 29932 --- [coffeewiki] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-12-24T06:43:16.463+02:00  INFO 29932 --- [coffeewiki] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@14ca88bc
+2025-12-24T06:43:16.471+02:00  INFO 29932 --- [coffeewiki] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-12-24T06:43:16.714+02:00  INFO 29932 --- [coffeewiki] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/coffee_wiki]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.35
+	Default catalog/schema: coffee_wiki/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-24T06:43:18.627+02:00  INFO 29932 --- [coffeewiki] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-24T06:43:18.775+02:00  INFO 29932 --- [coffeewiki] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-24T06:43:19.103+02:00  INFO 29932 --- [coffeewiki] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-24T06:43:20.419+02:00  WARN 29932 --- [coffeewiki] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-24T06:43:22.162+02:00  INFO 29932 --- [coffeewiki] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2025-12-24T06:43:22.182+02:00  INFO 29932 --- [coffeewiki] [main] c.j.coffeewiki.CoffeewikiApplication     : Started CoffeewikiApplication in 15.885 seconds (process running for 17.833)
+2025-12-24T06:43:22.194+02:00  WARN 29932 --- [coffeewiki] [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2025-12-24T06:43:22.195+02:00  WARN 29932 --- [coffeewiki] [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2025-12-24T06:43:40.692+02:00  INFO 29932 --- [coffeewiki] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-24T06:43:40.694+02:00  INFO 29932 --- [coffeewiki] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-12-24T06:43:40.700+02:00  INFO 29932 --- [coffeewiki] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2025-12-24T06:43:42.689+02:00  INFO 29932 --- [coffeewiki] [http-nio-8080-exec-4] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 1328 ms
+2025-12-24T06:43:48.996+02:00  INFO 29932 --- [coffeewiki] [http-nio-8080-exec-5] c.j.c.controllers.CompanyController      : GET /v1/company initiated
+2025-12-24T06:43:50.284+02:00  WARN 29932 --- [coffeewiki] [http-nio-8080-exec-5] c.j.c.services.Impl.CompanyServiceImpl   : No company data is available for the request
+2025-12-24T10:15:45.538+02:00  WARN 29932 --- [coffeewiki] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3h28s333ms595µs600ns).
+2025-12-24T11:40:54.358+02:00  WARN 29932 --- [coffeewiki] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h25m14s657ms666µs200ns).
+2025-12-24T15:12:41.331+02:00  WARN 29932 --- [coffeewiki] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3h16s33ms697µs).
+2025-12-24T16:09:56.339+02:00  WARN 29932 --- [coffeewiki] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=57m20s490ms706µs600ns).
+2025-12-24T17:24:14.816+02:00  INFO 29932 --- [coffeewiki] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-24T17:24:14.884+02:00  INFO 29932 --- [coffeewiki] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2025-12-24T17:24:14.957+02:00  INFO 29932 --- [coffeewiki] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-24T17:24:15.034+02:00  INFO 29932 --- [coffeewiki] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-12-24T17:24:15.058+02:00  INFO 29932 --- [coffeewiki] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
