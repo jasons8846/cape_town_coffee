@@ -1,0 +1,800 @@
+openapi: 3.0.1
+info:
+  title: Cape Town Coffee Wiki Service
+  description: This service provides information on coffee shops and there prices
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+
+tags:
+  - name: Authentication
+  - name: Company
+  - name: Products
+
+security:
+  - bearerAuth: []
+
+paths:
+  /v1/auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: Authenticate consumer and get bearer token
+      description: Authenticate consumer and get bearer token
+      operationId: authLogin
+      parameters:
+        - in: header
+          name: X-Correlation-Id
+          schema:
+            $ref: '#/components/schemas/UUIDv7'
+          required: true
+          description: Identifier to track API requests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthLoginRequestWrapper"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthLoginResponseWrapper"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+
+  /v1/auth/register:
+    post:
+      tags:
+        - Authentication
+      summary: Register a new consumer
+      description: Register a new consumer
+      operationId: register
+      parameters:
+        - in: header
+          name: X-Correlation-Id
+          schema:
+            $ref: '#/components/schemas/UUIDv7'
+          required: true
+          description: Identifier to track API requests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequestWrapper"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RegisterResponseWrapper"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+
+  /v1/company/{name}:
+    get:
+      tags:
+        - Company
+      summary: Retrieve the coffee company details
+      description: Retrieve coffee company details
+      operationId: getCompanyName
+      parameters:
+        - in: path
+          name: name
+          schema:
+            type: string
+          required: true
+          description: the name of the company
+        - in: header
+          name: X-Correlation-Id
+          schema:
+            $ref: '#/components/schemas/UUIDv7'
+          required: true
+          description: Identifier to track API requests
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetCompanyNameResponseWrapper"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+  /v1/company:
+    get:
+      tags:
+        - Company
+      summary: Retrieve all available coffee companies with their details
+      description: Retrieve all available coffee companies with their details
+      operationId: getAllCompanies
+      parameters:
+        - in: header
+          name: X-Correlation-Id
+          schema:
+            $ref: '#/components/schemas/UUIDv7'
+          required: true
+          description: Identifier to track API requests
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetAllCompaniesResponseWrapper"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+
+    post:
+      tags:
+        - Company
+      summary: Save company details
+      description: Save company details
+      operationId: saveCompany
+      parameters:
+        - in: header
+          name: X-Correlation-Id
+          schema:
+            $ref: '#/components/schemas/UUIDv7'
+          required: true
+          description: Identifier to track API requests
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SaveCompanyRequestWrapper"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SaveCompanyResponseWrapper"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+
+    put:
+      tags:
+        - Company
+      summary: Update company details
+      description: Update company details
+      operationId: updateCompany
+      parameters:
+        - in: header
+          name: X-Correlation-Id
+          schema:
+            $ref: '#/components/schemas/UUIDv7'
+          required: true
+          description: Identifier to track API requests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateCompanyRequestWrapper"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateCompanyResponseWrapper"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+
+  /v1/company/{companyCode}:
+    delete:
+      tags:
+        - Company
+      summary: Delete company
+      description: Delete company
+      operationId: deleteCompany
+      parameters:
+        - in: path
+          name: companyCode
+          schema:
+            type: string
+          required: true
+          description: the name of the company
+        - in: header
+          name: X-Correlation-Id
+          schema:
+            $ref: '#/components/schemas/UUIDv7'
+          required: true
+          description: Identifier to track API requests
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteCompanyResponseWrapper"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+
+
+  /v1/product:
+    post:
+      tags:
+        - Products
+      summary: Save product details
+      description: Save product details
+      operationId: saveProduct
+      parameters:
+        - in: header
+          name: X-Correlation-Id
+          schema:
+            $ref: '#/components/schemas/UUIDv7'
+          required: true
+          description: Identifier to track API requests
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SaveProductRequestWrapper"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SaveProductResponseWrapper"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+
+    put:
+      tags:
+        - Products
+      summary: Update product details
+      description: Update product details
+      operationId: UpdateProduct
+      parameters:
+        - in: header
+          name: X-Correlation-Id
+          schema:
+            $ref: '#/components/schemas/UUIDv7'
+          required: true
+          description: Identifier to track API requests
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateProductRequestWrapper"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateProductResponseWrapper"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+
+  /v1/product/{companyCode}:
+    get:
+      tags:
+        - Products
+      summary: Retrieve products for a company
+      description: Retrieve products for a specified company
+      operationId: retrieveCpyProducts
+      parameters:
+        - in: path
+          name: companyCode
+          schema:
+            type: string
+          required: true
+          description: the unique companyCode
+        - in: header
+          name: X-Correlation-Id
+          schema:
+            $ref: '#/components/schemas/UUIDv7'
+          required: true
+          description: Identifier to track API requests
+
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetCpyProductResponseWrapper"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+
+  /v1/product/{productCode}:
+    delete:
+      tags:
+        - Products
+      summary: Delete product
+      description: Delete product
+      operationId: deleteProduct
+      parameters:
+        - in: path
+          name: productCode
+          schema:
+            type: string
+          required: true
+          description: the name of the product
+        - in: header
+          name: X-Correlation-Id
+          schema:
+            $ref: '#/components/schemas/UUIDv7'
+          required: true
+          description: Identifier to track API requests
+
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteProductResponseWrapper"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+
+
+
+components:
+  securitySchemes:
+    bearerAuth: # Arbitrary name for the scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    UUIDv7:
+      type: string
+      pattern: '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[7][0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$'
+
+
+    GetCompanyNameResponseWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/Company"
+        error:
+          type: object
+          nullable: true
+          example: null
+
+    GetAllCompaniesResponseWrapper:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Company"
+        error:
+          type: object
+          nullable: true
+          example: null
+
+    SaveCompanyRequestWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/Company"
+
+    SaveCompanyResponseWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/SaveCompanyResponse"
+        error:
+          type: object
+          nullable: true
+          example: null
+
+    SaveProductRequestWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/Product"
+
+    SaveProductResponseWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/SaveProductResponse"
+        error:
+          type: object
+          nullable: true
+          example: null
+
+    SaveCompanyResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Indicates that the company details was saved
+          example: "Company saved Successfully!"
+        companyCode:
+          type: string
+          description: unique code asscociated to each company on creation
+          example: 12weHIaq3ATOP1nM3Cx
+
+    SaveProductResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Indicates that the product was saved
+          example: "Product saved Successfully!"
+
+    GetCpyProductResponseWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/GetCpyProductResponse"
+        error:
+          type: object
+          nullable: true
+          example: null
+
+    GetCpyProductResponse:
+      type: array
+      items:
+        $ref: "#/components/schemas/Product"
+
+    UpdateCompanyRequestWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/Company"
+
+    UpdateCompanyResponseWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/UpdateCompanyResponse"
+        error:
+          type: object
+          nullable: true
+          example: null
+
+    UpdateCompanyResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Inicates if the company details was updated Successfully
+          example: Company details updated
+
+    DeleteCompanyResponseWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/DeleteCompanyResponse"
+        error:
+          type: object
+          nullable: true
+          example: null
+
+    DeleteCompanyResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Inicates if the company details deleted
+          example: Company deleted
+
+    DeleteProductResponseWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/DeleteProductResponse"
+        error:
+          type: object
+          nullable: true
+          example: null
+
+    DeleteProductResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Inicates if the product has been deleted
+          example: Product deleted
+
+    UpdateProductRequestWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/Product"
+
+    UpdateProductResponseWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/UpdateProductResponse"
+        error:
+          type: object
+          nullable: true
+          example: null
+
+    UpdateProductResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Indicates that the procut details was updated
+          example: "Product updated"
+
+    AuthLoginRequestWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/AuthRequest"
+
+    AuthLoginResponseWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/AuthResponse"
+        error:
+          type: object
+          nullable: true
+          example: null
+
+    RegisterRequestWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/RegisterRequest"
+
+    RegisterResponseWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/RegisterResponse"
+        error:
+          type: object
+          nullable: true
+          example: null
+
+    RegisterRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: the name describing the consumer
+          example: "Johnty"
+        username:
+          type: string
+          description: the username of the consumer
+          minLength: 8
+          maxLength: 15
+          example: johntyrhodes
+        password:
+          type: string
+          description: password asscociated with the username
+          format: password
+          minLength: 8
+          maxLength: 36
+          example: $johntyRhodes#123$
+        roles:
+          type: string
+          description: List of user roles
+          example: "ADMIN, HR, USER"
+
+    RegisterResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: indicates if user was Successfully regisered
+          example: "User registered"
+
+    AuthRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          description: the registered username of the consumer
+          minLength: 8
+          maxLength: 15
+          example: johntyrhodes
+        password:
+          type: string
+          description: stored password asscociated with the username
+          format: password
+          minLength: 8
+          maxLength: 36
+          example: $johntyRhodes#123$
+
+    AuthResponse:
+      type: object
+      properties:
+        bearer:
+          type: string
+          description: bearer token in the form of a JWT
+          example: QQ7nf3Ij83qr1AgTw9hkO
+
+    Company:
+      type: object
+      properties:
+        code:
+          type: string
+          description: unique code asscociated to each company on creation
+          example: 12weHIaq3ATOP1nM3Cx
+        name:
+          type: string
+          description: the name of the company
+          example: Starbucks
+
+    Product:
+      type: object
+      required:
+        - companyCode
+        - name
+        - variant
+        - price
+        - currency
+      properties:
+        companyCode:
+          type: string
+          description: unique code asscociated to each company on creation
+          example: 12weHIaq3ATOP1nM3Cx
+        code:
+          type: string
+          description: unique code asscociated to each product
+          example: 12weHIaq3ATOP1nM3Cx
+        name:
+          type: string
+          description: the name of the product
+          example: Flat white
+        variant:
+          type: string
+          description: the variant of the product describes the size
+          example: Small
+        price:
+          type: number
+          format: decimal
+          description: The price amount in the specified currency.
+          example: 34.99
+        currency:
+          type: string
+          description: The currency code (e.g., ZAR, USD).
+          example: "ZAR"
+
+    ErrorResponseWrapper:
+      type: object
+      properties:
+        data:
+          type: object
+          nullable: true
+          example: null
+        error:
+          $ref: "#/components/schemas/ErrorResponse"
+
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: field describing the error
+          example: No data available
+        details:
+          type: string
+          description: details giving more information on the error
+          example: No company data is available for the request
