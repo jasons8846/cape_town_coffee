@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 public class AuthenticationController implements AuthenticationApi {
@@ -61,12 +62,8 @@ public class AuthenticationController implements AuthenticationApi {
         }
 
 
-
-
-
-
-
     }
+
 
     @Override
     public ResponseEntity<RegisterResponseWrapper> register(String xCorrelationId, RegisterRequestWrapper registerRequestWrapper) {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -64,10 +65,10 @@ public class CompanyController implements CompanyApi {
     public ResponseEntity<GetCompanyNameResponseWrapper> getCompanyName(String name, String xCorrelationId) {
         log.info("CorrletationId: " + xCorrelationId +   " || GET /v1/company by name initiated");
         Company company = new Company();
-        CompanyEntity entity = companyService.getCompanyByName(name);
+        Optional<CompanyEntity> entity = companyService.getCompanyByName(name);
 
-        company.setName(entity.getName());
-        company.setCode(entity.getCode());
+        company.setName(entity.get().getName());
+        company.setCode(entity.get().getCode());
 
         GetCompanyNameResponseWrapper wrapper = new GetCompanyNameResponseWrapper();
         wrapper.setData(company);
@@ -106,7 +107,7 @@ public class CompanyController implements CompanyApi {
 
     @Override
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<SaveCompanyResponseWrapper> saveCompany(String xCorrelationId,  SaveCompanyRequestWrapper saveCompanyRequestWrapper) {
+    public ResponseEntity<SaveCompanyResponseWrapper> saveCompany(String xCorrelationId, SaveCompanyRequestWrapper saveCompanyRequestWrapper) {
         log.info("CorrletationId: " + xCorrelationId +   " || POST /v1/company initiated");
         SaveCompanyResponseWrapper wrapper = new SaveCompanyResponseWrapper();
         SaveCompanyResponse response = new SaveCompanyResponse();

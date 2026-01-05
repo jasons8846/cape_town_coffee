@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -26,10 +26,15 @@ public class CompanyServiceImpl implements CompanyService {
     CompanyRepository companyRepository;
 
     @Override
-    public CompanyEntity getCompanyByName(String name) {
+    public Optional<CompanyEntity> getCompanyByName(String name) {
 
-        CompanyEntity entity = companyRepository.getCompanyByNameContaining(name);
-        if(entity == null || entity.getActive() == false){
+        Optional<CompanyEntity> entity = companyRepository.getCompanyByNameContaining(name)
+                .stream()
+                .filter(e -> e.getActive() == true)
+                .findFirst();
+
+
+        if(entity.isEmpty()){
             log.warn("Get company by name: No company data is available for the request");
             throw new NotFoundException("No company data is available for the request");
         }
@@ -39,8 +44,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public List<CompanyEntity> getAllCompanies() {
-        List<CompanyEntity> entities = new ArrayList<>();
-        entities = companyRepository.findAll()
+        List<CompanyEntity> entities  = companyRepository.findAll()
                 .stream()
                 .filter(e -> e.getActive() == true)
                 .collect(Collectors.toList());
