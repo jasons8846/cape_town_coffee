@@ -1,7 +1,7 @@
 package com.jasons.coffeewiki.controllers;
 
 import com.jasons.coffeewiki.api.ProductsApi;
-import com.jasons.coffeewiki.exceptions.NotFoundException;
+import com.jasons.coffeewiki.entities.ProductEntity;
 import com.jasons.coffeewiki.model.*;
 import com.jasons.coffeewiki.services.ProductService;
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 public class ProductController implements ProductsApi {
@@ -42,15 +42,53 @@ public class ProductController implements ProductsApi {
                 .body(wrapper);
     }
 
-    @Override
-    public ResponseEntity<GetCpyProductResponseWrapper> retrieveCpyProducts(String companyCode, String xCorrelationId) {
+
+        @Override
+    public ResponseEntity<GetCpyProductResponseWrapper> retrieveCpyProducts(String companyCode, Integer cursor, Integer pageSize, String xCorrelationId) {
 
         log.info("CorrletationId: " + xCorrelationId +   " || GET /v1/product by company code initiated");
-        List<Product> products = new ArrayList<>();
+        List<ProductEntity> productEntities = productService.getCompanyProducts(companyCode, cursor, pageSize);
 
         GetCpyProductResponseWrapper wrapper = new GetCpyProductResponseWrapper();
+        GetCpyProductResponse response = new GetCpyProductResponse();
+        List<Product> products = new ArrayList<>();
 
-        wrapper.setData(productService.getCompanyProducts(companyCode));
+            productEntities.forEach(productEntity -> {
+            Product product = new Product();
+            ProductVariant productVariant = new ProductVariant();
+
+            productVariant.setDescription(productEntity.getProductVariant().getDescription());
+            productVariant.setSequence(productEntity.getProductVariant().getSequence());
+
+            product.setName(productEntity.getName());
+            product.setCompanyCode(productEntity.getCompanyCode());
+            product.setPrice(productEntity.getPrice());
+            product.setCurrency(productEntity.getCurrency());
+            product.setVariant(productVariant);
+            product.setSequence(productEntity.getSequence());
+            product.setCode(productEntity.getCode());
+
+            products.add(product);
+        });
+
+            if(products.size() > pageSize) {
+                response.setProducts(products
+                        .stream()
+                        .limit(products.size() - 1)
+                        .collect(Collectors.toList()));
+                response.setNextCursor(productEntities.get(productEntities.size()-1).getId());
+
+            }else{
+                response.setProducts(products
+                        .stream()
+                        .limit(products.size())
+                        .collect(Collectors.toList()));
+                response.setNextCursor(null);
+            }
+
+
+
+        wrapper.setData(response);
         wrapper.setError(null);
 
         log.info("CorrletationId: " + xCorrelationId +   " || GET /v1/product by company code successful");
@@ -66,6 +104,7 @@ public class ProductController implements ProductsApi {
         log.info("CorrletationId: " + xCorrelationId +   " || POST /v1/product initiated");
         SaveProductResponseWrapper wrapper = new SaveProductResponseWrapper();
         SaveProductResponse response = new SaveProductResponse();
+
 
         response.setMessage(productService.saveProduct(saveProductRequestWrapper.getData()));
 

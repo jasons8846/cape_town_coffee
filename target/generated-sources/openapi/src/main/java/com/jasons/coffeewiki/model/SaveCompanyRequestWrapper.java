@@ -4,7 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.jasons.coffeewiki.model.Company;
+import com.jasons.coffeewiki.model.CompanyDTO;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
@@ -19,12 +19,12 @@ import jakarta.annotation.Generated;
  * SaveCompanyRequestWrapper
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-05T19:04:16.429649900+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-14T17:23:59.703088+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
 public class SaveCompanyRequestWrapper {
 
-  private Company data;
+  private CompanyDTO data;
 
-  public SaveCompanyRequestWrapper data(Company data) {
+  public SaveCompanyRequestWrapper data(CompanyDTO data) {
     this.data = data;
     return this;
   }
@@ -36,11 +36,11 @@ public class SaveCompanyRequestWrapper {
   @Valid 
   @Schema(name = "data", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("data")
-  public Company getData() {
+  public CompanyDTO getData() {
     return data;
   }
 
-  public void setData(Company data) {
+  public void setData(CompanyDTO data) {
     this.data = data;
   }
 

@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.jasons.coffeewiki.model.ProductVariant;
 import java.math.BigDecimal;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
@@ -19,7 +20,7 @@ import jakarta.annotation.Generated;
  * Product
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-05T19:04:16.429649900+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-14T17:23:59.703088+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
 public class Product {
 
   private String companyCode;
@@ -28,11 +29,13 @@ public class Product {
 
   private String name;
 
-  private String variant;
+  private ProductVariant variant;
 
   private BigDecimal price;
 
   private String currency;
+
+  private Integer sequence;
 
   public Product() {
     super();
@@ -41,7 +44,7 @@ public class Product {
   /**
    * Constructor with only required parameters
    */
-  public Product(String companyCode, String name, String variant, BigDecimal price, String currency) {
+  public Product(String companyCode, String name, ProductVariant variant, BigDecimal price, String currency) {
     this.companyCode = companyCode;
     this.name = name;
     this.variant = variant;
@@ -109,23 +112,23 @@ public class Product {
     this.name = name;
   }
 
-  public Product variant(String variant) {
+  public Product variant(ProductVariant variant) {
     this.variant = variant;
     return this;
   }
 
   /**
-   * the variant of the product describes the size
+   * Get variant
    * @return variant
   */
-  @NotNull 
-  @Schema(name = "variant", example = "Small", description = "the variant of the product describes the size", requiredMode = Schema.RequiredMode.REQUIRED)
+  @NotNull @Valid 
+  @Schema(name = "variant", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("variant")
-  public String getVariant() {
+  public ProductVariant getVariant() {
     return variant;
   }
 
-  public void setVariant(String variant) {
+  public void setVariant(ProductVariant variant) {
     this.variant = variant;
   }
 
@@ -169,6 +172,26 @@ public class Product {
     this.currency = currency;
   }
 
+  public Product sequence(Integer sequence) {
+    this.sequence = sequence;
+    return this;
+  }
+
+  /**
+   * the product sequence as a guide as to where in a list it should be displayed
+   * @return sequence
+  */
+  
+  @Schema(name = "sequence", example = "1", description = "the product sequence as a guide as to where in a list it should be displayed", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("sequence")
+  public Integer getSequence() {
+    return sequence;
+  }
+
+  public void setSequence(Integer sequence) {
+    this.sequence = sequence;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -183,12 +206,13 @@ public class Product {
         Objects.equals(this.name, product.name) &&
         Objects.equals(this.variant, product.variant) &&
         Objects.equals(this.price, product.price) &&
-        Objects.equals(this.currency, product.currency);
+        Objects.equals(this.currency, product.currency) &&
+        Objects.equals(this.sequence, product.sequence);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(companyCode, code, name, variant, price, currency);
+    return Objects.hash(companyCode, code, name, variant, price, currency, sequence);
   }
 
   @Override
@@ -201,6 +225,7 @@ public class Product {
     sb.append("    variant: ").append(toIndentedString(variant)).append("\n");
     sb.append("    price: ").append(toIndentedString(price)).append("\n");
     sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+    sb.append("    sequence: ").append(toIndentedString(sequence)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -1,5 +1,6 @@
 com\jasons\coffeewiki\model\Company.class
 com\jasons\coffeewiki\model\DeleteCompanyResponse.class
+com\jasons\coffeewiki\model\ProductVariant.class
 com\jasons\coffeewiki\repositories\TestDataRepository.class
 com\jasons\coffeewiki\model\SaveProductResponseWrapper.class
 com\jasons\coffeewiki\model\UpdateProductResponse.class
@@ -19,6 +20,7 @@ com\jasons\coffeewiki\services\Impl\CompanyServiceImpl.class
 com\jasons\coffeewiki\model\SaveCompanyResponse.class
 com\jasons\coffeewiki\supportfunctions\RandomTextGenerator.class
 com\jasons\coffeewiki\entities\Consumer.class
+com\jasons\coffeewiki\entities\ProductVariantEntity.class
 com\jasons\coffeewiki\api\ProductsApi.class
 com\jasons\coffeewiki\model\DeleteProductResponse.class
 com\jasons\coffeewiki\model\UpdateCompanyResponse.class
@@ -26,12 +28,15 @@ com\jasons\coffeewiki\advice\GlobalExceptionHandler.class
 com\jasons\coffeewiki\entities\TestData.class
 com\jasons\coffeewiki\model\RegisterRequest.class
 com\jasons\coffeewiki\model\GetCpyProductResponseWrapper.class
+com\jasons\coffeewiki\model\ProductDTO.class
 com\jasons\coffeewiki\services\ProductService.class
+com\jasons\coffeewiki\model\CompanyDTO.class
 com\jasons\coffeewiki\repositories\CompanyRepository.class
 com\jasons\coffeewiki\repositories\ConsumerRepository.class
 com\jasons\coffeewiki\entities\ProductEntity.class
 com\jasons\coffeewiki\exceptions\DataNotSavedException.class
 com\jasons\coffeewiki\configs\PasswordConfig.class
+com\jasons\coffeewiki\model\GetCpyProductResponse.class
 com\jasons\coffeewiki\model\UpdateCompanyRequestWrapper.class
 com\jasons\coffeewiki\model\ErrorResponse.class
 com\jasons\coffeewiki\controllers\CompanyController.class

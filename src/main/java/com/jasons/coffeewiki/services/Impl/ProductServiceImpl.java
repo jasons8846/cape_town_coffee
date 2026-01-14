@@ -3,10 +3,13 @@ package com.jasons.coffeewiki.services.Impl;
 import com.jasons.coffeewiki.controllers.CompanyController;
 import com.jasons.coffeewiki.entities.CompanyEntity;
 import com.jasons.coffeewiki.entities.ProductEntity;
+import com.jasons.coffeewiki.entities.ProductVariantEntity;
 import com.jasons.coffeewiki.exceptions.DataNotSavedException;
 import com.jasons.coffeewiki.exceptions.FieldRequiredException;
 import com.jasons.coffeewiki.exceptions.NotFoundException;
 import com.jasons.coffeewiki.model.Product;
+import com.jasons.coffeewiki.model.ProductDTO;
+import com.jasons.coffeewiki.model.ProductVariant;
 import com.jasons.coffeewiki.repositories.CompanyRepository;
 import com.jasons.coffeewiki.repositories.ProductRepository;
 import com.jasons.coffeewiki.services.ProductService;
@@ -14,6 +17,7 @@ import com.jasons.coffeewiki.supportfunctions.RandomTextGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,14 +38,14 @@ public class ProductServiceImpl implements ProductService {
             LoggerFactory.getLogger(CompanyController.class);
 
     @Override
-    public List<Product> getCompanyProducts(String companyCode) {
+    public List<ProductEntity> getCompanyProducts(String companyCode, Integer cursor, Integer pageSize) {
 
         if(ValidateCompanyCode(companyCode) == false){
             log.warn("Get company products: Company code " + companyCode + " is not valid");
             throw new NotFoundException("Company code " + companyCode + " is not valid");
         }
 
-        List<ProductEntity> productEntities = productRepository.getProductsByCompanyCode(companyCode)
+        List<ProductEntity> productEntities = productRepository.getProductsByCompanyCode(companyCode, cursor, pageSize+1)
                 .stream()
                 .filter(e-> e.getActive() == true)
                 .collect(Collectors.toList());
@@ -51,25 +55,31 @@ public class ProductServiceImpl implements ProductService {
             throw new NotFoundException("No products available for company code " + companyCode);
         }
 
-        List<Product> products = new ArrayList<>();
+//        List<Product> products = new ArrayList<>();
 
-        productEntities.forEach(productEntity -> {
-            Product product = new Product();
-            product.setName(productEntity.getName());
-            product.setCompanyCode(productEntity.getCompanyCode());
-            product.setPrice(productEntity.getPrice());
-            product.setCurrency(productEntity.getCurrency());
-            product.setVariant(productEntity.getVariant());
-            product.setCode(productEntity.getCode());
+//        productEntities.forEach(productEntity -> {
+//            Product product = new Product();
+//            ProductVariant productVariant = new ProductVariant();
+//
+//            productVariant.setDescription(productEntity.getProductVariant().getDescription());
+//            productVariant.setSequence(productEntity.getProductVariant().getSequence());
+//
+//            product.setName(productEntity.getName());
+//            product.setCompanyCode(productEntity.getCompanyCode());
+//            product.setPrice(productEntity.getPrice());
+//            product.setCurrency(productEntity.getCurrency());
+//            product.setVariant(productVariant);
+//            product.setSequence(productEntity.getSequence());
+//            product.setCode(productEntity.getCode());
+//
+//            products.add(product);
+//        });
 
-            products.add(product);
-        });
-
-        return products;
+        return productEntities;
     }
 
     @Override
-    public String saveProduct(Product product) {
+    public String saveProduct(ProductDTO product) {
 
         if(product.getCompanyCode().isBlank() || product.getCompanyCode().isEmpty()){
             log.warn("Save company product: Company Code is required");
@@ -81,7 +91,7 @@ public class ProductServiceImpl implements ProductService {
             throw new FieldRequiredException("Product name is required");
         }
 
-        if(product.getVariant().isBlank() || product.getVariant().isEmpty()){
+        if(product.getVariant().toString() == null){
             log.warn("Save company product: Product variant is required");
             throw new FieldRequiredException("Product variant is required");
         }
@@ -101,10 +111,17 @@ public class ProductServiceImpl implements ProductService {
             throw new NotFoundException("Company code " + product.getCompanyCode() + " is not valid");
         }
 
-            ProductEntity entity = new ProductEntity(new RandomTextGenerator().generateRandomText(30), product.getCompanyCode() ,product.getName(), product.getVariant(), product.getPrice(), product.getCurrency());
+            ProductEntity entity = new ProductEntity(new RandomTextGenerator().generateRandomText(30), product.getCompanyCode() ,product.getName(), product.getPrice(), product.getCurrency(), product.getSequence());
+            ProductVariant productVariant = new ProductVariant();
+
+            productVariant.setDescription(product.getVariant().getDescription());
+            productVariant.setSequence(product.getVariant().getSequence());
+
+            entity.setProductVariant(productVariant);
+            entity.setActive(true);
 
             try {
-                entity.setActive(true);
+
                 productRepository.save(entity);
                 return "Product saved successfully";
             }catch (Exception ex){
@@ -126,7 +143,7 @@ public class ProductServiceImpl implements ProductService {
 
         entity.setPrice(product.getPrice());
         entity.setName(product.getName());
-        entity.setVariant(product.getVariant());
+//        entity.setVariant(product.getVariant());
         entity.setCurrency(product.getCurrency());
 
         productRepository.save(entity);

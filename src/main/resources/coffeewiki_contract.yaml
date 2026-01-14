@@ -384,6 +384,18 @@ paths:
             type: string
           required: true
           description: the unique companyCode
+        - in: query
+          name: cursor
+          schema:
+            type: integer
+          required: true
+          description: pagination cursor parameter
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+          required: true
+          description: pagination pageSize parameter
         - in: header
           name: X-Correlation-Id
           schema:
@@ -493,7 +505,7 @@ components:
       type: object
       properties:
         data:
-          $ref: "#/components/schemas/Company"
+          $ref: "#/components/schemas/CompanyDTO"
 
     SaveCompanyResponseWrapper:
       type: object
@@ -509,7 +521,7 @@ components:
       type: object
       properties:
         data:
-          $ref: "#/components/schemas/Product"
+          $ref: "#/components/schemas/ProductDTO"
 
     SaveProductResponseWrapper:
       type: object
@@ -552,9 +564,16 @@ components:
           example: null
 
     GetCpyProductResponse:
-      type: array
-      items:
-        $ref: "#/components/schemas/Product"
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: "#/components/schemas/Product"
+        nextCursor:
+          type: integer
+          description: the next cursor to use
+          example: 10
 
     UpdateCompanyRequestWrapper:
       type: object
@@ -742,6 +761,14 @@ components:
           description: the name of the company
           example: Starbucks
 
+    CompanyDTO:
+      type: object
+      properties:
+        name:
+          type: string
+          description: the name of the company
+          example: Starbucks
+
     Product:
       type: object
       required:
@@ -764,9 +791,7 @@ components:
           description: the name of the product
           example: Flat white
         variant:
-          type: string
-          description: the variant of the product describes the size
-          example: Small
+          $ref: "#/components/schemas/ProductVariant"
         price:
           type: number
           format: decimal
@@ -776,6 +801,49 @@ components:
           type: string
           description: The currency code (e.g., ZAR, USD).
           example: "ZAR"
+        sequence:
+          type: integer
+          description: the product sequence as a guide as to where in a list it should be displayed
+          example: 1
+
+    ProductDTO:
+      type: object
+      properties:
+        companyCode:
+          type: string
+          description: unique code asscociated to each company on creation
+          example: 12weHIaq3ATOP1nM3Cx
+        name:
+          type: string
+          description: the name of the product
+          example: Flat white
+        variant:
+          $ref: "#/components/schemas/ProductVariant"
+        price:
+          type: number
+          format: decimal
+          description: The price amount in the specified currency.
+          example: 34.99
+        currency:
+          type: string
+          description: The currency code (e.g., ZAR, USD).
+          example: "ZAR"
+        sequence:
+          type: integer
+          description: the product sequence as a guide as to where in a list it should be displayed
+          example: 1
+
+    ProductVariant:
+      type: object
+      properties:
+        description:
+          type: string
+          description: describes the variant of the product
+          example: "Small"
+        sequence:
+          type: integer
+          description: the varaint sequence as a guide as to where in a list it should be displayed in relation to other variants of the same product
+          example: 1
 
     ErrorResponseWrapper:
       type: object

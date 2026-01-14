@@ -38,7 +38,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-05T19:04:16.429649900+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-14T17:23:59.703088+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
 @Validated
 @Tag(name = "Products", description = "the Products API")
 public interface ProductsApi {
@@ -116,6 +116,8 @@ public interface ProductsApi {
      * Retrieve products for a specified company
      *
      * @param companyCode the unique companyCode (required)
+     * @param cursor pagination cursor parameter (required)
+     * @param pageSize pagination pageSize parameter (required)
      * @param xCorrelationId Identifier to track API requests (required)
      * @return Successful response (status code 200)
      *         or Bad request (status code 400)
@@ -149,12 +151,14 @@ public interface ProductsApi {
     
     default ResponseEntity<GetCpyProductResponseWrapper> retrieveCpyProducts(
         @Parameter(name = "companyCode", description = "the unique companyCode", required = true, in = ParameterIn.PATH) @PathVariable("companyCode") String companyCode,
+        @NotNull @Parameter(name = "cursor", description = "pagination cursor parameter", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "cursor", required = true) Integer cursor,
+        @NotNull @Parameter(name = "pageSize", description = "pagination pageSize parameter", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "pageSize", required = true) Integer pageSize,
         @NotNull @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[7][0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$") @Parameter(name = "X-Correlation-Id", description = "Identifier to track API requests", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "X-Correlation-Id", required = true) String xCorrelationId
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"data\" : [ { \"companyCode\" : \"12weHIaq3ATOP1nM3Cx\", \"code\" : \"12weHIaq3ATOP1nM3Cx\", \"price\" : 34.99, \"name\" : \"Flat white\", \"variant\" : \"Small\", \"currency\" : \"ZAR\" }, { \"companyCode\" : \"12weHIaq3ATOP1nM3Cx\", \"code\" : \"12weHIaq3ATOP1nM3Cx\", \"price\" : 34.99, \"name\" : \"Flat white\", \"variant\" : \"Small\", \"currency\" : \"ZAR\" } ], \"error\" : \"{}\" }";
+                    String exampleString = "{ \"data\" : { \"nextCursor\" : 10, \"products\" : [ { \"companyCode\" : \"12weHIaq3ATOP1nM3Cx\", \"sequence\" : 1, \"code\" : \"12weHIaq3ATOP1nM3Cx\", \"price\" : 34.99, \"name\" : \"Flat white\", \"variant\" : { \"sequence\" : 1, \"description\" : \"Small\" }, \"currency\" : \"ZAR\" }, { \"companyCode\" : \"12weHIaq3ATOP1nM3Cx\", \"sequence\" : 1, \"code\" : \"12weHIaq3ATOP1nM3Cx\", \"price\" : 34.99, \"name\" : \"Flat white\", \"variant\" : { \"sequence\" : 1, \"description\" : \"Small\" }, \"currency\" : \"ZAR\" } ] }, \"error\" : \"{}\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
