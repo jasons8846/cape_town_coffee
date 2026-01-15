@@ -37,6 +37,7 @@ com\jasons\coffeewiki\entities\ProductEntity.class
 com\jasons\coffeewiki\exceptions\DataNotSavedException.class
 com\jasons\coffeewiki\configs\PasswordConfig.class
 com\jasons\coffeewiki\model\GetCpyProductResponse.class
+com\jasons\coffeewiki\supportfunctions\CursorCrypto.class
 com\jasons\coffeewiki\model\UpdateCompanyRequestWrapper.class
 com\jasons\coffeewiki\model\ErrorResponse.class
 com\jasons\coffeewiki\controllers\CompanyController.class

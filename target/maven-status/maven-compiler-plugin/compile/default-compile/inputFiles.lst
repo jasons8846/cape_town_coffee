@@ -28,6 +28,7 @@ C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\services\Imp
 C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\services\Impl\ConsumerServiceImpl.java
 C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\services\Impl\ProductServiceImpl.java
 C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\services\ProductService.java
+C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\supportfunctions\CursorCrypto.java
 C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\supportfunctions\RandomTextGenerator.java
 C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\utils\JwtAuthFilter.java
 C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\utils\JwtUtil.java

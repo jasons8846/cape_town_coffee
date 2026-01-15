@@ -387,8 +387,8 @@ paths:
         - in: query
           name: cursor
           schema:
-            type: integer
-          required: true
+            type: string
+          required: false
           description: pagination cursor parameter
         - in: query
           name: pageSize
@@ -571,9 +571,9 @@ components:
           items:
             $ref: "#/components/schemas/Product"
         nextCursor:
-          type: integer
+          type: string
           description: the next cursor to use
-          example: 10
+          example: x72ysS3cS9uUi5reeXgs7
 
     UpdateCompanyRequestWrapper:
       type: object

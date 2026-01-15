@@ -22,13 +22,13 @@ import jakarta.annotation.Generated;
  * GetCpyProductResponse
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-14T17:23:59.703088+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-15T13:21:36.296254700+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
 public class GetCpyProductResponse {
 
   @Valid
   private List<@Valid Product> products;
 
-  private Integer nextCursor;
+  private String nextCursor;
 
   public GetCpyProductResponse products(List<@Valid Product> products) {
     this.products = products;
@@ -58,7 +58,7 @@ public class GetCpyProductResponse {
     this.products = products;
   }
 
-  public GetCpyProductResponse nextCursor(Integer nextCursor) {
+  public GetCpyProductResponse nextCursor(String nextCursor) {
     this.nextCursor = nextCursor;
     return this;
   }
@@ -68,13 +68,13 @@ public class GetCpyProductResponse {
    * @return nextCursor
   */
   
-  @Schema(name = "nextCursor", example = "10", description = "the next cursor to use", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "nextCursor", example = "x72ysS3cS9uUi5reeXgs7", description = "the next cursor to use", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("nextCursor")
-  public Integer getNextCursor() {
+  public String getNextCursor() {
     return nextCursor;
   }
 
-  public void setNextCursor(Integer nextCursor) {
+  public void setNextCursor(String nextCursor) {
     this.nextCursor = nextCursor;
   }
 

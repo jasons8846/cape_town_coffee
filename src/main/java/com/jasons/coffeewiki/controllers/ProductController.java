@@ -4,6 +4,7 @@ import com.jasons.coffeewiki.api.ProductsApi;
 import com.jasons.coffeewiki.entities.ProductEntity;
 import com.jasons.coffeewiki.model.*;
 import com.jasons.coffeewiki.services.ProductService;
+import com.jasons.coffeewiki.supportfunctions.CursorCrypto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class ProductController implements ProductsApi {
 
     @Autowired
     ProductService productService;
+
+    @Autowired
+    CursorCrypto cursorCrypto;
 
     private static final Logger log =
             LoggerFactory.getLogger(CompanyController.class);
@@ -44,10 +48,21 @@ public class ProductController implements ProductsApi {
 
 
         @Override
-    public ResponseEntity<GetCpyProductResponseWrapper> retrieveCpyProducts(String companyCode, Integer cursor, Integer pageSize, String xCorrelationId) {
+    public ResponseEntity<GetCpyProductResponseWrapper> retrieveCpyProducts(String companyCode, Integer pageSize, String xCorrelationId, String cursor) {
 
         log.info("CorrletationId: " + xCorrelationId +   " || GET /v1/product by company code initiated");
-        List<ProductEntity> productEntities = productService.getCompanyProducts(companyCode, cursor, pageSize);
+
+            Integer parseCursor = 0;
+
+            if(cursor == null){
+                parseCursor  = 0;
+            }else{
+                System.out.print("Decrypting");
+                parseCursor = Integer.valueOf(cursorCrypto.decrypt(cursor));
+            }
+
+
+        List<ProductEntity> productEntities = productService.getCompanyProducts(companyCode, parseCursor, pageSize);
 
         GetCpyProductResponseWrapper wrapper = new GetCpyProductResponseWrapper();
         GetCpyProductResponse response = new GetCpyProductResponse();
@@ -72,11 +87,12 @@ public class ProductController implements ProductsApi {
         });
 
             if(products.size() > pageSize) {
+
                 response.setProducts(products
                         .stream()
                         .limit(products.size() - 1)
                         .collect(Collectors.toList()));
-                response.setNextCursor(productEntities.get(productEntities.size()-1).getId());
+                response.setNextCursor(cursorCrypto.encrypt(String.valueOf(productEntities.get(productEntities.size()-1).getId())));
 
             }else{
                 response.setProducts(products

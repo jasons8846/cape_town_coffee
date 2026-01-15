@@ -13,6 +13,7 @@ import com.jasons.coffeewiki.model.ProductVariant;
 import com.jasons.coffeewiki.repositories.CompanyRepository;
 import com.jasons.coffeewiki.repositories.ProductRepository;
 import com.jasons.coffeewiki.services.ProductService;
+import com.jasons.coffeewiki.supportfunctions.CursorCrypto;
 import com.jasons.coffeewiki.supportfunctions.RandomTextGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,9 +46,12 @@ public class ProductServiceImpl implements ProductService {
             throw new NotFoundException("Company code " + companyCode + " is not valid");
         }
 
+
+
+
+
         List<ProductEntity> productEntities = productRepository.getProductsByCompanyCode(companyCode, cursor, pageSize+1)
                 .stream()
-                .filter(e-> e.getActive() == true)
                 .collect(Collectors.toList());
 
         if(productEntities == null){
@@ -55,25 +59,6 @@ public class ProductServiceImpl implements ProductService {
             throw new NotFoundException("No products available for company code " + companyCode);
         }
 
-//        List<Product> products = new ArrayList<>();
-
-//        productEntities.forEach(productEntity -> {
-//            Product product = new Product();
-//            ProductVariant productVariant = new ProductVariant();
-//
-//            productVariant.setDescription(productEntity.getProductVariant().getDescription());
-//            productVariant.setSequence(productEntity.getProductVariant().getSequence());
-//
-//            product.setName(productEntity.getName());
-//            product.setCompanyCode(productEntity.getCompanyCode());
-//            product.setPrice(productEntity.getPrice());
-//            product.setCurrency(productEntity.getCurrency());
-//            product.setVariant(productVariant);
-//            product.setSequence(productEntity.getSequence());
-//            product.setCode(productEntity.getCode());
-//
-//            products.add(product);
-//        });
 
         return productEntities;
     }

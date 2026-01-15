@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
 
-    @Query(value = "SELECT * FROM product where id >= :cursor limit :pageSize",
+    @Query(value = "SELECT * FROM product where id >= :cursor and active = 1 limit :pageSize",
             nativeQuery = true
     )
     public List<ProductEntity> getProductsByCompanyCode(String companyCode, @Param("cursor") Integer cursor, @Param("pageSize") Integer pageSize);
