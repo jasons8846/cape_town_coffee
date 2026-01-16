@@ -47,9 +47,6 @@ public class ProductServiceImpl implements ProductService {
         }
 
 
-
-
-
         List<ProductEntity> productEntities = productRepository.getProductsByCompanyCode(companyCode, cursor, pageSize+1)
                 .stream()
                 .collect(Collectors.toList());
@@ -58,7 +55,6 @@ public class ProductServiceImpl implements ProductService {
             log.warn("Get company products: No products available for company code " + companyCode);
             throw new NotFoundException("No products available for company code " + companyCode);
         }
-
 
         return productEntities;
     }
