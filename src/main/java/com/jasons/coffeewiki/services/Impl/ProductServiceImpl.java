@@ -124,7 +124,7 @@ public class ProductServiceImpl implements ProductService {
 
         entity.setPrice(product.getPrice());
         entity.setName(product.getName());
-//        entity.setVariant(product.getVariant());
+        entity.setProductVariant(product.getVariant());
         entity.setCurrency(product.getCurrency());
 
         productRepository.save(entity);
