@@ -35,6 +35,7 @@ com\jasons\coffeewiki\repositories\CompanyRepository.class
 com\jasons\coffeewiki\repositories\ConsumerRepository.class
 com\jasons\coffeewiki\entities\ProductEntity.class
 com\jasons\coffeewiki\exceptions\DataNotSavedException.class
+com\jasons\coffeewiki\model\ProductUpdate.class
 com\jasons\coffeewiki\configs\PasswordConfig.class
 com\jasons\coffeewiki\model\GetCpyProductResponse.class
 com\jasons\coffeewiki\supportfunctions\CursorCrypto.class

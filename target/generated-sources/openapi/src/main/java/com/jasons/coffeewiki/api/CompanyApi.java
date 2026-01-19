@@ -39,7 +39,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-16T10:12:53.423973600+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-19T10:57:30.095854100+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
 @Validated
 @Tag(name = "Company", description = "the Company API")
 public interface CompanyApi {
@@ -304,9 +304,10 @@ public interface CompanyApi {
 
 
     /**
-     * PUT /v1/company : Update company details
+     * POST /v1/company/{companyCode} : Update company details
      * Update company details
      *
+     * @param companyCode the name of the company (required)
      * @param xCorrelationId Identifier to track API requests (required)
      * @param updateCompanyRequestWrapper  (required)
      * @return Successful response (status code 200)
@@ -334,13 +335,14 @@ public interface CompanyApi {
         }
     )
     @RequestMapping(
-        method = RequestMethod.PUT,
-        value = "/v1/company",
+        method = RequestMethod.POST,
+        value = "/v1/company/{companyCode}",
         produces = { "application/json" },
         consumes = { "application/json" }
     )
     
     default ResponseEntity<UpdateCompanyResponseWrapper> updateCompany(
+        @Parameter(name = "companyCode", description = "the name of the company", required = true, in = ParameterIn.PATH) @PathVariable("companyCode") String companyCode,
         @NotNull @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[7][0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$") @Parameter(name = "X-Correlation-Id", description = "Identifier to track API requests", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "X-Correlation-Id", required = true) String xCorrelationId,
         @Parameter(name = "UpdateCompanyRequestWrapper", description = "", required = true) @Valid @RequestBody UpdateCompanyRequestWrapper updateCompanyRequestWrapper
     ) {

@@ -4,7 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.jasons.coffeewiki.model.Product;
+import com.jasons.coffeewiki.model.ProductUpdate;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
@@ -19,12 +19,12 @@ import jakarta.annotation.Generated;
  * UpdateProductRequestWrapper
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-16T10:12:53.423973600+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-19T10:57:30.095854100+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
 public class UpdateProductRequestWrapper {
 
-  private Product data;
+  private ProductUpdate data;
 
-  public UpdateProductRequestWrapper data(Product data) {
+  public UpdateProductRequestWrapper data(ProductUpdate data) {
     this.data = data;
     return this;
   }
@@ -36,11 +36,11 @@ public class UpdateProductRequestWrapper {
   @Valid 
   @Schema(name = "data", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("data")
-  public Product getData() {
+  public ProductUpdate getData() {
     return data;
   }
 
-  public void setData(Product data) {
+  public void setData(ProductUpdate data) {
     this.data = data;
   }
 

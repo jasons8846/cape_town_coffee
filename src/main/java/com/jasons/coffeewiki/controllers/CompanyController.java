@@ -45,18 +45,23 @@ public class CompanyController implements CompanyApi {
                 .body(wrapper);
     }
 
+
     @Override
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<UpdateCompanyResponseWrapper> updateCompany(String xCorrelationId,  UpdateCompanyRequestWrapper updateCompanyRequestWrapper) {
-        log.info("CorrletationId: " + xCorrelationId +   " || PUT /v1/company initiated");
+    public ResponseEntity<UpdateCompanyResponseWrapper> updateCompany(String companyCode, String xCorrelationId, UpdateCompanyRequestWrapper updateCompanyRequestWrapper) {
+        log.info("CorrletationId: " + xCorrelationId +   " || POST /v1/company/{?} initiated");
         UpdateCompanyResponseWrapper wrapper = new UpdateCompanyResponseWrapper();
         UpdateCompanyResponse response = new UpdateCompanyResponse();
+        Company company = new Company();
 
-        response.setMessage(companyService.updateCompany(updateCompanyRequestWrapper.getData()));
+        company.setCode(companyCode);
+        company.setName(updateCompanyRequestWrapper.getData().getName());
+
+        response.setMessage(companyService.updateCompany(company));
 
         wrapper.setData(response);
         wrapper.setError(null);
-        log.info("CorrletationId: " + xCorrelationId +   " || PUT /v1/company successful");
+        log.info("CorrletationId: " + xCorrelationId +   " || POST /v1/company/{?} successful");
         return ResponseEntity.status(HttpStatus.OK)
                 .body(wrapper);
     }

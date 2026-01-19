@@ -136,12 +136,12 @@ public class ProductController implements ProductsApi {
 
     @Override
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<UpdateProductResponseWrapper> updateProduct(String xCorrelationId, UpdateProductRequestWrapper updateProductRequestWrapper) {
+    public ResponseEntity<UpdateProductResponseWrapper> updateProduct(String productCode, String xCorrelationId, UpdateProductRequestWrapper updateProductRequestWrapper) {
         log.info("CorrletationId: " + xCorrelationId +   " || PUT /v1/product initiated");
         UpdateProductResponseWrapper wrapper = new UpdateProductResponseWrapper();
         UpdateProductResponse response = new UpdateProductResponse();
 
-        response.setMessage(productService.updateProduct(updateProductRequestWrapper.getData()));
+        response.setMessage(productService.updateProduct(productCode, updateProductRequestWrapper.getData()));
         wrapper.data(response);
         wrapper.setError(null);
 

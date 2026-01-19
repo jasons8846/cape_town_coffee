@@ -209,45 +209,6 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponseWrapper"
 
-    put:
-      tags:
-        - Company
-      summary: Update company details
-      description: Update company details
-      operationId: updateCompany
-      parameters:
-        - in: header
-          name: X-Correlation-Id
-          schema:
-            $ref: '#/components/schemas/UUIDv7'
-          required: true
-          description: Identifier to track API requests
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UpdateCompanyRequestWrapper"
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UpdateCompanyResponseWrapper"
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponseWrapper"
-        '500':
-          description: Server error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponseWrapper"
-
   /v1/company/{companyCode}:
     delete:
       tags:
@@ -288,6 +249,50 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponseWrapper"
 
+    post:
+      tags:
+        - Company
+      summary: Update company details
+      description: Update company details
+      operationId: updateCompany
+      parameters:
+        - in: path
+          name: companyCode
+          schema:
+            type: string
+          required: true
+          description: the name of the company
+        - in: header
+          name: X-Correlation-Id
+          schema:
+            $ref: '#/components/schemas/UUIDv7'
+          required: true
+          description: Identifier to track API requests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateCompanyRequestWrapper"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateCompanyResponseWrapper"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
 
   /v1/product:
     post:
@@ -330,45 +335,6 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponseWrapper"
 
-    put:
-      tags:
-        - Products
-      summary: Update product details
-      description: Update product details
-      operationId: UpdateProduct
-      parameters:
-        - in: header
-          name: X-Correlation-Id
-          schema:
-            $ref: '#/components/schemas/UUIDv7'
-          required: true
-          description: Identifier to track API requests
-
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UpdateProductRequestWrapper"
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UpdateProductResponseWrapper"
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponseWrapper"
-        '500':
-          description: Server error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponseWrapper"
 
   /v1/product/{companyCode}:
     get:
@@ -436,7 +402,7 @@ paths:
           schema:
             type: string
           required: true
-          description: the name of the product
+          description: the unique product code
         - in: header
           name: X-Correlation-Id
           schema:
@@ -464,6 +430,51 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponseWrapper"
 
+    post:
+      tags:
+        - Products
+      summary: Update product details
+      description: Update product details
+      operationId: UpdateProduct
+      parameters:
+        - in: path
+          name: productCode
+          schema:
+            type: string
+          required: true
+          description: the unique product code
+        - in: header
+          name: X-Correlation-Id
+          schema:
+            $ref: '#/components/schemas/UUIDv7'
+          required: true
+          description: Identifier to track API requests
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateProductRequestWrapper"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateProductResponseWrapper"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
 
 
 components:
@@ -579,7 +590,7 @@ components:
       type: object
       properties:
         data:
-          $ref: "#/components/schemas/Company"
+          $ref: "#/components/schemas/CompanyDTO"
 
     UpdateCompanyResponseWrapper:
       type: object
@@ -639,7 +650,7 @@ components:
       type: object
       properties:
         data:
-          $ref: "#/components/schemas/Product"
+          $ref: "#/components/schemas/ProductUpdate"
 
     UpdateProductResponseWrapper:
       type: object
@@ -805,6 +816,35 @@ components:
           type: integer
           description: the product sequence as a guide as to where in a list it should be displayed
           example: 1
+
+    ProductUpdate:
+      type: object
+      required:
+        - name
+        - variant
+        - price
+        - currency
+      properties:
+        name:
+          type: string
+          description: the name of the product
+          example: Flat white
+        variant:
+          $ref: "#/components/schemas/ProductVariant"
+        price:
+          type: number
+          format: decimal
+          description: The price amount in the specified currency.
+          example: 34.99
+        currency:
+          type: string
+          description: The currency code (e.g., ZAR, USD).
+          example: "ZAR"
+        sequence:
+          type: integer
+          description: the product sequence as a guide as to where in a list it should be displayed
+          example: 1
+
 
     ProductDTO:
       type: object

@@ -38,7 +38,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-16T10:12:53.423973600+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-19T10:57:30.095854100+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
 @Validated
 @Tag(name = "Products", description = "the Products API")
 public interface ProductsApi {
@@ -51,7 +51,7 @@ public interface ProductsApi {
      * DELETE /v1/product/{productCode} : Delete product
      * Delete product
      *
-     * @param productCode the name of the product (required)
+     * @param productCode the unique product code (required)
      * @param xCorrelationId Identifier to track API requests (required)
      * @return Successful response (status code 200)
      *         or Bad request (status code 400)
@@ -84,7 +84,7 @@ public interface ProductsApi {
     )
     
     default ResponseEntity<DeleteProductResponseWrapper> deleteProduct(
-        @Parameter(name = "productCode", description = "the name of the product", required = true, in = ParameterIn.PATH) @PathVariable("productCode") String productCode,
+        @Parameter(name = "productCode", description = "the unique product code", required = true, in = ParameterIn.PATH) @PathVariable("productCode") String productCode,
         @NotNull @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[7][0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$") @Parameter(name = "X-Correlation-Id", description = "Identifier to track API requests", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "X-Correlation-Id", required = true) String xCorrelationId
     ) {
         getRequest().ifPresent(request -> {
@@ -245,9 +245,10 @@ public interface ProductsApi {
 
 
     /**
-     * PUT /v1/product : Update product details
+     * POST /v1/product/{productCode} : Update product details
      * Update product details
      *
+     * @param productCode the unique product code (required)
      * @param xCorrelationId Identifier to track API requests (required)
      * @param updateProductRequestWrapper  (required)
      * @return Successful response (status code 200)
@@ -275,13 +276,14 @@ public interface ProductsApi {
         }
     )
     @RequestMapping(
-        method = RequestMethod.PUT,
-        value = "/v1/product",
+        method = RequestMethod.POST,
+        value = "/v1/product/{productCode}",
         produces = { "application/json" },
         consumes = { "application/json" }
     )
     
     default ResponseEntity<UpdateProductResponseWrapper> updateProduct(
+        @Parameter(name = "productCode", description = "the unique product code", required = true, in = ParameterIn.PATH) @PathVariable("productCode") String productCode,
         @NotNull @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[7][0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$") @Parameter(name = "X-Correlation-Id", description = "Identifier to track API requests", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "X-Correlation-Id", required = true) String xCorrelationId,
         @Parameter(name = "UpdateProductRequestWrapper", description = "", required = true) @Valid @RequestBody UpdateProductRequestWrapper updateProductRequestWrapper
     ) {

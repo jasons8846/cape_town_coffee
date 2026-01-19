@@ -9,6 +9,7 @@ import com.jasons.coffeewiki.exceptions.FieldRequiredException;
 import com.jasons.coffeewiki.exceptions.NotFoundException;
 import com.jasons.coffeewiki.model.Product;
 import com.jasons.coffeewiki.model.ProductDTO;
+import com.jasons.coffeewiki.model.ProductUpdate;
 import com.jasons.coffeewiki.model.ProductVariant;
 import com.jasons.coffeewiki.repositories.CompanyRepository;
 import com.jasons.coffeewiki.repositories.ProductRepository;
@@ -115,11 +116,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public String updateProduct(Product product) {
+    public String updateProduct(String code, ProductUpdate product) {
 
-        ProductEntity entity = productRepository.getProductByCode(product.getCode());
+        ProductEntity entity = productRepository.getProductByCode(code);
         if(entity == null || entity.getActive() == false){
-            throw new NotFoundException("Product code " + product.getCode() + " is not valid");
+            throw new NotFoundException("Product code " + code + " is not valid");
         }
 
         entity.setPrice(product.getPrice());
