@@ -1,0 +1,10 @@
+services:
+  app:
+    image: coffeewiki
+    ports:
+      - "5000:5000"
+    environment:
+      PROD_USERNAME: capetowncoffee_justnotemy
+      PROD_PWD: 000b29c28fb77acd04cd6e3431b3b30c31b7a199
+      ENC_KEY: Xbc250ef1e71658a
+      ENC_ALGO: AES/GCM/NoPadding

@@ -24,7 +24,7 @@ import jakarta.annotation.Generated;
  * GetAllCompaniesResponseWrapper
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-19T10:57:30.095854100+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-19T14:40:42.679538800+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
 public class GetAllCompaniesResponseWrapper {
 
   @Valid
