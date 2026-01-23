@@ -35,7 +35,7 @@ public class SystemController implements SystemApi {
                 .body(wrapper);
     }
 
-    @Scheduled(cron = "*/5 * * * * *")
+    @Scheduled(cron = "0 */5 * ? * *")
     public void callUserService(){
 //        System.out.println("Cron job is running");
         restClient.get()
