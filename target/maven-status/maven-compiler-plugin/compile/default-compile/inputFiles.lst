@@ -3,10 +3,12 @@ C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\CoffeewikiAp
 C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\configs\ConsumerInfoUserDetails.java
 C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\configs\OpenAPIConfig.java
 C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\configs\PasswordConfig.java
+C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\configs\RestClientConfig.java
 C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\configs\SecurityConfig.java
 C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\controllers\AuthenticationController.java
 C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\controllers\CompanyController.java
 C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\controllers\ProductController.java
+C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\controllers\SystemController.java
 C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\controllers\TestDataController.java
 C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\entities\CompanyEntity.java
 C:\Spring\coffeewiki\coffeewiki\src\main\java\com\jasons\coffeewiki\entities\Consumer.java
@@ -36,6 +38,7 @@ C:\Spring\coffeewiki\coffeewiki\target\generated-sources\openapi\src\main\java\c
 C:\Spring\coffeewiki\coffeewiki\target\generated-sources\openapi\src\main\java\com\jasons\coffeewiki\api\AuthenticationApi.java
 C:\Spring\coffeewiki\coffeewiki\target\generated-sources\openapi\src\main\java\com\jasons\coffeewiki\api\CompanyApi.java
 C:\Spring\coffeewiki\coffeewiki\target\generated-sources\openapi\src\main\java\com\jasons\coffeewiki\api\ProductsApi.java
+C:\Spring\coffeewiki\coffeewiki\target\generated-sources\openapi\src\main\java\com\jasons\coffeewiki\api\SystemApi.java
 C:\Spring\coffeewiki\coffeewiki\target\generated-sources\openapi\src\main\java\com\jasons\coffeewiki\model\AuthLoginRequestWrapper.java
 C:\Spring\coffeewiki\coffeewiki\target\generated-sources\openapi\src\main\java\com\jasons\coffeewiki\model\AuthLoginResponseWrapper.java
 C:\Spring\coffeewiki\coffeewiki\target\generated-sources\openapi\src\main\java\com\jasons\coffeewiki\model\AuthRequest.java
@@ -66,6 +69,8 @@ C:\Spring\coffeewiki\coffeewiki\target\generated-sources\openapi\src\main\java\c
 C:\Spring\coffeewiki\coffeewiki\target\generated-sources\openapi\src\main\java\com\jasons\coffeewiki\model\SaveProductRequestWrapper.java
 C:\Spring\coffeewiki\coffeewiki\target\generated-sources\openapi\src\main\java\com\jasons\coffeewiki\model\SaveProductResponse.java
 C:\Spring\coffeewiki\coffeewiki\target\generated-sources\openapi\src\main\java\com\jasons\coffeewiki\model\SaveProductResponseWrapper.java
+C:\Spring\coffeewiki\coffeewiki\target\generated-sources\openapi\src\main\java\com\jasons\coffeewiki\model\SystemPingResponse.java
+C:\Spring\coffeewiki\coffeewiki\target\generated-sources\openapi\src\main\java\com\jasons\coffeewiki\model\SystemPingResponseWrapper.java
 C:\Spring\coffeewiki\coffeewiki\target\generated-sources\openapi\src\main\java\com\jasons\coffeewiki\model\UpdateCompanyRequestWrapper.java
 C:\Spring\coffeewiki\coffeewiki\target\generated-sources\openapi\src\main\java\com\jasons\coffeewiki\model\UpdateCompanyResponse.java
 C:\Spring\coffeewiki\coffeewiki\target\generated-sources\openapi\src\main\java\com\jasons\coffeewiki\model\UpdateCompanyResponseWrapper.java

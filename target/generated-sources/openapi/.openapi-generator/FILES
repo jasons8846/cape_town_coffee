@@ -5,6 +5,7 @@ src/main/java/com/jasons/coffeewiki/api/ApiUtil.java
 src/main/java/com/jasons/coffeewiki/api/AuthenticationApi.java
 src/main/java/com/jasons/coffeewiki/api/CompanyApi.java
 src/main/java/com/jasons/coffeewiki/api/ProductsApi.java
+src/main/java/com/jasons/coffeewiki/api/SystemApi.java
 src/main/java/com/jasons/coffeewiki/model/AuthLoginRequestWrapper.java
 src/main/java/com/jasons/coffeewiki/model/AuthLoginResponseWrapper.java
 src/main/java/com/jasons/coffeewiki/model/AuthRequest.java
@@ -35,6 +36,8 @@ src/main/java/com/jasons/coffeewiki/model/SaveCompanyResponseWrapper.java
 src/main/java/com/jasons/coffeewiki/model/SaveProductRequestWrapper.java
 src/main/java/com/jasons/coffeewiki/model/SaveProductResponse.java
 src/main/java/com/jasons/coffeewiki/model/SaveProductResponseWrapper.java
+src/main/java/com/jasons/coffeewiki/model/SystemPingResponse.java
+src/main/java/com/jasons/coffeewiki/model/SystemPingResponseWrapper.java
 src/main/java/com/jasons/coffeewiki/model/UpdateCompanyRequestWrapper.java
 src/main/java/com/jasons/coffeewiki/model/UpdateCompanyResponse.java
 src/main/java/com/jasons/coffeewiki/model/UpdateCompanyResponseWrapper.java

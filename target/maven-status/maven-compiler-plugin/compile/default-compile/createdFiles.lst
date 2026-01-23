@@ -17,6 +17,7 @@ com\jasons\coffeewiki\model\UpdateCompanyResponseWrapper.class
 com\jasons\coffeewiki\configs\SecurityConfig.class
 com\jasons\coffeewiki\model\DeleteCompanyResponseWrapper.class
 com\jasons\coffeewiki\services\Impl\CompanyServiceImpl.class
+com\jasons\coffeewiki\controllers\SystemController.class
 com\jasons\coffeewiki\model\SaveCompanyResponse.class
 com\jasons\coffeewiki\supportfunctions\RandomTextGenerator.class
 com\jasons\coffeewiki\entities\Consumer.class
@@ -41,15 +42,19 @@ com\jasons\coffeewiki\model\GetCpyProductResponse.class
 com\jasons\coffeewiki\supportfunctions\CursorCrypto.class
 com\jasons\coffeewiki\model\UpdateCompanyRequestWrapper.class
 com\jasons\coffeewiki\model\ErrorResponse.class
+com\jasons\coffeewiki\model\SystemPingResponseWrapper.class
 com\jasons\coffeewiki\controllers\CompanyController.class
+com\jasons\coffeewiki\model\SystemPingResponse.class
 com\jasons\coffeewiki\model\AuthResponse.class
 com\jasons\coffeewiki\controllers\ProductController.class
 com\jasons\coffeewiki\model\GetCompanyNameResponseWrapper.class
 com\jasons\coffeewiki\controllers\TestDataController.class
 com\jasons\coffeewiki\model\Product.class
+com\jasons\coffeewiki\api\SystemApi.class
 com\jasons\coffeewiki\api\AuthenticationApi.class
 com\jasons\coffeewiki\api\CompanyApi.class
 com\jasons\coffeewiki\entities\CompanyEntity.class
+com\jasons\coffeewiki\configs\RestClientConfig.class
 com\jasons\coffeewiki\services\ConsumerService.class
 com\jasons\coffeewiki\services\Impl\ProductServiceImpl.class
 com\jasons\coffeewiki\model\AuthRequest.class

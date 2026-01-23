@@ -5,12 +5,13 @@ info:
   version: 1.0.0
 
 servers:
-  - url: http://localhost:8080
+  - url: http://localhost:5000
 
 tags:
   - name: Authentication
   - name: Company
   - name: Products
+  - name: System
 
 security:
   - bearerAuth: []
@@ -476,6 +477,32 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponseWrapper"
 
+  /v1/system/ping:
+    get:
+      tags:
+        - System
+      summary: Ping service
+      description: Ensure service is up and running
+      operationId: SystemPing
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SystemPingResponseWrapper"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
 
 components:
   securitySchemes:
@@ -779,6 +806,24 @@ components:
           type: string
           description: the name of the company
           example: Starbucks
+
+    SystemPingResponseWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/SystemPingResponse"
+        error:
+          type: object
+          nullable: true
+          example: null
+
+    SystemPingResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Message indicating the service is up and running
+          example: Coffee wiki service is running
 
     Product:
       type: object
