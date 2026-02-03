@@ -18,7 +18,7 @@ import jakarta.annotation.Generated;
  * DeleteCompanyResponse
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-02-03T09:41:04.869286200+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-02-03T09:46:22.187758700+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
 public class DeleteCompanyResponse {
 
   private String message;
