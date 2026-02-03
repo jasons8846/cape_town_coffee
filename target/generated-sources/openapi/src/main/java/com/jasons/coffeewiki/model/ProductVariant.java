@@ -18,7 +18,7 @@ import jakarta.annotation.Generated;
  * ProductVariant
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-23T13:34:04.987765500+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-02-03T09:41:04.869286200+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
 public class ProductVariant {
 
   private String description;
@@ -35,7 +35,7 @@ public class ProductVariant {
    * @return description
   */
   
-  @Schema(name = "description", example = "Small", description = "describes the variant of the product", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "description", example = "SINGLE", description = "describes the variant of the product", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("description")
   public String getDescription() {
     return description;

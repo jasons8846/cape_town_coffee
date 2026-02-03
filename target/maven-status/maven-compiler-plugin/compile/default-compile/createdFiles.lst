@@ -64,6 +64,7 @@ com\jasons\coffeewiki\repositories\ProductRepository.class
 com\jasons\coffeewiki\model\SaveProductRequestWrapper.class
 com\jasons\coffeewiki\utils\JwtUtil.class
 com\jasons\coffeewiki\CoffeewikiApplication.class
+com\jasons\coffeewiki\model\ProductSize.class
 com\jasons\coffeewiki\services\CompanyService.class
 com\jasons\coffeewiki\model\DeleteProductResponseWrapper.class
 com\jasons\coffeewiki\model\UpdateProductRequestWrapper.class

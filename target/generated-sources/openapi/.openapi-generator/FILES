@@ -24,6 +24,7 @@ src/main/java/com/jasons/coffeewiki/model/GetCpyProductResponse.java
 src/main/java/com/jasons/coffeewiki/model/GetCpyProductResponseWrapper.java
 src/main/java/com/jasons/coffeewiki/model/Product.java
 src/main/java/com/jasons/coffeewiki/model/ProductDTO.java
+src/main/java/com/jasons/coffeewiki/model/ProductSize.java
 src/main/java/com/jasons/coffeewiki/model/ProductUpdate.java
 src/main/java/com/jasons/coffeewiki/model/ProductVariant.java
 src/main/java/com/jasons/coffeewiki/model/RegisterRequest.java

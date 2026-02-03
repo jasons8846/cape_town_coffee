@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.jasons.coffeewiki.model.ProductSize;
 import com.jasons.coffeewiki.model.ProductVariant;
 import java.math.BigDecimal;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -20,7 +21,7 @@ import jakarta.annotation.Generated;
  * Product
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-23T13:34:04.987765500+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-02-03T09:41:04.869286200+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
 public class Product {
 
   private String companyCode;
@@ -30,6 +31,8 @@ public class Product {
   private String name;
 
   private ProductVariant variant;
+
+  private ProductSize size;
 
   private BigDecimal price;
 
@@ -102,7 +105,7 @@ public class Product {
    * @return name
   */
   @NotNull 
-  @Schema(name = "name", example = "Flat white", description = "the name of the product", requiredMode = Schema.RequiredMode.REQUIRED)
+  @Schema(name = "name", example = "FLAT WHITE", description = "the name of the product", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -130,6 +133,26 @@ public class Product {
 
   public void setVariant(ProductVariant variant) {
     this.variant = variant;
+  }
+
+  public Product size(ProductSize size) {
+    this.size = size;
+    return this;
+  }
+
+  /**
+   * Get size
+   * @return size
+  */
+  @Valid 
+  @Schema(name = "size", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("size")
+  public ProductSize getSize() {
+    return size;
+  }
+
+  public void setSize(ProductSize size) {
+    this.size = size;
   }
 
   public Product price(BigDecimal price) {
@@ -205,6 +228,7 @@ public class Product {
         Objects.equals(this.code, product.code) &&
         Objects.equals(this.name, product.name) &&
         Objects.equals(this.variant, product.variant) &&
+        Objects.equals(this.size, product.size) &&
         Objects.equals(this.price, product.price) &&
         Objects.equals(this.currency, product.currency) &&
         Objects.equals(this.sequence, product.sequence);
@@ -212,7 +236,7 @@ public class Product {
 
   @Override
   public int hashCode() {
-    return Objects.hash(companyCode, code, name, variant, price, currency, sequence);
+    return Objects.hash(companyCode, code, name, variant, size, price, currency, sequence);
   }
 
   @Override
@@ -223,6 +247,7 @@ public class Product {
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    variant: ").append(toIndentedString(variant)).append("\n");
+    sb.append("    size: ").append(toIndentedString(size)).append("\n");
     sb.append("    price: ").append(toIndentedString(price)).append("\n");
     sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
     sb.append("    sequence: ").append(toIndentedString(sequence)).append("\n");

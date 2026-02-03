@@ -7,10 +7,7 @@ import com.jasons.coffeewiki.entities.ProductVariantEntity;
 import com.jasons.coffeewiki.exceptions.DataNotSavedException;
 import com.jasons.coffeewiki.exceptions.FieldRequiredException;
 import com.jasons.coffeewiki.exceptions.NotFoundException;
-import com.jasons.coffeewiki.model.Product;
-import com.jasons.coffeewiki.model.ProductDTO;
-import com.jasons.coffeewiki.model.ProductUpdate;
-import com.jasons.coffeewiki.model.ProductVariant;
+import com.jasons.coffeewiki.model.*;
 import com.jasons.coffeewiki.repositories.CompanyRepository;
 import com.jasons.coffeewiki.repositories.ProductRepository;
 import com.jasons.coffeewiki.services.ProductService;
@@ -20,7 +17,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,11 +94,18 @@ public class ProductServiceImpl implements ProductService {
 
             ProductEntity entity = new ProductEntity(new RandomTextGenerator().generateRandomText(30), product.getCompanyCode() ,product.getName(), product.getPrice(), product.getCurrency(), product.getSequence());
             ProductVariant productVariant = new ProductVariant();
+            ProductSize productSize = new ProductSize();
 
-            productVariant.setDescription(product.getVariant().getDescription());
-            productVariant.setSequence(product.getVariant().getSequence());
+            if(product.getVariant().getSequence() != null || product.getVariant().getDescription() != null) {
+                productVariant.setDescription(product.getVariant().getDescription());
+                productVariant.setSequence(product.getVariant().getSequence());
+                entity.setProductVariant(productVariant);
+            }
 
-            entity.setProductVariant(productVariant);
+            productSize.setDescription(product.getSize().getDescription());
+            productSize.setSequence(product.getSize().getSequence());
+
+            entity.setProductSize(productSize);
             entity.setActive(true);
 
             try {
@@ -110,7 +116,6 @@ public class ProductServiceImpl implements ProductService {
                 log.warn("Save company product: Product not saved");
                 throw new DataNotSavedException("Product not saved");
             }
-
 
 
     }

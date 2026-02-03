@@ -72,18 +72,16 @@ public class ProductController implements ProductsApi {
 
             productEntities.forEach(productEntity -> {
             Product product = new Product();
-            ProductVariant productVariant = new ProductVariant();
 
-            productVariant.setDescription(productEntity.getProductVariant().getDescription());
-            productVariant.setSequence(productEntity.getProductVariant().getSequence());
 
             product.setName(productEntity.getName());
             product.setCompanyCode(productEntity.getCompanyCode());
             product.setPrice(productEntity.getPrice());
+            product.setVariant(productEntity.getProductVariant());
             product.setCurrency(productEntity.getCurrency());
-            product.setVariant(productVariant);
             product.setSequence(productEntity.getSequence());
             product.setCode(productEntity.getCode());
+            product.setSize(productEntity.getProductSize());
 
             products.add(product);
         });

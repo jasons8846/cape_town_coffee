@@ -1,5 +1,6 @@
 package com.jasons.coffeewiki.entities;
 
+import com.jasons.coffeewiki.model.ProductSize;
 import com.jasons.coffeewiki.model.ProductVariant;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -31,6 +32,10 @@ public class ProductEntity {
     @Column(name="variant")
     @JdbcTypeCode(SqlTypes.JSON)
     private ProductVariant productVariant;
+
+    @Column(name="size")
+    @JdbcTypeCode(SqlTypes.JSON)
+    private ProductSize productSize;
     private BigDecimal price;
     private String currency;
     private Boolean active;
@@ -51,6 +56,14 @@ public class ProductEntity {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public ProductSize getProductSize() {
+        return productSize;
+    }
+
+    public void setProductSize(ProductSize productSize) {
+        this.productSize = productSize;
     }
 
     public ProductEntity() {

@@ -38,7 +38,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-23T13:34:04.987765500+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-02-03T09:41:04.869286200+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
 @Validated
 @Tag(name = "Products", description = "the Products API")
 public interface ProductsApi {
@@ -158,7 +158,7 @@ public interface ProductsApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"data\" : { \"nextCursor\" : \"x72ysS3cS9uUi5reeXgs7\", \"products\" : [ { \"companyCode\" : \"12weHIaq3ATOP1nM3Cx\", \"sequence\" : 1, \"code\" : \"12weHIaq3ATOP1nM3Cx\", \"price\" : 34.99, \"name\" : \"Flat white\", \"variant\" : { \"sequence\" : 1, \"description\" : \"Small\" }, \"currency\" : \"ZAR\" }, { \"companyCode\" : \"12weHIaq3ATOP1nM3Cx\", \"sequence\" : 1, \"code\" : \"12weHIaq3ATOP1nM3Cx\", \"price\" : 34.99, \"name\" : \"Flat white\", \"variant\" : { \"sequence\" : 1, \"description\" : \"Small\" }, \"currency\" : \"ZAR\" } ] }, \"error\" : \"{}\" }";
+                    String exampleString = "{ \"data\" : { \"nextCursor\" : \"x72ysS3cS9uUi5reeXgs7\", \"products\" : [ { \"companyCode\" : \"12weHIaq3ATOP1nM3Cx\", \"sequence\" : 1, \"code\" : \"12weHIaq3ATOP1nM3Cx\", \"size\" : { \"sequence\" : 1, \"description\" : \"SMALL\" }, \"price\" : 34.99, \"name\" : \"FLAT WHITE\", \"variant\" : { \"sequence\" : 1, \"description\" : \"SINGLE\" }, \"currency\" : \"ZAR\" }, { \"companyCode\" : \"12weHIaq3ATOP1nM3Cx\", \"sequence\" : 1, \"code\" : \"12weHIaq3ATOP1nM3Cx\", \"size\" : { \"sequence\" : 1, \"description\" : \"SMALL\" }, \"price\" : 34.99, \"name\" : \"FLAT WHITE\", \"variant\" : { \"sequence\" : 1, \"description\" : \"SINGLE\" }, \"currency\" : \"ZAR\" } ] }, \"error\" : \"{}\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

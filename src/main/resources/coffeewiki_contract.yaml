@@ -845,9 +845,11 @@ components:
         name:
           type: string
           description: the name of the product
-          example: Flat white
+          example: FLAT WHITE
         variant:
           $ref: "#/components/schemas/ProductVariant"
+        size:
+          $ref: "#/components/schemas/ProductSize"
         price:
           type: number
           format: decimal
@@ -873,9 +875,11 @@ components:
         name:
           type: string
           description: the name of the product
-          example: Flat white
+          example: FLAT WHITE
         variant:
           $ref: "#/components/schemas/ProductVariant"
+        size:
+          $ref: "#/components/schemas/ProductSize"
         price:
           type: number
           format: decimal
@@ -901,9 +905,11 @@ components:
         name:
           type: string
           description: the name of the product
-          example: Flat white
+          example: FLAT WHITE
         variant:
           $ref: "#/components/schemas/ProductVariant"
+        size:
+          $ref: "#/components/schemas/ProductSize"
         price:
           type: number
           format: decimal
@@ -924,7 +930,19 @@ components:
         description:
           type: string
           description: describes the variant of the product
-          example: "Small"
+          example: "SINGLE"
+        sequence:
+          type: integer
+          description: the varaint sequence as a guide as to where in a list it should be displayed in relation to other variants of the same product
+          example: 1
+
+    ProductSize:
+      type: object
+      properties:
+        description:
+          type: string
+          description: describes the cup size of the product
+          example: "SMALL"
         sequence:
           type: integer
           description: the varaint sequence as a guide as to where in a list it should be displayed in relation to other variants of the same product

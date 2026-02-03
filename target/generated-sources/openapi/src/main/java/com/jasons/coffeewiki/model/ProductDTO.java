@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.jasons.coffeewiki.model.ProductSize;
 import com.jasons.coffeewiki.model.ProductVariant;
 import java.math.BigDecimal;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -20,7 +21,7 @@ import jakarta.annotation.Generated;
  * ProductDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-23T13:34:04.987765500+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-02-03T09:41:04.869286200+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
 public class ProductDTO {
 
   private String companyCode;
@@ -28,6 +29,8 @@ public class ProductDTO {
   private String name;
 
   private ProductVariant variant;
+
+  private ProductSize size;
 
   private BigDecimal price;
 
@@ -65,7 +68,7 @@ public class ProductDTO {
    * @return name
   */
   
-  @Schema(name = "name", example = "Flat white", description = "the name of the product", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "name", example = "FLAT WHITE", description = "the name of the product", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -93,6 +96,26 @@ public class ProductDTO {
 
   public void setVariant(ProductVariant variant) {
     this.variant = variant;
+  }
+
+  public ProductDTO size(ProductSize size) {
+    this.size = size;
+    return this;
+  }
+
+  /**
+   * Get size
+   * @return size
+  */
+  @Valid 
+  @Schema(name = "size", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("size")
+  public ProductSize getSize() {
+    return size;
+  }
+
+  public void setSize(ProductSize size) {
+    this.size = size;
   }
 
   public ProductDTO price(BigDecimal price) {
@@ -167,6 +190,7 @@ public class ProductDTO {
     return Objects.equals(this.companyCode, productDTO.companyCode) &&
         Objects.equals(this.name, productDTO.name) &&
         Objects.equals(this.variant, productDTO.variant) &&
+        Objects.equals(this.size, productDTO.size) &&
         Objects.equals(this.price, productDTO.price) &&
         Objects.equals(this.currency, productDTO.currency) &&
         Objects.equals(this.sequence, productDTO.sequence);
@@ -174,7 +198,7 @@ public class ProductDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(companyCode, name, variant, price, currency, sequence);
+    return Objects.hash(companyCode, name, variant, size, price, currency, sequence);
   }
 
   @Override
@@ -184,6 +208,7 @@ public class ProductDTO {
     sb.append("    companyCode: ").append(toIndentedString(companyCode)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    variant: ").append(toIndentedString(variant)).append("\n");
+    sb.append("    size: ").append(toIndentedString(size)).append("\n");
     sb.append("    price: ").append(toIndentedString(price)).append("\n");
     sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
     sb.append("    sequence: ").append(toIndentedString(sequence)).append("\n");
