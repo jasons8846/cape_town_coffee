@@ -1,7 +1,7 @@
 package com.jasons.coffeewiki.controllers;
 
 import com.jasons.coffeewiki.api.ProductsApi;
-import com.jasons.coffeewiki.entities.ProductDynamo;
+import com.jasons.coffeewiki.entities.dynamodb.ProductDynamo;
 import com.jasons.coffeewiki.entities.ProductEntity;
 import com.jasons.coffeewiki.model.*;
 import com.jasons.coffeewiki.services.ProductService;
@@ -52,15 +52,15 @@ public class ProductController implements ProductsApi {
                 .body(wrapper);
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/test-product-dynamodb")
-    @SecurityRequirement(name = "bearerAuth")
-    public ResponseEntity<String> saveProductToDynamo(@RequestBody ProductDynamo product){
-        productService.saveProductTest(product);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body("Product saved");
-
-    }
+//    @PreAuthorize("hasAuthority('ADMIN')")
+//    @PostMapping("/test-product-dynamodb")
+//    @SecurityRequirement(name = "bearerAuth")
+//    public ResponseEntity<String> saveProductToDynamo(@RequestBody ProductDynamo product){
+//        productService.saveProductTest(product);
+//        return ResponseEntity.status(HttpStatus.OK)
+//                .body("Product saved");
+//
+//    }
 
 
         @Override

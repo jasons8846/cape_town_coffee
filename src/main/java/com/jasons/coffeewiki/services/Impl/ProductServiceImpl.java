@@ -2,7 +2,7 @@ package com.jasons.coffeewiki.services.Impl;
 
 import com.jasons.coffeewiki.controllers.CompanyController;
 import com.jasons.coffeewiki.entities.CompanyEntity;
-import com.jasons.coffeewiki.entities.ProductDynamo;
+import com.jasons.coffeewiki.entities.dynamodb.ProductDynamo;
 import com.jasons.coffeewiki.entities.ProductEntity;
 import com.jasons.coffeewiki.exceptions.DataNotSavedException;
 import com.jasons.coffeewiki.exceptions.FieldRequiredException;
@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
-import software.amazon.awssdk.enhanced.dynamodb.model.PutItemEnhancedRequest;
 
 import java.util.List;
 import java.util.UUID;
@@ -36,20 +35,20 @@ public class ProductServiceImpl implements ProductService {
     private static final Logger log =
             LoggerFactory.getLogger(CompanyController.class);
 
-    private final DynamoDbTable<ProductDynamo> productTable;
-
-    public ProductServiceImpl(DynamoDbTable<ProductDynamo> productTable) {
-        this.productTable = productTable;
-    }
-
-    @Override
-    public String saveProductTest(ProductDynamo product) {
-        product.setId(UUID.randomUUID().toString());
-
-        productTable.putItem(product);
-
-        return null;
-    }
+//    private final DynamoDbTable<ProductDynamo> productTable;
+//
+//    public ProductServiceImpl(DynamoDbTable<ProductDynamo> productTable) {
+//        this.productTable = productTable;
+//    }
+//
+//    @Override
+//    public String saveProductTest(ProductDynamo product) {
+//        product.setCode(UUID.randomUUID().toString());
+//
+//        productTable.putItem(product);
+//
+//        return null;
+//    }
 
 
     @Override
