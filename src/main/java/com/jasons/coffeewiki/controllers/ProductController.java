@@ -1,10 +1,12 @@
 package com.jasons.coffeewiki.controllers;
 
 import com.jasons.coffeewiki.api.ProductsApi;
+import com.jasons.coffeewiki.entities.ProductDynamo;
 import com.jasons.coffeewiki.entities.ProductEntity;
 import com.jasons.coffeewiki.model.*;
 import com.jasons.coffeewiki.services.ProductService;
 import com.jasons.coffeewiki.supportfunctions.CursorCrypto;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -46,6 +50,16 @@ public class ProductController implements ProductsApi {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(wrapper);
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/test-product-dynamodb")
+    @SecurityRequirement(name = "bearerAuth")
+    public ResponseEntity<String> saveProductToDynamo(@RequestBody ProductDynamo product){
+        productService.saveProductTest(product);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("Product saved");
+
     }
 
 

@@ -75,6 +75,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<version>1.18.48</version>
 			<optional>true</optional>
 		</dependency>
 		<!-- Spring Security -->
@@ -100,6 +101,18 @@
 			<version>0.11.5</version>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>dynamodb</artifactId>
+			<version>2.25.3</version> <!-- Use the latest v2 version -->
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>
+			<!-- AWS SDK DynamoDB Enhanced Client -->
+			<dependency>
+				<groupId>software.amazon.awssdk</groupId>
+				<artifactId>dynamodb-enhanced</artifactId>
+			</dependency>
     </dependencies>
 
 	<build>

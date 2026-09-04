@@ -2,8 +2,8 @@ package com.jasons.coffeewiki.services.Impl;
 
 import com.jasons.coffeewiki.controllers.CompanyController;
 import com.jasons.coffeewiki.entities.CompanyEntity;
+import com.jasons.coffeewiki.entities.ProductDynamo;
 import com.jasons.coffeewiki.entities.ProductEntity;
-import com.jasons.coffeewiki.entities.ProductVariantEntity;
 import com.jasons.coffeewiki.exceptions.DataNotSavedException;
 import com.jasons.coffeewiki.exceptions.FieldRequiredException;
 import com.jasons.coffeewiki.exceptions.NotFoundException;
@@ -11,18 +11,16 @@ import com.jasons.coffeewiki.model.*;
 import com.jasons.coffeewiki.repositories.CompanyRepository;
 import com.jasons.coffeewiki.repositories.ProductRepository;
 import com.jasons.coffeewiki.services.ProductService;
-import com.jasons.coffeewiki.supportfunctions.CursorCrypto;
 import com.jasons.coffeewiki.supportfunctions.RandomTextGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+import software.amazon.awssdk.enhanced.dynamodb.model.PutItemEnhancedRequest;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +35,22 @@ public class ProductServiceImpl implements ProductService {
 
     private static final Logger log =
             LoggerFactory.getLogger(CompanyController.class);
+
+    private final DynamoDbTable<ProductDynamo> productTable;
+
+    public ProductServiceImpl(DynamoDbTable<ProductDynamo> productTable) {
+        this.productTable = productTable;
+    }
+
+    @Override
+    public String saveProductTest(ProductDynamo product) {
+        product.setId(UUID.randomUUID().toString());
+
+        productTable.putItem(product);
+
+        return null;
+    }
+
 
     @Override
     public List<ProductEntity> getCompanyProducts(String companyCode, Integer cursor, Integer pageSize) {
@@ -152,6 +166,8 @@ public class ProductServiceImpl implements ProductService {
 
         return "Product deleted";
     }
+
+
 
     private boolean ValidateCompanyCode(String companyCode){
         CompanyEntity entity = companyRepository.getCompanyByCode(companyCode);

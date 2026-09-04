@@ -68,16 +68,19 @@ public class AuthenticationController implements AuthenticationApi {
     @Override
     public ResponseEntity<RegisterResponseWrapper> register(String xCorrelationId, RegisterRequestWrapper registerRequestWrapper) {
 
+        System.out.println("Start reg process");
         RegisterResponseWrapper wrapper = new RegisterResponseWrapper();
         RegisterResponse response = new RegisterResponse();
         Consumer consumer = new Consumer();
 
 
-
+        System.out.println("Assign object");
         consumer.setName(registerRequestWrapper.getData().getName());
         consumer.setUsername(registerRequestWrapper.getData().getUsername());
         consumer.setPassword(passwordConfig.encoder().encode(registerRequestWrapper.getData().getPassword()));
         consumer.setRoles(registerRequestWrapper.getData().getRoles());
+
+        System.out.println(consumer.getUsername());
 
         consumerRepository.save(consumer);
 
