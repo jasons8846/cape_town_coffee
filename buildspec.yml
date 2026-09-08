@@ -17,6 +17,12 @@ phases:
     commands:
       - echo Building application
       - ./mvnw -Dmaven.repo.local=/tmp/maven-repository clean package -DskipTests
+      - echo "=== Files in project root ==="
+      - ls -la
+      - echo "=== AppSpec ==="
+      - ls -la appspec.yml
+      - echo "=== Target ==="
+      - ls -la target
 
 artifacts:
   files:
