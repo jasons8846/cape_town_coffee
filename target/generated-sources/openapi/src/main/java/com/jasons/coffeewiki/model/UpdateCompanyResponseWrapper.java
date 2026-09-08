@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.jasons.coffeewiki.model.UpdateCompanyResponse;
 import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
+import org.springframework.lang.Nullable;
 import java.util.NoSuchElementException;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
@@ -22,14 +23,14 @@ import jakarta.annotation.Generated;
  * UpdateCompanyResponseWrapper
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-02-03T09:46:22.187758700+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-07T15:50:50.901633+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class UpdateCompanyResponseWrapper {
 
-  private UpdateCompanyResponse data;
+  private @Nullable UpdateCompanyResponse data;
 
   private JsonNullable<Object> error = JsonNullable.<Object>undefined();
 
-  public UpdateCompanyResponseWrapper data(UpdateCompanyResponse data) {
+  public UpdateCompanyResponseWrapper data(@Nullable UpdateCompanyResponse data) {
     this.data = data;
     return this;
   }
@@ -37,15 +38,16 @@ public class UpdateCompanyResponseWrapper {
   /**
    * Get data
    * @return data
-  */
+   */
   @Valid 
   @Schema(name = "data", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("data")
-  public UpdateCompanyResponse getData() {
+  public @Nullable UpdateCompanyResponse getData() {
     return data;
   }
 
-  public void setData(UpdateCompanyResponse data) {
+  @JsonProperty("data")
+  public void setData(@Nullable UpdateCompanyResponse data) {
     this.data = data;
   }
 
@@ -57,9 +59,9 @@ public class UpdateCompanyResponseWrapper {
   /**
    * Get error
    * @return error
-  */
+   */
   
-  @Schema(name = "error", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "error", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true)
   @JsonProperty("error")
   public JsonNullable<Object> getError() {
     return error;
@@ -112,11 +114,8 @@ public class UpdateCompanyResponseWrapper {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+  private String toIndentedString(@Nullable Object o) {
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 }
 

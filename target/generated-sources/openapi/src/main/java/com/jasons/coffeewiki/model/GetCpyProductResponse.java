@@ -8,6 +8,7 @@ import com.jasons.coffeewiki.model.Product;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.springframework.lang.Nullable;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
@@ -22,13 +23,12 @@ import jakarta.annotation.Generated;
  * GetCpyProductResponse
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-02-03T09:46:22.187758700+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-07T15:50:50.901633+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class GetCpyProductResponse {
 
-  @Valid
-  private List<@Valid Product> products;
+  private List<@Valid Product> products = new ArrayList<>();
 
-  private String nextCursor;
+  private @Nullable String nextCursor;
 
   public GetCpyProductResponse products(List<@Valid Product> products) {
     this.products = products;
@@ -46,7 +46,7 @@ public class GetCpyProductResponse {
   /**
    * Get products
    * @return products
-  */
+   */
   @Valid 
   @Schema(name = "products", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("products")
@@ -54,11 +54,12 @@ public class GetCpyProductResponse {
     return products;
   }
 
+  @JsonProperty("products")
   public void setProducts(List<@Valid Product> products) {
     this.products = products;
   }
 
-  public GetCpyProductResponse nextCursor(String nextCursor) {
+  public GetCpyProductResponse nextCursor(@Nullable String nextCursor) {
     this.nextCursor = nextCursor;
     return this;
   }
@@ -66,15 +67,16 @@ public class GetCpyProductResponse {
   /**
    * the next cursor to use
    * @return nextCursor
-  */
+   */
   
   @Schema(name = "nextCursor", example = "x72ysS3cS9uUi5reeXgs7", description = "the next cursor to use", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("nextCursor")
-  public String getNextCursor() {
+  public @Nullable String getNextCursor() {
     return nextCursor;
   }
 
-  public void setNextCursor(String nextCursor) {
+  @JsonProperty("nextCursor")
+  public void setNextCursor(@Nullable String nextCursor) {
     this.nextCursor = nextCursor;
   }
 
@@ -110,11 +112,8 @@ public class GetCpyProductResponse {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+  private String toIndentedString(@Nullable Object o) {
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 }
 

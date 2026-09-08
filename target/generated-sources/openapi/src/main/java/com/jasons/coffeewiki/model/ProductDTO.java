@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.jasons.coffeewiki.model.ProductSize;
 import com.jasons.coffeewiki.model.ProductVariant;
 import java.math.BigDecimal;
+import org.springframework.lang.Nullable;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
@@ -21,24 +22,24 @@ import jakarta.annotation.Generated;
  * ProductDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-02-03T09:46:22.187758700+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-07T15:50:50.901633+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class ProductDTO {
 
-  private String companyCode;
+  private @Nullable String companyCode;
 
-  private String name;
+  private @Nullable String name;
 
-  private ProductVariant variant;
+  private @Nullable ProductVariant variant;
 
-  private ProductSize size;
+  private @Nullable ProductSize size;
 
-  private BigDecimal price;
+  private @Nullable BigDecimal price;
 
-  private String currency;
+  private @Nullable String currency;
 
-  private Integer sequence;
+  private @Nullable Integer sequence;
 
-  public ProductDTO companyCode(String companyCode) {
+  public ProductDTO companyCode(@Nullable String companyCode) {
     this.companyCode = companyCode;
     return this;
   }
@@ -46,19 +47,20 @@ public class ProductDTO {
   /**
    * unique code asscociated to each company on creation
    * @return companyCode
-  */
+   */
   
   @Schema(name = "companyCode", example = "12weHIaq3ATOP1nM3Cx", description = "unique code asscociated to each company on creation", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("companyCode")
-  public String getCompanyCode() {
+  public @Nullable String getCompanyCode() {
     return companyCode;
   }
 
-  public void setCompanyCode(String companyCode) {
+  @JsonProperty("companyCode")
+  public void setCompanyCode(@Nullable String companyCode) {
     this.companyCode = companyCode;
   }
 
-  public ProductDTO name(String name) {
+  public ProductDTO name(@Nullable String name) {
     this.name = name;
     return this;
   }
@@ -66,19 +68,20 @@ public class ProductDTO {
   /**
    * the name of the product
    * @return name
-  */
+   */
   
   @Schema(name = "name", example = "FLAT WHITE", description = "the name of the product", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("name")
-  public String getName() {
+  public @Nullable String getName() {
     return name;
   }
 
-  public void setName(String name) {
+  @JsonProperty("name")
+  public void setName(@Nullable String name) {
     this.name = name;
   }
 
-  public ProductDTO variant(ProductVariant variant) {
+  public ProductDTO variant(@Nullable ProductVariant variant) {
     this.variant = variant;
     return this;
   }
@@ -86,19 +89,20 @@ public class ProductDTO {
   /**
    * Get variant
    * @return variant
-  */
+   */
   @Valid 
   @Schema(name = "variant", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("variant")
-  public ProductVariant getVariant() {
+  public @Nullable ProductVariant getVariant() {
     return variant;
   }
 
-  public void setVariant(ProductVariant variant) {
+  @JsonProperty("variant")
+  public void setVariant(@Nullable ProductVariant variant) {
     this.variant = variant;
   }
 
-  public ProductDTO size(ProductSize size) {
+  public ProductDTO size(@Nullable ProductSize size) {
     this.size = size;
     return this;
   }
@@ -106,19 +110,20 @@ public class ProductDTO {
   /**
    * Get size
    * @return size
-  */
+   */
   @Valid 
   @Schema(name = "size", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("size")
-  public ProductSize getSize() {
+  public @Nullable ProductSize getSize() {
     return size;
   }
 
-  public void setSize(ProductSize size) {
+  @JsonProperty("size")
+  public void setSize(@Nullable ProductSize size) {
     this.size = size;
   }
 
-  public ProductDTO price(BigDecimal price) {
+  public ProductDTO price(@Nullable BigDecimal price) {
     this.price = price;
     return this;
   }
@@ -126,19 +131,20 @@ public class ProductDTO {
   /**
    * The price amount in the specified currency.
    * @return price
-  */
+   */
   @Valid 
   @Schema(name = "price", example = "34.99", description = "The price amount in the specified currency.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("price")
-  public BigDecimal getPrice() {
+  public @Nullable BigDecimal getPrice() {
     return price;
   }
 
-  public void setPrice(BigDecimal price) {
+  @JsonProperty("price")
+  public void setPrice(@Nullable BigDecimal price) {
     this.price = price;
   }
 
-  public ProductDTO currency(String currency) {
+  public ProductDTO currency(@Nullable String currency) {
     this.currency = currency;
     return this;
   }
@@ -146,19 +152,20 @@ public class ProductDTO {
   /**
    * The currency code (e.g., ZAR, USD).
    * @return currency
-  */
+   */
   
   @Schema(name = "currency", example = "ZAR", description = "The currency code (e.g., ZAR, USD).", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("currency")
-  public String getCurrency() {
+  public @Nullable String getCurrency() {
     return currency;
   }
 
-  public void setCurrency(String currency) {
+  @JsonProperty("currency")
+  public void setCurrency(@Nullable String currency) {
     this.currency = currency;
   }
 
-  public ProductDTO sequence(Integer sequence) {
+  public ProductDTO sequence(@Nullable Integer sequence) {
     this.sequence = sequence;
     return this;
   }
@@ -166,15 +173,16 @@ public class ProductDTO {
   /**
    * the product sequence as a guide as to where in a list it should be displayed
    * @return sequence
-  */
+   */
   
   @Schema(name = "sequence", example = "1", description = "the product sequence as a guide as to where in a list it should be displayed", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("sequence")
-  public Integer getSequence() {
+  public @Nullable Integer getSequence() {
     return sequence;
   }
 
-  public void setSequence(Integer sequence) {
+  @JsonProperty("sequence")
+  public void setSequence(@Nullable Integer sequence) {
     this.sequence = sequence;
   }
 
@@ -220,11 +228,8 @@ public class ProductDTO {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+  private String toIndentedString(@Nullable Object o) {
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 }
 

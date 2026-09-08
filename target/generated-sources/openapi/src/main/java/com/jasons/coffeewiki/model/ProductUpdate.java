@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.jasons.coffeewiki.model.ProductSize;
 import com.jasons.coffeewiki.model.ProductVariant;
 import java.math.BigDecimal;
+import org.springframework.lang.Nullable;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
@@ -21,20 +22,20 @@ import jakarta.annotation.Generated;
  * ProductUpdate
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-02-03T09:46:22.187758700+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-07T15:50:50.901633+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class ProductUpdate {
 
   private String name;
 
   private ProductVariant variant;
 
-  private ProductSize size;
+  private @Nullable ProductSize size;
 
   private BigDecimal price;
 
   private String currency;
 
-  private Integer sequence;
+  private @Nullable Integer sequence;
 
   public ProductUpdate() {
     super();
@@ -58,7 +59,7 @@ public class ProductUpdate {
   /**
    * the name of the product
    * @return name
-  */
+   */
   @NotNull 
   @Schema(name = "name", example = "FLAT WHITE", description = "the name of the product", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("name")
@@ -66,6 +67,7 @@ public class ProductUpdate {
     return name;
   }
 
+  @JsonProperty("name")
   public void setName(String name) {
     this.name = name;
   }
@@ -78,7 +80,7 @@ public class ProductUpdate {
   /**
    * Get variant
    * @return variant
-  */
+   */
   @NotNull @Valid 
   @Schema(name = "variant", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("variant")
@@ -86,11 +88,12 @@ public class ProductUpdate {
     return variant;
   }
 
+  @JsonProperty("variant")
   public void setVariant(ProductVariant variant) {
     this.variant = variant;
   }
 
-  public ProductUpdate size(ProductSize size) {
+  public ProductUpdate size(@Nullable ProductSize size) {
     this.size = size;
     return this;
   }
@@ -98,15 +101,16 @@ public class ProductUpdate {
   /**
    * Get size
    * @return size
-  */
+   */
   @Valid 
   @Schema(name = "size", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("size")
-  public ProductSize getSize() {
+  public @Nullable ProductSize getSize() {
     return size;
   }
 
-  public void setSize(ProductSize size) {
+  @JsonProperty("size")
+  public void setSize(@Nullable ProductSize size) {
     this.size = size;
   }
 
@@ -118,7 +122,7 @@ public class ProductUpdate {
   /**
    * The price amount in the specified currency.
    * @return price
-  */
+   */
   @NotNull @Valid 
   @Schema(name = "price", example = "34.99", description = "The price amount in the specified currency.", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("price")
@@ -126,6 +130,7 @@ public class ProductUpdate {
     return price;
   }
 
+  @JsonProperty("price")
   public void setPrice(BigDecimal price) {
     this.price = price;
   }
@@ -138,7 +143,7 @@ public class ProductUpdate {
   /**
    * The currency code (e.g., ZAR, USD).
    * @return currency
-  */
+   */
   @NotNull 
   @Schema(name = "currency", example = "ZAR", description = "The currency code (e.g., ZAR, USD).", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("currency")
@@ -146,11 +151,12 @@ public class ProductUpdate {
     return currency;
   }
 
+  @JsonProperty("currency")
   public void setCurrency(String currency) {
     this.currency = currency;
   }
 
-  public ProductUpdate sequence(Integer sequence) {
+  public ProductUpdate sequence(@Nullable Integer sequence) {
     this.sequence = sequence;
     return this;
   }
@@ -158,15 +164,16 @@ public class ProductUpdate {
   /**
    * the product sequence as a guide as to where in a list it should be displayed
    * @return sequence
-  */
+   */
   
   @Schema(name = "sequence", example = "1", description = "the product sequence as a guide as to where in a list it should be displayed", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("sequence")
-  public Integer getSequence() {
+  public @Nullable Integer getSequence() {
     return sequence;
   }
 
-  public void setSequence(Integer sequence) {
+  @JsonProperty("sequence")
+  public void setSequence(@Nullable Integer sequence) {
     this.sequence = sequence;
   }
 
@@ -210,11 +217,8 @@ public class ProductUpdate {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+  private String toIndentedString(@Nullable Object o) {
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 }
 
