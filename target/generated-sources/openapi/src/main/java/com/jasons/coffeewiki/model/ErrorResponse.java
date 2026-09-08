@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import org.springframework.lang.Nullable;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
@@ -18,14 +19,14 @@ import jakarta.annotation.Generated;
  * ErrorResponse
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-02-03T09:46:22.187758700+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-07T15:50:50.901633+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class ErrorResponse {
 
-  private String message;
+  private @Nullable String message;
 
-  private String details;
+  private @Nullable String details;
 
-  public ErrorResponse message(String message) {
+  public ErrorResponse message(@Nullable String message) {
     this.message = message;
     return this;
   }
@@ -33,19 +34,20 @@ public class ErrorResponse {
   /**
    * field describing the error
    * @return message
-  */
+   */
   
   @Schema(name = "message", example = "No data available", description = "field describing the error", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("message")
-  public String getMessage() {
+  public @Nullable String getMessage() {
     return message;
   }
 
-  public void setMessage(String message) {
+  @JsonProperty("message")
+  public void setMessage(@Nullable String message) {
     this.message = message;
   }
 
-  public ErrorResponse details(String details) {
+  public ErrorResponse details(@Nullable String details) {
     this.details = details;
     return this;
   }
@@ -53,15 +55,16 @@ public class ErrorResponse {
   /**
    * details giving more information on the error
    * @return details
-  */
+   */
   
   @Schema(name = "details", example = "No company data is available for the request", description = "details giving more information on the error", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("details")
-  public String getDetails() {
+  public @Nullable String getDetails() {
     return details;
   }
 
-  public void setDetails(String details) {
+  @JsonProperty("details")
+  public void setDetails(@Nullable String details) {
     this.details = details;
   }
 
@@ -97,11 +100,8 @@ public class ErrorResponse {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+  private String toIndentedString(@Nullable Object o) {
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 }
 

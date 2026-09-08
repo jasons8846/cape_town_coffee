@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import org.springframework.lang.Nullable;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
@@ -18,18 +19,18 @@ import jakarta.annotation.Generated;
  * RegisterRequest
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-02-03T09:46:22.187758700+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-07T15:50:50.901633+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class RegisterRequest {
 
-  private String name;
+  private @Nullable String name;
 
-  private String username;
+  private @Nullable String username;
 
-  private String password;
+  private @Nullable String password;
 
-  private String roles;
+  private @Nullable String roles;
 
-  public RegisterRequest name(String name) {
+  public RegisterRequest name(@Nullable String name) {
     this.name = name;
     return this;
   }
@@ -37,19 +38,20 @@ public class RegisterRequest {
   /**
    * the name describing the consumer
    * @return name
-  */
+   */
   
   @Schema(name = "name", example = "Johnty", description = "the name describing the consumer", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("name")
-  public String getName() {
+  public @Nullable String getName() {
     return name;
   }
 
-  public void setName(String name) {
+  @JsonProperty("name")
+  public void setName(@Nullable String name) {
     this.name = name;
   }
 
-  public RegisterRequest username(String username) {
+  public RegisterRequest username(@Nullable String username) {
     this.username = username;
     return this;
   }
@@ -57,19 +59,20 @@ public class RegisterRequest {
   /**
    * the username of the consumer
    * @return username
-  */
+   */
   @Size(min = 8, max = 15) 
   @Schema(name = "username", example = "johntyrhodes", description = "the username of the consumer", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("username")
-  public String getUsername() {
+  public @Nullable String getUsername() {
     return username;
   }
 
-  public void setUsername(String username) {
+  @JsonProperty("username")
+  public void setUsername(@Nullable String username) {
     this.username = username;
   }
 
-  public RegisterRequest password(String password) {
+  public RegisterRequest password(@Nullable String password) {
     this.password = password;
     return this;
   }
@@ -77,19 +80,20 @@ public class RegisterRequest {
   /**
    * password asscociated with the username
    * @return password
-  */
+   */
   @Size(min = 8, max = 36) 
   @Schema(name = "password", example = "$johntyRhodes#123$", description = "password asscociated with the username", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("password")
-  public String getPassword() {
+  public @Nullable String getPassword() {
     return password;
   }
 
-  public void setPassword(String password) {
+  @JsonProperty("password")
+  public void setPassword(@Nullable String password) {
     this.password = password;
   }
 
-  public RegisterRequest roles(String roles) {
+  public RegisterRequest roles(@Nullable String roles) {
     this.roles = roles;
     return this;
   }
@@ -97,15 +101,16 @@ public class RegisterRequest {
   /**
    * List of user roles
    * @return roles
-  */
+   */
   
   @Schema(name = "roles", example = "ADMIN, HR, USER", description = "List of user roles", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("roles")
-  public String getRoles() {
+  public @Nullable String getRoles() {
     return roles;
   }
 
-  public void setRoles(String roles) {
+  @JsonProperty("roles")
+  public void setRoles(@Nullable String roles) {
     this.roles = roles;
   }
 
@@ -145,11 +150,8 @@ public class RegisterRequest {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+  private String toIndentedString(@Nullable Object o) {
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 }
 

@@ -15,6 +15,7 @@ com\jasons\coffeewiki\model\RegisterResponseWrapper.class
 com\jasons\coffeewiki\model\AuthLoginRequestWrapper.class
 com\jasons\coffeewiki\model\UpdateCompanyResponseWrapper.class
 com\jasons\coffeewiki\configs\SecurityConfig.class
+com\jasons\coffeewiki\controllers\MigrationController.class
 com\jasons\coffeewiki\model\DeleteCompanyResponseWrapper.class
 com\jasons\coffeewiki\services\Impl\CompanyServiceImpl.class
 com\jasons\coffeewiki\controllers\SystemController.class
@@ -22,6 +23,7 @@ com\jasons\coffeewiki\model\SaveCompanyResponse.class
 com\jasons\coffeewiki\supportfunctions\RandomTextGenerator.class
 com\jasons\coffeewiki\entities\Consumer.class
 com\jasons\coffeewiki\entities\ProductVariantEntity.class
+com\jasons\coffeewiki\configs\DynamoDBClientConfig.class
 com\jasons\coffeewiki\api\ProductsApi.class
 com\jasons\coffeewiki\model\DeleteProductResponse.class
 com\jasons\coffeewiki\model\UpdateCompanyResponse.class
@@ -51,6 +53,7 @@ com\jasons\coffeewiki\model\GetCompanyNameResponseWrapper.class
 com\jasons\coffeewiki\controllers\TestDataController.class
 com\jasons\coffeewiki\model\Product.class
 com\jasons\coffeewiki\api\SystemApi.class
+com\jasons\coffeewiki\entities\dynamodb\Company.class
 com\jasons\coffeewiki\api\AuthenticationApi.class
 com\jasons\coffeewiki\api\CompanyApi.class
 com\jasons\coffeewiki\entities\CompanyEntity.class
@@ -61,6 +64,8 @@ com\jasons\coffeewiki\model\AuthRequest.class
 com\jasons\coffeewiki\controllers\AuthenticationController.class
 com\jasons\coffeewiki\configs\OpenAPIConfig.class
 com\jasons\coffeewiki\repositories\ProductRepository.class
+com\jasons\coffeewiki\StreamLambdaHandler.class
+com\jasons\coffeewiki\entities\dynamodb\ProductDynamo.class
 com\jasons\coffeewiki\model\SaveProductRequestWrapper.class
 com\jasons\coffeewiki\utils\JwtUtil.class
 com\jasons\coffeewiki\CoffeewikiApplication.class

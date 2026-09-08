@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.jasons.coffeewiki.model.DeleteProductResponse;
 import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
+import org.springframework.lang.Nullable;
 import java.util.NoSuchElementException;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
@@ -22,14 +23,14 @@ import jakarta.annotation.Generated;
  * DeleteProductResponseWrapper
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-02-03T09:46:22.187758700+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-07T15:50:50.901633+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class DeleteProductResponseWrapper {
 
-  private DeleteProductResponse data;
+  private @Nullable DeleteProductResponse data;
 
   private JsonNullable<Object> error = JsonNullable.<Object>undefined();
 
-  public DeleteProductResponseWrapper data(DeleteProductResponse data) {
+  public DeleteProductResponseWrapper data(@Nullable DeleteProductResponse data) {
     this.data = data;
     return this;
   }
@@ -37,15 +38,16 @@ public class DeleteProductResponseWrapper {
   /**
    * Get data
    * @return data
-  */
+   */
   @Valid 
   @Schema(name = "data", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("data")
-  public DeleteProductResponse getData() {
+  public @Nullable DeleteProductResponse getData() {
     return data;
   }
 
-  public void setData(DeleteProductResponse data) {
+  @JsonProperty("data")
+  public void setData(@Nullable DeleteProductResponse data) {
     this.data = data;
   }
 
@@ -57,9 +59,9 @@ public class DeleteProductResponseWrapper {
   /**
    * Get error
    * @return error
-  */
+   */
   
-  @Schema(name = "error", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "error", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true)
   @JsonProperty("error")
   public JsonNullable<Object> getError() {
     return error;
@@ -112,11 +114,8 @@ public class DeleteProductResponseWrapper {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+  private String toIndentedString(@Nullable Object o) {
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 }
 

@@ -5,6 +5,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.jasons.coffeewiki.model.ProductDTO;
+import org.springframework.lang.Nullable;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
@@ -19,12 +20,12 @@ import jakarta.annotation.Generated;
  * SaveProductRequestWrapper
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-02-03T09:46:22.187758700+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-07T15:50:50.901633+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class SaveProductRequestWrapper {
 
-  private ProductDTO data;
+  private @Nullable ProductDTO data;
 
-  public SaveProductRequestWrapper data(ProductDTO data) {
+  public SaveProductRequestWrapper data(@Nullable ProductDTO data) {
     this.data = data;
     return this;
   }
@@ -32,15 +33,16 @@ public class SaveProductRequestWrapper {
   /**
    * Get data
    * @return data
-  */
+   */
   @Valid 
   @Schema(name = "data", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("data")
-  public ProductDTO getData() {
+  public @Nullable ProductDTO getData() {
     return data;
   }
 
-  public void setData(ProductDTO data) {
+  @JsonProperty("data")
+  public void setData(@Nullable ProductDTO data) {
     this.data = data;
   }
 
@@ -74,11 +76,8 @@ public class SaveProductRequestWrapper {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+  private String toIndentedString(@Nullable Object o) {
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 }
 

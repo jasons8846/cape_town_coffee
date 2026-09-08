@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import org.springframework.lang.Nullable;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
@@ -18,14 +19,14 @@ import jakarta.annotation.Generated;
  * Company
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-02-03T09:46:22.187758700+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-07T15:50:50.901633+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class Company {
 
-  private String code;
+  private @Nullable String code;
 
-  private String name;
+  private @Nullable String name;
 
-  public Company code(String code) {
+  public Company code(@Nullable String code) {
     this.code = code;
     return this;
   }
@@ -33,19 +34,20 @@ public class Company {
   /**
    * unique code asscociated to each company on creation
    * @return code
-  */
+   */
   
   @Schema(name = "code", example = "12weHIaq3ATOP1nM3Cx", description = "unique code asscociated to each company on creation", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("code")
-  public String getCode() {
+  public @Nullable String getCode() {
     return code;
   }
 
-  public void setCode(String code) {
+  @JsonProperty("code")
+  public void setCode(@Nullable String code) {
     this.code = code;
   }
 
-  public Company name(String name) {
+  public Company name(@Nullable String name) {
     this.name = name;
     return this;
   }
@@ -53,15 +55,16 @@ public class Company {
   /**
    * the name of the company
    * @return name
-  */
+   */
   
   @Schema(name = "name", example = "Starbucks", description = "the name of the company", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("name")
-  public String getName() {
+  public @Nullable String getName() {
     return name;
   }
 
-  public void setName(String name) {
+  @JsonProperty("name")
+  public void setName(@Nullable String name) {
     this.name = name;
   }
 
@@ -97,11 +100,8 @@ public class Company {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+  private String toIndentedString(@Nullable Object o) {
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 }
 

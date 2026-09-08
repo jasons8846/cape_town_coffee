@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import org.springframework.lang.Nullable;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
@@ -18,14 +19,14 @@ import jakarta.annotation.Generated;
  * ProductSize
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-02-03T09:46:22.187758700+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-07T15:50:50.901633+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class ProductSize {
 
-  private String description;
+  private @Nullable String description;
 
-  private Integer sequence;
+  private @Nullable Integer sequence;
 
-  public ProductSize description(String description) {
+  public ProductSize description(@Nullable String description) {
     this.description = description;
     return this;
   }
@@ -33,19 +34,20 @@ public class ProductSize {
   /**
    * describes the cup size of the product
    * @return description
-  */
+   */
   
   @Schema(name = "description", example = "SMALL", description = "describes the cup size of the product", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("description")
-  public String getDescription() {
+  public @Nullable String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  @JsonProperty("description")
+  public void setDescription(@Nullable String description) {
     this.description = description;
   }
 
-  public ProductSize sequence(Integer sequence) {
+  public ProductSize sequence(@Nullable Integer sequence) {
     this.sequence = sequence;
     return this;
   }
@@ -53,15 +55,16 @@ public class ProductSize {
   /**
    * the varaint sequence as a guide as to where in a list it should be displayed in relation to other variants of the same product
    * @return sequence
-  */
+   */
   
   @Schema(name = "sequence", example = "1", description = "the varaint sequence as a guide as to where in a list it should be displayed in relation to other variants of the same product", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("sequence")
-  public Integer getSequence() {
+  public @Nullable Integer getSequence() {
     return sequence;
   }
 
-  public void setSequence(Integer sequence) {
+  @JsonProperty("sequence")
+  public void setSequence(@Nullable Integer sequence) {
     this.sequence = sequence;
   }
 
@@ -97,11 +100,8 @@ public class ProductSize {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+  private String toIndentedString(@Nullable Object o) {
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 }
 

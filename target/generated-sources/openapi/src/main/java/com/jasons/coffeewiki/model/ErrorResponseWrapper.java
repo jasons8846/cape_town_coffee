@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.jasons.coffeewiki.model.ErrorResponse;
 import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
+import org.springframework.lang.Nullable;
 import java.util.NoSuchElementException;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
@@ -22,12 +23,12 @@ import jakarta.annotation.Generated;
  * ErrorResponseWrapper
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-02-03T09:46:22.187758700+02:00[Africa/Johannesburg]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-07T15:50:50.901633+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class ErrorResponseWrapper {
 
   private JsonNullable<Object> data = JsonNullable.<Object>undefined();
 
-  private ErrorResponse error;
+  private @Nullable ErrorResponse error;
 
   public ErrorResponseWrapper data(Object data) {
     this.data = JsonNullable.of(data);
@@ -37,9 +38,9 @@ public class ErrorResponseWrapper {
   /**
    * Get data
    * @return data
-  */
+   */
   
-  @Schema(name = "data", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "data", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true)
   @JsonProperty("data")
   public JsonNullable<Object> getData() {
     return data;
@@ -49,7 +50,7 @@ public class ErrorResponseWrapper {
     this.data = data;
   }
 
-  public ErrorResponseWrapper error(ErrorResponse error) {
+  public ErrorResponseWrapper error(@Nullable ErrorResponse error) {
     this.error = error;
     return this;
   }
@@ -57,15 +58,16 @@ public class ErrorResponseWrapper {
   /**
    * Get error
    * @return error
-  */
+   */
   @Valid 
   @Schema(name = "error", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("error")
-  public ErrorResponse getError() {
+  public @Nullable ErrorResponse getError() {
     return error;
   }
 
-  public void setError(ErrorResponse error) {
+  @JsonProperty("error")
+  public void setError(@Nullable ErrorResponse error) {
     this.error = error;
   }
 
@@ -112,11 +114,8 @@ public class ErrorResponseWrapper {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+  private String toIndentedString(@Nullable Object o) {
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 }
 
