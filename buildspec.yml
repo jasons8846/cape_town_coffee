@@ -9,12 +9,12 @@ phases:
   pre_build:
     commands:
       - echo Running tests...
-      - mvn test
+      - ./mvnw test
 
   build:
     commands:
       - echo Building application...
-      - mvn clean package
+      - ./mvnw clean package
 
   post_build:
     commands:
