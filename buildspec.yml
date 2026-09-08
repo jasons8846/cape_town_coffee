@@ -9,6 +9,7 @@ phases:
   pre_build:
     commands:
       - echo Running tests...
+      - chmod +x mvnw
       - ./mvnw test
 
   build:
