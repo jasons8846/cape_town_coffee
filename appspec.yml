@@ -1,0 +1,10 @@
+version: 0.0
+
+Resources:
+  - TargetService:
+      Type: AWS::Lambda::capetowncoffee
+      Properties:
+        Name: capetowncoffee
+        Alias: live
+        CurrentVersion: "1"
+        TargetVersion: "2"
