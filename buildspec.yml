@@ -22,4 +22,4 @@ phases:
 
 artifacts:
   files:
-    - target/*.jar
+    - target/*.zip

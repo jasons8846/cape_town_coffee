@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.jasons.coffeewiki.CoffeewikiApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 35.32 s -- in com.jasons.coffeewiki.CoffeewikiApplicationTests
