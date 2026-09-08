@@ -2,7 +2,7 @@ version: 0.0
 
 Resources:
   - TargetService:
-      Type: AWS::Lambda::capetowncoffee
+      Type: AWS::Lambda::Function
       Properties:
         Name: capetowncoffee
         Alias: live
