@@ -10,22 +10,25 @@ phases:
 
   pre_build:
     commands:
-      - echo Running tests
+      - echo "Running tests..."
       - ./mvnw -Dmaven.repo.local=/tmp/maven-repository test
 
   build:
     commands:
-      - echo Building application
+      - echo "Building application..."
       - ./mvnw -Dmaven.repo.local=/tmp/maven-repository clean package -DskipTests
-      - echo "=== Files in project root ==="
-      - ls -la
-      - echo "=== AppSpec ==="
-      - ls -la appspec.yml
-      - echo "=== Target ==="
-      - ls -la target
+
+  post_build:
+    commands:
+      - echo "Creating deployment artifact..."
+      - mkdir -p deployment
+      - cp appspec.yml deployment/
+      - cp target/*-lambda-package.zip deployment/
+
+      - echo "=== Deployment directory ==="
+      - ls -la deployment
 
 artifacts:
+  base-directory: deployment
   files:
-    - target/*.zip
-    - appspec.yml
-  discard-paths: yes
+    - '**/*'
