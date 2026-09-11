@@ -13,9 +13,6 @@ tags:
   - name: Products
   - name: System
 
-security:
-  - bearerAuth: []
-
 paths:
   /v1/auth/login:
     post:

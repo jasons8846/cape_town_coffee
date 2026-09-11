@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-08T09:50:26.188626300+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-09T14:01:12.178912100+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 @Validated
 @Tag(name = "System", description = "the System API")
 public interface SystemApi {
@@ -67,9 +67,6 @@ public interface SystemApi {
             @ApiResponse(responseCode = "500", description = "Server error", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponseWrapper.class))
             })
-        },
-        security = {
-            @SecurityRequirement(name = "bearerAuth")
         }
     )
     @RequestMapping(

@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,7 +29,6 @@ public class CompanyController implements CompanyApi {
 
 
     @Override
-    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<DeleteCompanyResponseWrapper> deleteCompany(String companyCode, String xCorrelationId) {
         log.info("CorrletationId: " + xCorrelationId +   " || DELETE /v1/company by company code initiated");
         DeleteCompanyResponseWrapper wrapper = new DeleteCompanyResponseWrapper();
@@ -47,7 +45,6 @@ public class CompanyController implements CompanyApi {
 
 
     @Override
-    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<UpdateCompanyResponseWrapper> updateCompany(String companyCode, String xCorrelationId, UpdateCompanyRequestWrapper updateCompanyRequestWrapper) {
         log.info("CorrletationId: " + xCorrelationId +   " || POST /v1/company/{?} initiated");
         UpdateCompanyResponseWrapper wrapper = new UpdateCompanyResponseWrapper();
@@ -113,7 +110,6 @@ public class CompanyController implements CompanyApi {
     }
 
     @Override
-    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<SaveCompanyResponseWrapper> saveCompany(String xCorrelationId, SaveCompanyRequestWrapper saveCompanyRequestWrapper) {
         log.info("CorrletationId: " + xCorrelationId +   " || POST /v1/company initiated");
         SaveCompanyResponseWrapper wrapper = new SaveCompanyResponseWrapper();

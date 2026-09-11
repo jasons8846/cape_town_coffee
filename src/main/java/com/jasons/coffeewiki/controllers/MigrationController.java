@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
@@ -37,8 +36,6 @@ public class MigrationController {
         this.productTable = productTable;
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @SecurityRequirement(name = "bearerAuth")
     @PostMapping("/migration/company")
     ResponseEntity<String> migrateCompany(){
         List<CompanyEntity> companyEntityList = new ArrayList<>();
@@ -65,8 +62,6 @@ public class MigrationController {
     }
 
 
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @SecurityRequirement(name = "bearerAuth")
     @PostMapping("/migration/product")
     ResponseEntity<String> migrateProduct(){
         List<ProductEntity> productEntityList = new ArrayList<>();

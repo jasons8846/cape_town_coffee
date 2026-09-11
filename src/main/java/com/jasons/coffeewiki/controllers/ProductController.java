@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +35,6 @@ public class ProductController implements ProductsApi {
             LoggerFactory.getLogger(CompanyController.class);
 
     @Override
-    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<DeleteProductResponseWrapper> deleteProduct(String productCode,String xCorrelationId) {
         log.info("CorrletationId: " + xCorrelationId +   " || DELETE /v1/product by product code initiated");
         DeleteProductResponseWrapper wrapper = new DeleteProductResponseWrapper();
@@ -128,7 +126,6 @@ public class ProductController implements ProductsApi {
 
 
     @Override
-    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<SaveProductResponseWrapper> saveProduct(String xCorrelationId,SaveProductRequestWrapper saveProductRequestWrapper) {
 
         log.info("CorrletationId: " + xCorrelationId +   " || POST /v1/product initiated");
@@ -147,7 +144,6 @@ public class ProductController implements ProductsApi {
 
 
     @Override
-    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<UpdateProductResponseWrapper> updateProduct(String productCode, String xCorrelationId, UpdateProductRequestWrapper updateProductRequestWrapper) {
         log.info("CorrletationId: " + xCorrelationId +   " || PUT /v1/product initiated");
         UpdateProductResponseWrapper wrapper = new UpdateProductResponseWrapper();
