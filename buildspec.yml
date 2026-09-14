@@ -20,7 +20,7 @@ phases:
       - ./mvnw -Dmaven.repo.local=/tmp/maven-repository test
 
       - echo "Getting current Lambda alias version..."
-      - CURRENT_VERSION=$(aws lambda get-alias --function-name "$FUNCTION_NAME" --name "$ALIAS_NAME" --query 'FunctionVersion' --output text)
+      - export CURRENT_VERSION=$(aws lambda get-alias --function-name "$FUNCTION_NAME" --name "$ALIAS_NAME" --query 'FunctionVersion' --output text)
       - echo "Current live version: $CURRENT_VERSION"
 
   build:
@@ -33,7 +33,7 @@ phases:
       - echo "=== Publishing new Lambda version ==="
 
       - echo "Finding Lambda ZIP..."
-      - LAMBDA_ZIP=$(find target -maxdepth 1 -name '*-lambda-package.zip' -print -quit)
+      - export LAMBDA_ZIP=$(find target -maxdepth 1 -name '*-lambda-package.zip' -print -quit)
       - echo "Lambda ZIP: $LAMBDA_ZIP"
 
       - echo "Updating Lambda function code..."
@@ -43,7 +43,7 @@ phases:
       - aws lambda wait function-updated --function-name "$FUNCTION_NAME"
 
       - echo "Publishing new Lambda version..."
-      - TARGET_VERSION=$(aws lambda publish-version --function-name "$FUNCTION_NAME" --description "CodeBuild ${CODEBUILD_BUILD_NUMBER}" --query 'Version' --output text)
+      - export TARGET_VERSION=$(aws lambda publish-version --function-name "$FUNCTION_NAME" --description "CodeBuild ${CODEBUILD_BUILD_NUMBER}" --query 'Version' --output text)
 
       - echo "Current version: $CURRENT_VERSION"
       - echo "Target version: $TARGET_VERSION"
@@ -52,19 +52,16 @@ phases:
       - mkdir -p deployment
 
       - echo "Generating appspec.yml..."
-      - |
-        cat > deployment/appspec.yml <<EOF
-        version: 0.0
-        
-        Resources:
-          - TargetService:
-              Type: AWS::Lambda::Function
-              Properties:
-                Name: ${FUNCTION_NAME}
-                Alias: ${ALIAS_NAME}
-                CurrentVersion: "${CURRENT_VERSION}"
-                TargetVersion: "${TARGET_VERSION}"
-        EOF
+      - echo "version: 0.0" > deployment/appspec.yml
+      - echo "" >> deployment/appspec.yml
+      - echo "Resources:" >> deployment/appspec.yml
+      - echo "  - TargetService:" >> deployment/appspec.yml
+      - echo "      Type: AWS::Lambda::Function" >> deployment/appspec.yml
+      - echo "      Properties:" >> deployment/appspec.yml
+      - echo "        Name: ${FUNCTION_NAME}" >> deployment/appspec.yml
+      - echo "        Alias: ${ALIAS_NAME}" >> deployment/appspec.yml
+      - echo "        CurrentVersion: \"${CURRENT_VERSION}\"" >> deployment/appspec.yml
+      - echo "        TargetVersion: \"${TARGET_VERSION}\"" >> deployment/appspec.yml
 
       - cp "$LAMBDA_ZIP" deployment/
 
