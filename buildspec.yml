@@ -52,18 +52,19 @@ phases:
       - mkdir -p deployment
 
       - echo "Generating appspec.yml..."
-      - printf '%s\n' \
-          'version: 0.0' \
-          '' \
-          'Resources:' \
-          '  - TargetService:' \
-          '      Type: AWS::Lambda::Function' \
-          '      Properties:' \
-          "        Name: ${FUNCTION_NAME}" \
-          "        Alias: ${ALIAS_NAME}" \
-          "        CurrentVersion: \"${CURRENT_VERSION}\"" \
-          "        TargetVersion: \"${TARGET_VERSION}\"" \
-          > deployment/appspec.yml
+      - |
+        cat > deployment/appspec.yml <<EOF
+        version: 0.0
+        
+        Resources:
+          - TargetService:
+              Type: AWS::Lambda::Function
+              Properties:
+                Name: ${FUNCTION_NAME}
+                Alias: ${ALIAS_NAME}
+                CurrentVersion: "${CURRENT_VERSION}"
+                TargetVersion: "${TARGET_VERSION}"
+        EOF
 
       - cp "$LAMBDA_ZIP" deployment/
 
