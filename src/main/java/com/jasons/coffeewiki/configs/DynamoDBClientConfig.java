@@ -17,6 +17,12 @@ public class DynamoDBClientConfig {
     @Value("${aws.region}")
     private String awsRegion;
 
+    @Value("${aws.dynamodb.companies}")
+    private String awsCompaniesTbl;
+
+    @Value("${aws.dynamodb.products}")
+    private String awsProductsTbl;
+
     @Bean
     public DynamoDbClient dynamoDbClient() {
         return DynamoDbClient.builder()
@@ -37,8 +43,7 @@ public class DynamoDBClientConfig {
     public DynamoDbTable<ProductDynamo> productTable(
             DynamoDbEnhancedClient enhancedClient) {
 
-        return enhancedClient.table(
-                "capetowncoffee.products",
+        return enhancedClient.table(awsProductsTbl,
                 TableSchema.fromBean(ProductDynamo.class)
         );
     }
@@ -48,7 +53,7 @@ public class DynamoDBClientConfig {
             DynamoDbEnhancedClient enhancedClient) {
 
         return enhancedClient.table(
-                "capetowncoffee.companies",
+                awsCompaniesTbl,
                 TableSchema.fromBean(Company.class)
         );
     }

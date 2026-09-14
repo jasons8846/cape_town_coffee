@@ -23,7 +23,7 @@ import jakarta.annotation.Generated;
  * GetCpyProductResponse
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-09T14:01:12.178912100+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-14T21:58:44.454882500+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class GetCpyProductResponse {
 
   private List<@Valid Product> products = new ArrayList<>();

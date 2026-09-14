@@ -1,6 +1,12 @@
 version: 0.2
 
+env:
+  variables:
+    FUNCTION_NAME: "capetowncoffee"
+    ALIAS_NAME: "live"
+
 phases:
+
   install:
     runtime-versions:
       java: corretto21
@@ -13,6 +19,10 @@ phases:
       - echo "Running tests..."
       - ./mvnw -Dmaven.repo.local=/tmp/maven-repository test
 
+      - echo "Getting current Lambda alias version..."
+      - CURRENT_VERSION=$(aws lambda get-alias --function-name "$FUNCTION_NAME" --name "$ALIAS_NAME" --query 'FunctionVersion' --output text)
+      - echo "Current live version: $CURRENT_VERSION"
+
   build:
     commands:
       - echo "Building application..."
@@ -20,10 +30,44 @@ phases:
 
   post_build:
     commands:
+
+      - echo "=== Publishing new Lambda version ==="
+
+      - echo "Updating Lambda function code..."
+      - aws lambda update-function-code --function-name "$FUNCTION_NAME" --zip-file fileb://target/*-lambda-package.zip
+
+      - echo "Waiting for Lambda update..."
+      - aws lambda wait function-updated --function-name "$FUNCTION_NAME"
+
+      - echo "Publishing new Lambda version..."
+      - TARGET_VERSION=$(aws lambda publish-version --function-name "$FUNCTION_NAME" --description "CodeBuild ${CODEBUILD_BUILD_NUMBER}" --query 'Version' --output text)
+
+      - echo "Current version: $CURRENT_VERSION"
+      - echo "Target version: $TARGET_VERSION"
+
       - echo "Creating deployment artifact..."
       - mkdir -p deployment
-      - cp appspec.yml deployment/
+
+      - echo "Generating appspec.yml..."
+
+      - |
+        cat > deployment/appspec.yml <<EOF
+        version: 0.0
+
+        Resources:
+          - TargetService:
+              Type: AWS::Lambda::Function
+              Properties:
+                Name: ${FUNCTION_NAME}
+                Alias: ${ALIAS_NAME}
+                CurrentVersion: "${CURRENT_VERSION}"
+                TargetVersion: "${TARGET_VERSION}"
+        EOF
+
       - cp target/*-lambda-package.zip deployment/
+
+      - echo "=== Generated AppSpec ==="
+      - cat deployment/appspec.yml
 
       - echo "=== Deployment directory ==="
       - ls -la deployment
