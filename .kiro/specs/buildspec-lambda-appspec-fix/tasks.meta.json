@@ -1,0 +1,170 @@
+{
+  "pbtResults": {
+    "1. Write bug condition exploration test": {
+      "status": "passed",
+      "failingExample": "All 10 bug assertions fired as expected on the unfixed buildspec.yml:\n1. CURRENT_VERSION is empty in post_build (cross-phase export does not persist)\n2. LAMBDA_ZIP is empty in list-item N+1 (subshell export does not persist across list items)\n3. aws was called with empty fileb:// path (LAMBDA_ZIP was not guarded)\n4. Script continued past aws call with empty LAMBDA_ZIP (no exit guard — silent failure)\n5. Build continued after aws CLI returned exit 1 (no fail-fast — silent failure)\n6. CurrentVersion is empty string in generated appspec.yml (empty-variable propagation)\n7. TargetVersion is empty string in generated appspec.yml (empty-variable propagation)\n8. CurrentVersion is unquoted integer in generated appspec.yml (YAML will parse as int, not str)\n9. TargetVersion is unquoted integer in generated appspec.yml (YAML will parse as int, not str)\n10. top-level version is unquoted float 0.0 in generated appspec.yml (YAML parses as float 0.0, not string \"0.0\")",
+      "lastRunTimestamp": 1789420066808
+    },
+    "3.6 Verify bug condition exploration test now passes": {
+      "status": "passed",
+      "lastRunTimestamp": 1789421603023
+    }
+  },
+  "executionHistory": {
+    "1. Write bug condition exploration test": [
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789419813332
+      },
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789419830291
+      },
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789420081639
+      }
+    ],
+    "2. Write preservation property tests (BEFORE implementing fix)": [
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789419815442
+      },
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789420088931
+      },
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789420502656
+      }
+    ],
+    "3.1 Remove CURRENT_VERSION fetch from pre_build": [
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789419815758
+      },
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789420510005
+      },
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789420538380
+      }
+    ],
+    "3.2 Rewrite post_build as a single pipe (`|`) bash block with `set -e`": [
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789419819479
+      },
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789420542396
+      },
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789420586748
+      }
+    ],
+    "3.3 Add CURRENT_VERSION fetch at the top of the post_build block": [
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789419821490
+      },
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789420591307
+      },
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789420727512
+      }
+    ],
+    "3.4 Add LAMBDA_ZIP empty-path guard": [
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789419821794
+      },
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789420731551
+      },
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789421093046
+      }
+    ],
+    "3.5 Replace echo-based appspec.yml generation with printf": [
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789419822367
+      },
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789421097544
+      },
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789421101938
+      }
+    ],
+    "3.6 Verify bug condition exploration test now passes": [
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789419822565
+      },
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789421106709
+      },
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789421624639
+      }
+    ],
+    "3.7 Verify preservation tests still pass": [
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789419822932
+      },
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789421655252
+      }
+    ],
+    "4. Checkpoint — Ensure all tests pass": [
+      {
+        "executionId": "3ff59ef4-ca7d-46b4-8213-041ed7569268",
+        "chatSessionId": "sess_e07d24f4-8620-4ff7-975f-039c8309f621",
+        "timestamp": 1789419823141
+      }
+    ]
+  }
+}

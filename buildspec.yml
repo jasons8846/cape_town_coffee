@@ -1,4 +1,4 @@
-version: 0.2
+﻿version: 0.2
 
 env:
   variables:
@@ -19,10 +19,6 @@ phases:
       - echo "Running tests..."
       - ./mvnw -Dmaven.repo.local=/tmp/maven-repository test
 
-      - echo "Getting current Lambda alias version..."
-      - export CURRENT_VERSION=$(aws lambda get-alias --function-name "$FUNCTION_NAME" --name "$ALIAS_NAME" --query 'FunctionVersion' --output text)
-      - echo "Current live version: $CURRENT_VERSION"
-
   build:
     commands:
       - echo "Building application..."
@@ -30,46 +26,52 @@ phases:
 
   post_build:
     commands:
-      - echo "=== Publishing new Lambda version ==="
+      - |
+        set -e
 
-      - echo "Finding Lambda ZIP..."
-      - export LAMBDA_ZIP=$(find target -maxdepth 1 -name '*-lambda-package.zip' -print -quit)
-      - echo "Lambda ZIP: $LAMBDA_ZIP"
+        echo "=== Fetching current live Lambda version ==="
+        CURRENT_VERSION=$(aws lambda get-alias \
+          --function-name "$FUNCTION_NAME" \
+          --name "$ALIAS_NAME" \
+          --query 'FunctionVersion' \
+          --output text)
+        echo "Current live version: $CURRENT_VERSION"
 
-      - echo "Updating Lambda function code..."
-      - aws lambda update-function-code --function-name "$FUNCTION_NAME" --zip-file "fileb://$LAMBDA_ZIP"
+        echo "=== Locating Lambda ZIP ==="
+        LAMBDA_ZIP=$(find target -maxdepth 1 -name '*-lambda-package.zip' -print -quit)
+        [ -n "$LAMBDA_ZIP" ] || { echo "ERROR: Lambda ZIP not found in target/"; exit 1; }
+        echo "Lambda ZIP: $LAMBDA_ZIP"
 
-      - echo "Waiting for Lambda update..."
-      - aws lambda wait function-updated --function-name "$FUNCTION_NAME"
+        echo "=== Uploading Lambda function code ==="
+        aws lambda update-function-code \
+          --function-name "$FUNCTION_NAME" \
+          --zip-file "fileb://$LAMBDA_ZIP"
 
-      - echo "Publishing new Lambda version..."
-      - export TARGET_VERSION=$(aws lambda publish-version --function-name "$FUNCTION_NAME" --description "CodeBuild ${CODEBUILD_BUILD_NUMBER}" --query 'Version' --output text)
+        echo "=== Waiting for Lambda update to complete ==="
+        aws lambda wait function-updated --function-name "$FUNCTION_NAME"
 
-      - echo "Current version: $CURRENT_VERSION"
-      - echo "Target version: $TARGET_VERSION"
+        echo "=== Publishing new Lambda version ==="
+        TARGET_VERSION=$(aws lambda publish-version \
+          --function-name "$FUNCTION_NAME" \
+          --description "CodeBuild ${CODEBUILD_BUILD_NUMBER}" \
+          --query 'Version' \
+          --output text)
+        echo "Target version: $TARGET_VERSION"
 
-      - echo "Creating deployment artifact..."
-      - mkdir -p deployment
+        echo "=== Creating deployment artifact ==="
+        mkdir -p deployment
 
-      - echo "Generating appspec.yml..."
-      - echo "version: 0.0" > deployment/appspec.yml
-      - echo "" >> deployment/appspec.yml
-      - echo "Resources:" >> deployment/appspec.yml
-      - echo "  - TargetService:" >> deployment/appspec.yml
-      - echo "      Type: AWS::Lambda::Function" >> deployment/appspec.yml
-      - echo "      Properties:" >> deployment/appspec.yml
-      - echo "        Name: ${FUNCTION_NAME}" >> deployment/appspec.yml
-      - echo "        Alias: ${ALIAS_NAME}" >> deployment/appspec.yml
-      - echo "        CurrentVersion: \"${CURRENT_VERSION}\"" >> deployment/appspec.yml
-      - echo "        TargetVersion: \"${TARGET_VERSION}\"" >> deployment/appspec.yml
+        printf 'version: "0.0"\n\nResources:\n  - TargetService:\n      Type: AWS::Lambda::Function\n      Properties:\n        Name: "%s"\n        Alias: "%s"\n        CurrentVersion: "%s"\n        TargetVersion: "%s"\n' \
+          "$FUNCTION_NAME" "$ALIAS_NAME" "$CURRENT_VERSION" "$TARGET_VERSION" \
+          > deployment/appspec.yml
 
-      - cp "$LAMBDA_ZIP" deployment/
+        cp "$LAMBDA_ZIP" deployment/
 
-      - echo "=== Generated AppSpec ==="
-      - cat deployment/appspec.yml
+        echo "=== Generated AppSpec ==="
+        cat deployment/appspec.yml
 
-      - echo "=== Deployment directory ==="
-      - ls -la deployment
+        echo "=== Deployment directory ==="
+        ls -la deployment
 
 artifacts:
   base-directory: deployment
