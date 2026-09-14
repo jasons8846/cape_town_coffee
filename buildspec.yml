@@ -30,11 +30,14 @@ phases:
 
   post_build:
     commands:
-
       - echo "=== Publishing new Lambda version ==="
 
+      - echo "Finding Lambda ZIP..."
+      - LAMBDA_ZIP=$(find target -maxdepth 1 -name '*-lambda-package.zip' -print -quit)
+      - echo "Lambda ZIP: $LAMBDA_ZIP"
+
       - echo "Updating Lambda function code..."
-      - aws lambda update-function-code --function-name "$FUNCTION_NAME" --zip-file fileb://target/*-lambda-package.zip
+      - aws lambda update-function-code --function-name "$FUNCTION_NAME" --zip-file "fileb://$LAMBDA_ZIP"
 
       - echo "Waiting for Lambda update..."
       - aws lambda wait function-updated --function-name "$FUNCTION_NAME"
@@ -49,22 +52,20 @@ phases:
       - mkdir -p deployment
 
       - echo "Generating appspec.yml..."
+      - printf '%s\n' \
+          'version: 0.0' \
+          '' \
+          'Resources:' \
+          '  - TargetService:' \
+          '      Type: AWS::Lambda::Function' \
+          '      Properties:' \
+          "        Name: ${FUNCTION_NAME}" \
+          "        Alias: ${ALIAS_NAME}" \
+          "        CurrentVersion: \"${CURRENT_VERSION}\"" \
+          "        TargetVersion: \"${TARGET_VERSION}\"" \
+          > deployment/appspec.yml
 
-      - |
-        cat > deployment/appspec.yml <<EOF
-        version: 0.0
-
-        Resources:
-          - TargetService:
-              Type: AWS::Lambda::Function
-              Properties:
-                Name: ${FUNCTION_NAME}
-                Alias: ${ALIAS_NAME}
-                CurrentVersion: "${CURRENT_VERSION}"
-                TargetVersion: "${TARGET_VERSION}"
-        EOF
-
-      - cp target/*-lambda-package.zip deployment/
+      - cp "$LAMBDA_ZIP" deployment/
 
       - echo "=== Generated AppSpec ==="
       - cat deployment/appspec.yml
