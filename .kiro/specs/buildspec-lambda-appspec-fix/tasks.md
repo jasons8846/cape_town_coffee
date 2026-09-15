@@ -84,14 +84,14 @@
     - **EXPECTED OUTCOME**: All six sub-cases PASS — variables are non-empty, build halts on CLI failure, AppSpec is valid and quoted
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6_
 
-  - [-] 3.7 Verify preservation tests still pass
+  - [ ] 3.7 Verify preservation tests still pass
     - **Property 2: Preservation** - Existing Build Behaviors Unchanged
     - **IMPORTANT**: Re-run the SAME `scripts/test-preservation.sh` from task 2 — do NOT write new tests
     - Run `bash scripts/test-preservation.sh` against the fixed `buildspec.yml` logic
     - **EXPECTED OUTCOME**: All preservation tests PASS — no regressions in test execution, packaging, artifact structure, build number recording, or env var usage
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6_
 
-- [~] 4. Checkpoint — Ensure all tests pass
+- [ ] 4. Checkpoint — Ensure all tests pass
   - Run both `scripts/test-bug-condition.sh` and `scripts/test-preservation.sh` together and confirm every assertion passes
   - Verify the final `buildspec.yml` contains no remaining individual `- export ...` list items in `post_build`
   - Verify `pre_build` no longer references `CURRENT_VERSION`

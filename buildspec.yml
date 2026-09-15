@@ -1,12 +1,6 @@
 ﻿version: 0.2
 
-env:
-  variables:
-    FUNCTION_NAME: "capetowncoffee"
-    ALIAS_NAME: "live"
-
 phases:
-
   install:
     runtime-versions:
       java: corretto21
@@ -26,52 +20,13 @@ phases:
 
   post_build:
     commands:
-      - |
-        set -e
+      - echo "Creating deployment artifact..."
+      - mkdir -p deployment
+      - cp appspec.yml deployment/
+      - cp target/*-lambda-package.zip deployment/
 
-        echo "=== Fetching current live Lambda version ==="
-        CURRENT_VERSION=$(aws lambda get-alias \
-          --function-name "$FUNCTION_NAME" \
-          --name "$ALIAS_NAME" \
-          --query 'FunctionVersion' \
-          --output text)
-        echo "Current live version: $CURRENT_VERSION"
-
-        echo "=== Locating Lambda ZIP ==="
-        LAMBDA_ZIP=$(find target -maxdepth 1 -name '*-lambda-package.zip' -print -quit)
-        [ -n "$LAMBDA_ZIP" ] || { echo "ERROR: Lambda ZIP not found in target/"; exit 1; }
-        echo "Lambda ZIP: $LAMBDA_ZIP"
-
-        echo "=== Uploading Lambda function code ==="
-        aws lambda update-function-code \
-          --function-name "$FUNCTION_NAME" \
-          --zip-file "fileb://$LAMBDA_ZIP"
-
-        echo "=== Waiting for Lambda update to complete ==="
-        aws lambda wait function-updated --function-name "$FUNCTION_NAME"
-
-        echo "=== Publishing new Lambda version ==="
-        TARGET_VERSION=$(aws lambda publish-version \
-          --function-name "$FUNCTION_NAME" \
-          --description "CodeBuild ${CODEBUILD_BUILD_NUMBER}" \
-          --query 'Version' \
-          --output text)
-        echo "Target version: $TARGET_VERSION"
-
-        echo "=== Creating deployment artifact ==="
-        mkdir -p deployment
-
-        printf 'version: "0.0"\n\nResources:\n  - TargetService:\n      Type: AWS::Lambda::Function\n      Properties:\n        Name: "%s"\n        Alias: "%s"\n        CurrentVersion: "%s"\n        TargetVersion: "%s"\n' \
-          "$FUNCTION_NAME" "$ALIAS_NAME" "$CURRENT_VERSION" "$TARGET_VERSION" \
-          > deployment/appspec.yml
-
-        cp "$LAMBDA_ZIP" deployment/
-
-        echo "=== Generated AppSpec ==="
-        cat deployment/appspec.yml
-
-        echo "=== Deployment directory ==="
-        ls -la deployment
+      - echo "=== Deployment directory ==="
+      - ls -la deployment
 
 artifacts:
   base-directory: deployment
