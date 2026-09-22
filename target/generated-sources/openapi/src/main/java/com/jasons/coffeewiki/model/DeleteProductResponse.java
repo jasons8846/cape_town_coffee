@@ -19,7 +19,7 @@ import jakarta.annotation.Generated;
  * DeleteProductResponse
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-22T04:51:01.151901100+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-22T04:57:15.573752+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class DeleteProductResponse {
 
   private @Nullable String message;
