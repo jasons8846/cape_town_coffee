@@ -117,12 +117,15 @@ public class ProductController implements ProductsApi {
             ProductVariant productVariant = new ProductVariant();
             ProductSize productSize = new ProductSize();
 
-            productVariant.setDescription(productEntity.getProductVariant().get("description"));
-            productVariant.setSequence(Integer.valueOf(productEntity.getProductVariant().get("sequence")));
+            if(productEntity.getProductVariant() != null) {
+                productVariant.setDescription(productEntity.getProductVariant().get("description"));
+                productVariant.setSequence(Integer.valueOf(productEntity.getProductVariant().get("sequence")));
+            }
 
-            productSize.setDescription(productEntity.getProductSize().get("description"));
-            productSize.setSequence(Integer.valueOf(productEntity.getProductSize().get("sequence")));
-
+                if(productEntity.getProductSize() != null) {
+                    productSize.setDescription(productEntity.getProductSize().get("description"));
+                    productSize.setSequence(Integer.valueOf(productEntity.getProductSize().get("sequence")));
+                }
 
             product.setName(productEntity.getName());
             product.setCompanyCode(productEntity.getCompanyCode());

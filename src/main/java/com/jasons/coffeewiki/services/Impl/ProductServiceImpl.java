@@ -3,6 +3,7 @@ package com.jasons.coffeewiki.services.Impl;
 import com.jasons.coffeewiki.controllers.CompanyController;
 import com.jasons.coffeewiki.entities.CompanyEntity;
 import com.jasons.coffeewiki.entities.ProductCursor;
+import com.jasons.coffeewiki.entities.dynamodb.CompanyDynamo;
 import com.jasons.coffeewiki.entities.dynamodb.ProductDynamo;
 import com.jasons.coffeewiki.entities.ProductEntity;
 import com.jasons.coffeewiki.exceptions.DataNotSavedException;
@@ -180,11 +181,11 @@ public class ProductServiceImpl implements ProductService {
 
 
     private boolean ValidateCompanyCode(String companyCode){
-//        CompanyEntity entity = companyRepository.getCompanyByCode(companyCode);
+        CompanyDynamo entity = companyRepository.getCompanyByCode(companyCode);
 
-//        if(entity == null || entity.getActive() == false){
-//            return false;
-//        }
+        if(entity == null || entity.getActive() == false){
+            return false;
+        }
            return true;
     };
 }
