@@ -19,7 +19,7 @@ import jakarta.annotation.Generated;
  * ProductVariant
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-22T04:57:15.573752+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-22T05:02:17.881121+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class ProductVariant {
 
   private @Nullable String description;

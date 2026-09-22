@@ -20,7 +20,7 @@ import jakarta.annotation.Generated;
  * UpdateCompanyRequestWrapper
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-22T04:57:15.573752+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-22T05:02:17.881121+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class UpdateCompanyRequestWrapper {
 
   private @Nullable CompanyDTO data;
