@@ -23,7 +23,7 @@ import jakarta.annotation.Generated;
  * RegisterResponseWrapper
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-14T21:58:44.454882500+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-22T04:51:01.151901100+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class RegisterResponseWrapper {
 
   private @Nullable RegisterResponse data;

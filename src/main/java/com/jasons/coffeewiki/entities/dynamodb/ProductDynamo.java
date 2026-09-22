@@ -1,12 +1,14 @@
 package com.jasons.coffeewiki.entities.dynamodb;
 
-import com.jasons.coffeewiki.model.ProductSize;
-import com.jasons.coffeewiki.model.ProductVariant;
-import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSecondaryPartitionKey;
 
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.Map;
 
 @DynamoDbBean
@@ -21,10 +23,13 @@ public class ProductDynamo {
     private String currency;
     private Boolean active;
     private Integer sequence;
+    private Instant updateDate;
 
 
     public ProductDynamo() {
     }
+
+
 
     @DynamoDbPartitionKey
     public String getCode() {
@@ -35,6 +40,8 @@ public class ProductDynamo {
         this.code = code;
     }
 
+    @DynamoDbSecondaryPartitionKey(indexNames = "companyCode-index")
+    @DynamoDbAttribute("companyCode")
     public String getCompanyCode() {
         return companyCode;
     }
@@ -99,6 +106,14 @@ public class ProductDynamo {
         this.sequence = sequence;
     }
 
+    public ProductDynamo(String code, String companyCode, String name, @Valid BigDecimal price, String currency, Integer sequence) {
+        this.code = code;
+        this.companyCode = companyCode;
+        this.name = name;
+        this.price = price;
+        this.currency = currency;
+        this.sequence = sequence;
+    }
     public ProductDynamo(String code, String companyCode, String name, Map<String, String> productVariant, Map<String, String> productSize, BigDecimal price, String currency, Boolean active, Integer sequence) {
         this.code = code;
         this.companyCode = companyCode;
@@ -109,5 +124,13 @@ public class ProductDynamo {
         this.currency = currency;
         this.active = active;
         this.sequence = sequence;
+    }
+
+    public Instant getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Instant updateDate) {
+        this.updateDate = updateDate;
     }
 }

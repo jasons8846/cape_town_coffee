@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.jasons.coffeewiki.model.ProductSize;
 import com.jasons.coffeewiki.model.ProductVariant;
 import java.math.BigDecimal;
+import java.time.Instant;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
@@ -22,7 +24,7 @@ import jakarta.annotation.Generated;
  * Product
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-14T21:58:44.454882500+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-22T04:51:01.151901100+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class Product {
 
   private String companyCode;
@@ -40,6 +42,9 @@ public class Product {
   private String currency;
 
   private @Nullable Integer sequence;
+
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  private @Nullable Instant updateDate;
 
   public Product() {
     super();
@@ -224,6 +229,27 @@ public class Product {
     this.sequence = sequence;
   }
 
+  public Product updateDate(@Nullable Instant updateDate) {
+    this.updateDate = updateDate;
+    return this;
+  }
+
+  /**
+   * The date and time when the product was last updated.
+   * @return updateDate
+   */
+  @Valid 
+  @Schema(name = "updateDate", example = "2024-06-15T14:30Z", description = "The date and time when the product was last updated.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("updateDate")
+  public @Nullable Instant getUpdateDate() {
+    return updateDate;
+  }
+
+  @JsonProperty("updateDate")
+  public void setUpdateDate(@Nullable Instant updateDate) {
+    this.updateDate = updateDate;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -240,12 +266,13 @@ public class Product {
         Objects.equals(this.size, product.size) &&
         Objects.equals(this.price, product.price) &&
         Objects.equals(this.currency, product.currency) &&
-        Objects.equals(this.sequence, product.sequence);
+        Objects.equals(this.sequence, product.sequence) &&
+        Objects.equals(this.updateDate, product.updateDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(companyCode, code, name, variant, size, price, currency, sequence);
+    return Objects.hash(companyCode, code, name, variant, size, price, currency, sequence, updateDate);
   }
 
   @Override
@@ -260,6 +287,7 @@ public class Product {
     sb.append("    price: ").append(toIndentedString(price)).append("\n");
     sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
     sb.append("    sequence: ").append(toIndentedString(sequence)).append("\n");
+    sb.append("    updateDate: ").append(toIndentedString(updateDate)).append("\n");
     sb.append("}");
     return sb.toString();
   }

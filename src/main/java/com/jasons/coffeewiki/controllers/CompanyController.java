@@ -2,6 +2,7 @@ package com.jasons.coffeewiki.controllers;
 
 import com.jasons.coffeewiki.api.CompanyApi;
 import com.jasons.coffeewiki.entities.CompanyEntity;
+import com.jasons.coffeewiki.entities.dynamodb.ProductDynamo;
 import com.jasons.coffeewiki.model.*;
 import com.jasons.coffeewiki.services.CompanyService;
 import org.slf4j.Logger;
@@ -11,10 +12,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+import com.jasons.coffeewiki.entities.dynamodb.CompanyDynamo;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -24,8 +29,16 @@ public class CompanyController implements CompanyApi {
     @Autowired
     CompanyService companyService;
 
+    private final DynamoDbTable<CompanyDynamo> companyTable;
+
+
+
     private static final Logger log =
             LoggerFactory.getLogger(CompanyController.class);
+
+    public CompanyController(DynamoDbTable<CompanyDynamo> companyTable) {
+        this.companyTable = companyTable;
+    }
 
 
     @Override
@@ -69,7 +82,7 @@ public class CompanyController implements CompanyApi {
     public ResponseEntity<GetCompanyNameResponseWrapper> getCompanyName(String name, String xCorrelationId) {
         log.info("CorrletationId: " + xCorrelationId +   " || GET /v1/company by name initiated");
         Company company = new Company();
-        Optional<CompanyEntity> entity = companyService.getCompanyByName(name);
+        Optional<CompanyDynamo> entity = companyService.getCompanyByName(name);
 
         company.setName(entity.get().getName());
         company.setCode(entity.get().getCode());
@@ -90,13 +103,13 @@ public class CompanyController implements CompanyApi {
         log.info("CorrletationId: " + xCorrelationId +   " || GET /v1/company initiated");
         List<Company> companies = new ArrayList<>();
 
-
         companyService.getAllCompanies().forEach(companyEntity -> {
             Company company = new Company();
             company.setName(companyEntity.getName());
             company.setCode(companyEntity.getCode());
             companies.add(company);
         });
+
 
         GetAllCompaniesResponseWrapper wrapper = new GetAllCompaniesResponseWrapper();
 

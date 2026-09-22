@@ -2,6 +2,7 @@ package com.jasons.coffeewiki.services.Impl;
 
 import com.jasons.coffeewiki.controllers.CompanyController;
 import com.jasons.coffeewiki.entities.CompanyEntity;
+import com.jasons.coffeewiki.entities.ProductCursor;
 import com.jasons.coffeewiki.entities.dynamodb.ProductDynamo;
 import com.jasons.coffeewiki.entities.ProductEntity;
 import com.jasons.coffeewiki.exceptions.DataNotSavedException;
@@ -17,8 +18,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+import software.amazon.awssdk.enhanced.dynamodb.model.Page;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 
+import java.time.Instant;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -44,15 +50,13 @@ public class ProductServiceImpl implements ProductService {
 //    @Override
 //    public String saveProductTest(ProductDynamo product) {
 //        product.setCode(UUID.randomUUID().toString());
-//
-//        productTable.putItem(product);
-//
-//        return null;
+//        productRepository.save(product);
+//        return "Prod";
 //    }
 
 
     @Override
-    public List<ProductEntity> getCompanyProducts(String companyCode, Integer cursor, Integer pageSize) {
+    public Page<ProductDynamo> getCompanyProducts(String companyCode, Map<String, AttributeValue> cursor, Integer pageSize) {
 
         if(ValidateCompanyCode(companyCode) == false){
             log.warn("Get company products: Company code " + companyCode + " is not valid");
@@ -60,9 +64,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
 
-        List<ProductEntity> productEntities = productRepository.getProductsByCompanyCode(companyCode, cursor, pageSize+1)
-                .stream()
-                .collect(Collectors.toList());
+        Page<ProductDynamo> productEntities = productRepository.getProductsByCompanyCode(companyCode, cursor, pageSize+1);
 
         if(productEntities == null){
             log.warn("Get company products: No products available for company code " + companyCode);
@@ -105,21 +107,26 @@ public class ProductServiceImpl implements ProductService {
             throw new NotFoundException("Company code " + product.getCompanyCode() + " is not valid");
         }
 
-            ProductEntity entity = new ProductEntity(new RandomTextGenerator().generateRandomText(30), product.getCompanyCode() ,product.getName(), product.getPrice(), product.getCurrency(), product.getSequence());
-            ProductVariant productVariant = new ProductVariant();
-            ProductSize productSize = new ProductSize();
+            ProductDynamo entity = new ProductDynamo(new RandomTextGenerator().generateRandomText(30), product.getCompanyCode() ,product.getName(), product.getPrice(), product.getCurrency(), product.getSequence());
+            Map<String, String> productVariant = new HashMap<>();
+            Map<String, String> productSize = new HashMap<>();
 
             if(product.getVariant().getSequence() != null || product.getVariant().getDescription() != null) {
-                productVariant.setDescription(product.getVariant().getDescription());
-                productVariant.setSequence(product.getVariant().getSequence());
+//                productVariant.setDescription(product.getVariant().getDescription());
+//                productVariant.setSequence(product.getVariant().getSequence());
+
+                productVariant.put("description", product.getVariant().getDescription());
+                productVariant.put("sequence", String.valueOf(product.getVariant().getSequence()));
+
                 entity.setProductVariant(productVariant);
             }
 
-            productSize.setDescription(product.getSize().getDescription());
-            productSize.setSequence(product.getSize().getSequence());
+            productSize.put("description", product.getSize().getDescription());
+            productSize.put("sequence", String.valueOf(product.getSize().getSequence()));
 
             entity.setProductSize(productSize);
             entity.setActive(true);
+            entity.setUpdateDate(Instant.now());
 
             try {
 
@@ -136,14 +143,18 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public String updateProduct(String code, ProductUpdate product) {
 
-        ProductEntity entity = productRepository.getProductByCode(code);
+        ProductDynamo entity = productRepository.getProductByCode(code);
         if(entity == null || entity.getActive() == false){
             throw new NotFoundException("Product code " + code + " is not valid");
         }
 
+        Map<String, String> productVariant = new HashMap<>();
+        productVariant.put("description", product.getVariant().getDescription());
+        productVariant.put("sequence", String.valueOf(product.getVariant().getSequence()));
+//
         entity.setPrice(product.getPrice());
         entity.setName(product.getName());
-        entity.setProductVariant(product.getVariant());
+//        entity.setProductVariant(productVariant);
         entity.setCurrency(product.getCurrency());
         entity.setSequence(product.getSequence());
 
@@ -154,11 +165,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public String deleteProduct(String code) {
-        ProductEntity entity = productRepository.getProductByCode(code);
+        ProductDynamo entity = productRepository.getProductByCode(code);
         if(entity == null || entity.getActive() == false){
             throw new NotFoundException("Product code " + code + " is not valid");
         }
-
+//
         entity.setActive(false);
 
         productRepository.save(entity);
@@ -169,11 +180,11 @@ public class ProductServiceImpl implements ProductService {
 
 
     private boolean ValidateCompanyCode(String companyCode){
-        CompanyEntity entity = companyRepository.getCompanyByCode(companyCode);
+//        CompanyEntity entity = companyRepository.getCompanyByCode(companyCode);
 
-        if(entity == null || entity.getActive() == false){
-            return false;
-        }
-        return true;
+//        if(entity == null || entity.getActive() == false){
+//            return false;
+//        }
+           return true;
     };
 }

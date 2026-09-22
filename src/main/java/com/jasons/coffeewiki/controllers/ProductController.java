@@ -1,6 +1,9 @@
 package com.jasons.coffeewiki.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jasons.coffeewiki.api.ProductsApi;
+import com.jasons.coffeewiki.entities.ProductCursor;
 import com.jasons.coffeewiki.entities.dynamodb.ProductDynamo;
 import com.jasons.coffeewiki.entities.ProductEntity;
 import com.jasons.coffeewiki.model.*;
@@ -16,9 +19,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import software.amazon.awssdk.enhanced.dynamodb.model.Page;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -66,17 +74,39 @@ public class ProductController implements ProductsApi {
 
         log.info("CorrletationId: " + xCorrelationId +   " || GET /v1/product by company code initiated");
 
-            Integer parseCursor = 0;
+            Map<String, AttributeValue> parseCursor = new HashMap<>();
 
-            if(cursor == null){
-                parseCursor  = 0;
-            }else{
-                System.out.print("Decrypting");
-                parseCursor = Integer.valueOf(cursorCrypto.decrypt(cursor));
+            if(cursor != null){
+                System.out.println("Decrypting");
+                System.out.println("Cursor: " + cursor);
+                String decryptedCursor = cursorCrypto.decrypt(cursor);
+                System.out.println("Decrypted cursor: " + decryptedCursor);
+                ObjectMapper objectMapper = new ObjectMapper();
+                try {
+                    ProductCursor productCursor = objectMapper.readValue(decryptedCursor, ProductCursor.class);
+                    parseCursor =
+                            Map.of(
+                                    "companyCode",
+                                    AttributeValue.builder()
+                                            .s(productCursor.companyCode())
+                                            .build(),
+
+                                    "code",
+                                    AttributeValue.builder()
+                                            .s(productCursor.code())
+                                            .build()
+                            );
+                } catch (JsonProcessingException e) {
+                    throw new RuntimeException(e);
+                }
+
             }
 
-
-        List<ProductEntity> productEntities = productService.getCompanyProducts(companyCode, parseCursor, pageSize);
+//        if(pageSize == 0) {
+//            pageSize = 1;
+//        };
+        Page<ProductDynamo> pageEntity = productService.getCompanyProducts(companyCode, parseCursor, pageSize);
+        List<ProductDynamo> productEntities = pageEntity.items();
 
         GetCpyProductResponseWrapper wrapper = new GetCpyProductResponseWrapper();
         GetCpyProductResponse response = new GetCpyProductResponse();
@@ -84,28 +114,57 @@ public class ProductController implements ProductsApi {
 
             productEntities.forEach(productEntity -> {
             Product product = new Product();
+            ProductVariant productVariant = new ProductVariant();
+            ProductSize productSize = new ProductSize();
+
+            productVariant.setDescription(productEntity.getProductVariant().get("description"));
+            productVariant.setSequence(Integer.valueOf(productEntity.getProductVariant().get("sequence")));
+
+            productSize.setDescription(productEntity.getProductSize().get("description"));
+            productSize.setSequence(Integer.valueOf(productEntity.getProductSize().get("sequence")));
 
 
             product.setName(productEntity.getName());
             product.setCompanyCode(productEntity.getCompanyCode());
             product.setPrice(productEntity.getPrice());
-            product.setVariant(productEntity.getProductVariant());
+            product.setVariant(productVariant);
             product.setCurrency(productEntity.getCurrency());
             product.setSequence(productEntity.getSequence());
             product.setCode(productEntity.getCode());
-            product.setSize(productEntity.getProductSize());
+            product.setSize(productSize);
+            product.setUpdateDate(productEntity.getUpdateDate());
 
             products.add(product);
         });
-
+            System.out.println("Product list size: " + products.size() + "  pageSize: "+ pageSize);
             if(products.size() > pageSize) {
 
-                response.setProducts(products
+                List<Product> displayProducts = products
                         .stream()
-                        .limit(products.size() - 1)
-                        .collect(Collectors.toList()));
-                response.setNextCursor(cursorCrypto.encrypt(String.valueOf(productEntities.get(productEntities.size()-1).getId())));
+                        .limit(products.size()-1)
+                        .collect(Collectors.toList());
 
+                response.setProducts(displayProducts);
+
+                Product lastProduct = displayProducts.get(displayProducts.size()-1);
+
+                ProductCursor productCursor = new ProductCursor(
+                        lastProduct.getCompanyCode(),
+                        lastProduct.getCode()
+                );
+                ObjectMapper objectMapper = new ObjectMapper();
+                try {
+                    String json = objectMapper.writeValueAsString(productCursor);
+
+                    response.setNextCursor(
+                            cursorCrypto.encrypt(
+                                    json
+                            ));
+
+
+                } catch (JsonProcessingException e) {
+                    throw new RuntimeException(e);
+                }
             }else{
                 response.setProducts(products
                         .stream()
@@ -113,8 +172,6 @@ public class ProductController implements ProductsApi {
                         .collect(Collectors.toList()));
                 response.setNextCursor(null);
             }
-
-
 
         wrapper.setData(response);
         wrapper.setError(null);

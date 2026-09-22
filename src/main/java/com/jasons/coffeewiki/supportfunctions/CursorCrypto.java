@@ -8,6 +8,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.Base64;
 
 @Component
@@ -20,9 +21,6 @@ public class CursorCrypto {
 
     private static final  SecureRandom random = new SecureRandom();
     public String encrypt(String value) {
-
-        System.out.println(secret);
-        System.out.println(algo);
 
         try {
             byte[] iv = new byte[12];
@@ -50,20 +48,21 @@ public class CursorCrypto {
     public String decrypt(String cursor) {
 
         try {
-            byte[] decoded = Base64.getUrlDecoder().decode(cursor);
 
+            byte[] decoded = Base64.getUrlDecoder().decode(cursor);
             byte[] iv = new byte[12];
             byte[] cipherText = new byte[decoded.length - 12];
 
             System.arraycopy(decoded, 0, iv, 0, 12);
             System.arraycopy(decoded, 12, cipherText, 0, cipherText.length);
 
-
             GCMParameterSpec gcmSpec = new GCMParameterSpec(128, iv);
             Cipher cipher = Cipher.getInstance(algo);
             SecretKey key = new SecretKeySpec(secret.getBytes(), "AES");
             cipher.init(Cipher.DECRYPT_MODE, key, gcmSpec);
-            return new String(cipher.doFinal(cipherText));
+            String result = new String(cipher.doFinal(cipherText));
+
+            return result;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

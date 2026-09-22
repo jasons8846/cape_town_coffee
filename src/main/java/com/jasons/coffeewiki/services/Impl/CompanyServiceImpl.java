@@ -1,6 +1,7 @@
 package com.jasons.coffeewiki.services.Impl;
 
 import com.jasons.coffeewiki.entities.CompanyEntity;
+import com.jasons.coffeewiki.entities.dynamodb.CompanyDynamo;
 import com.jasons.coffeewiki.exceptions.DataNotSavedException;
 import com.jasons.coffeewiki.exceptions.NotFoundException;
 import com.jasons.coffeewiki.model.Company;
@@ -26,9 +27,9 @@ public class CompanyServiceImpl implements CompanyService {
     CompanyRepository companyRepository;
 
     @Override
-    public Optional<CompanyEntity> getCompanyByName(String name) {
+    public Optional<CompanyDynamo> getCompanyByName(String name) {
 
-        Optional<CompanyEntity> entity = companyRepository.getCompanyByNameContaining(name)
+        Optional<CompanyDynamo> entity = companyRepository.getCompanyByNameContaining(name)
                 .stream()
                 .filter(e -> e.getActive() == true)
                 .findFirst();
@@ -43,8 +44,8 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public List<CompanyEntity> getAllCompanies() {
-        List<CompanyEntity> entities  = companyRepository.findAll()
+    public List<CompanyDynamo> getAllCompanies() {
+        List<CompanyDynamo> entities  = companyRepository.findAll()
                 .stream()
                 .filter(e -> e.getActive() == true)
                 .collect(Collectors.toList());
@@ -59,7 +60,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public String saveCompany(String name) {
-        CompanyEntity entity = new CompanyEntity();
+        CompanyDynamo entity = new CompanyDynamo();
 
         try{
             entity.setName(name);
@@ -67,20 +68,17 @@ public class CompanyServiceImpl implements CompanyService {
             entity.setActive(true);
             companyRepository.save(entity);
 
-
         }catch (Exception ex){
             log.warn("Save company: Company could not be saved");
             throw new DataNotSavedException("Company could not be saved");
         }
-
         return entity.getCode();
     }
 
     @Override
     public String updateCompany(Company company) {
 
-
-        CompanyEntity entity = companyRepository.getCompanyByCode(company.getCode());
+        CompanyDynamo entity = companyRepository.getCompanyByCode(company.getCode());
         if(entity == null || entity.getActive() == false){
             log.warn("Update company: Company code " + company.getCode() + " is not valid");
             throw new NotFoundException("Company code " + company.getCode() + " is not valid");
@@ -96,7 +94,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public String deleteCompany(String code) {
 
-        CompanyEntity entity = companyRepository.getCompanyByCode(code);
+        CompanyDynamo entity = companyRepository.getCompanyByCode(code);
         if(entity == null || entity.getActive() == false){
             log.warn("Delete company: Company code " + code + " is not valid");
             throw new NotFoundException("Company code " + code + " is not valid");
@@ -104,7 +102,7 @@ public class CompanyServiceImpl implements CompanyService {
 
         entity.setActive(false);
 
-        companyRepository.save(entity);
+       companyRepository.save(entity);
 
         return "Company deleted";
     }

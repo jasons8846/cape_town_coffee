@@ -198,6 +198,13 @@
 
 							<apiPackage>com.jasons.coffeewiki.api</apiPackage>
 							<modelPackage>com.jasons.coffeewiki.model</modelPackage>
+							<typeMappings>
+								<typeMapping>OffsetDateTime=Instant</typeMapping>
+							</typeMappings>
+
+							<importMappings>
+								<importMapping>OffsetDateTime=java.time.Instant</importMapping>
+							</importMappings>
 
 
 							<configOptions>

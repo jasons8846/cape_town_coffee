@@ -40,7 +40,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-14T21:58:44.454882500+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-22T04:51:01.151901100+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 @Validated
 @Tag(name = "Products", description = "the Products API")
 public interface ProductsApi {
@@ -154,7 +154,7 @@ public interface ProductsApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"data\" : { \"products\" : [ { \"companyCode\" : \"12weHIaq3ATOP1nM3Cx\", \"code\" : \"12weHIaq3ATOP1nM3Cx\", \"name\" : \"FLAT WHITE\", \"variant\" : { \"description\" : \"SINGLE\", \"sequence\" : 1 }, \"size\" : { \"description\" : \"SMALL\", \"sequence\" : 1 }, \"price\" : 34.99, \"currency\" : \"ZAR\", \"sequence\" : 1 }, { \"companyCode\" : \"12weHIaq3ATOP1nM3Cx\", \"code\" : \"12weHIaq3ATOP1nM3Cx\", \"name\" : \"FLAT WHITE\", \"variant\" : { \"description\" : \"SINGLE\", \"sequence\" : 1 }, \"size\" : { \"description\" : \"SMALL\", \"sequence\" : 1 }, \"price\" : 34.99, \"currency\" : \"ZAR\", \"sequence\" : 1 } ], \"nextCursor\" : \"x72ysS3cS9uUi5reeXgs7\" }, \"error\" : \"{}\" }";
+                    String exampleString = "{ \"data\" : { \"products\" : [ { \"companyCode\" : \"12weHIaq3ATOP1nM3Cx\", \"code\" : \"12weHIaq3ATOP1nM3Cx\", \"name\" : \"FLAT WHITE\", \"variant\" : { \"description\" : \"SINGLE\", \"sequence\" : 1 }, \"size\" : { \"description\" : \"SMALL\", \"sequence\" : 1 }, \"price\" : 34.99, \"currency\" : \"ZAR\", \"sequence\" : 1, \"updateDate\" : \"2024-06-15T14:30:00Z\" }, { \"companyCode\" : \"12weHIaq3ATOP1nM3Cx\", \"code\" : \"12weHIaq3ATOP1nM3Cx\", \"name\" : \"FLAT WHITE\", \"variant\" : { \"description\" : \"SINGLE\", \"sequence\" : 1 }, \"size\" : { \"description\" : \"SMALL\", \"sequence\" : 1 }, \"price\" : 34.99, \"currency\" : \"ZAR\", \"sequence\" : 1, \"updateDate\" : \"2024-06-15T14:30:00Z\" } ], \"nextCursor\" : \"x72ysS3cS9uUi5reeXgs7\" }, \"error\" : \"{}\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

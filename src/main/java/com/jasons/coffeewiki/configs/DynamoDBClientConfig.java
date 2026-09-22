@@ -1,7 +1,7 @@
 package com.jasons.coffeewiki.configs;
 
 import com.jasons.coffeewiki.entities.dynamodb.ProductDynamo;
-import com.jasons.coffeewiki.entities.dynamodb.Company;
+import com.jasons.coffeewiki.entities.dynamodb.CompanyDynamo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,12 +49,12 @@ public class DynamoDBClientConfig {
     }
 
     @Bean
-    public DynamoDbTable<Company> companyTable(
+    public DynamoDbTable<CompanyDynamo> companyTable(
             DynamoDbEnhancedClient enhancedClient) {
 
         return enhancedClient.table(
                 awsCompaniesTbl,
-                TableSchema.fromBean(Company.class)
+                TableSchema.fromBean(CompanyDynamo.class)
         );
     }
 
