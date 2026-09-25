@@ -1,55 +1,77 @@
 package com.jasons.coffeewiki.configs;
 
-import com.jasons.coffeewiki.services.Impl.ConsumerServiceImpl;
-import com.jasons.coffeewiki.utils.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-//@Configuration
-//@EnableWebSecurity
-//@EnableMethodSecurity
+@Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
-//    private final JwtAuthFilter jwtAuthFilter;
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 //
-//    private final UserDetailsService userDetailsService;
-//
-//    public SecurityConfig(JwtAuthFilter jwtAuthFilter, ConsumerServiceImpl userDetailsService) {
-//        this.jwtAuthFilter = jwtAuthFilter;
-//        this.userDetailsService = userDetailsService;
-//    }
-//
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//
-//
-//        http
-//                .csrf(csrf -> csrf.disable())
-//                .authorizeHttpRequests(auth -> auth
-//                           .requestMatchers( "/v1/auth/**", "/swagger-ui/**", "/v3/api-docs/**", "/v1/system/**").permitAll()
-//                        .anyRequest().authenticated()
-//                )
-//                .sessionManagement(session ->
-//                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                )
-//                .addFilterBefore(jwtAuthFilter,
-//                        UsernamePasswordAuthenticationFilter.class);
-//
-//
-//        return http.build();
-//    }
-//
-//
-//    @Bean
-//    public AuthenticationManager authenticationManager(
-//            AuthenticationConfiguration config) throws Exception {
-//        return config.getAuthenticationManager();
-//    }
+       http
+               .csrf(csrf -> csrf.disable())
+               .authorizeHttpRequests(auth -> auth
+//                        // Consumers AND admins can GET
+                        .requestMatchers(HttpMethod.GET, "/v1/**")
+                        .hasAnyAuthority("admins", "consumers")
 
+                        // Only admins can POST
+                        .requestMatchers(HttpMethod.POST, "/v1/**")
+                        .hasAuthority("admins")
+
+                        // Only admins can PUT
+                        .requestMatchers(HttpMethod.PUT, "/v1/**")
+                        .hasAuthority("admins")
+
+                        // Only admins can DELETE
+                        .requestMatchers(HttpMethod.DELETE, "/v1/**")
+                        .hasAuthority("admins")
+
+                        // Everything else requires authentication
+                        .anyRequest()
+                        .authenticated()
+               )
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt(jwt -> jwt
+                                .jwtAuthenticationConverter(jwtAuthenticationConverter())
+                        )
+                );
+
+        return http.build();
+    }
+
+    @Bean
+    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+
+        JwtAuthenticationConverter converter =
+                new JwtAuthenticationConverter();
+
+        converter.setJwtGrantedAuthoritiesConverter(jwt -> {
+
+            List<String> groups =
+                    jwt.getClaimAsStringList("cognito:groups");
+
+            if (groups == null) {
+                return List.of();
+            }
+
+            return groups.stream()
+                    .map(group -> new SimpleGrantedAuthority(group))
+                    .collect(Collectors.toList());
+        });
+
+        return converter;
+    }
 
 }

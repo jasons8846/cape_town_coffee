@@ -5,7 +5,11 @@ import com.jasons.coffeewiki.entities.Consumer;
 import com.jasons.coffeewiki.repositories.ConsumerRepository;
 import com.jasons.coffeewiki.services.ConsumerService;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+//import org.springframework.security.core.userdetails.User;
 
 import java.util.Optional;
 
@@ -27,7 +31,7 @@ public class ConsumerServiceImpl implements ConsumerService{
 //                .password(consumer.getPassword()) // BCrypt hash
 //                .authorities(consumer.getRoles())
 //                .build();
-//
-//
+
+
 //    }
 }

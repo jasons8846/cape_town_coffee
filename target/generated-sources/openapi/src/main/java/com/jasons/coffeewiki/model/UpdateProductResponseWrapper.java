@@ -23,7 +23,7 @@ import jakarta.annotation.Generated;
  * UpdateProductResponseWrapper
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-22T08:34:40.079028700+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-22T23:46:28.215517+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class UpdateProductResponseWrapper {
 
   private @Nullable UpdateProductResponse data;
