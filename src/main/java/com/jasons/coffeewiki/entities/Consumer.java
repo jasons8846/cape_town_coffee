@@ -2,38 +2,23 @@ package com.jasons.coffeewiki.entities;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "consumer")
+
 public class Consumer {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @Column(nullable = false)
     private String name;
-    @Column(unique = true, nullable = false)
+    private String email;
     private String username;
-    @Column(nullable = false)
     private String password;
 
-    private String roles;
-
-    public String getRoles() {
-        return roles;
-    }
-
-    public void setRoles(String roles) {
-        this.roles = roles;
-    }
 
     public Consumer() {
     }
 
-    public Consumer(String name, String username, String password, String roles) {
+    public Consumer(String name, String email, String username, String password) {
         this.name = name;
         this.username = username;
         this.password = password;
-        this.roles = roles;
+        this.email = email;
     }
 
     public String getName() {
@@ -42,6 +27,14 @@ public class Consumer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUsername() {

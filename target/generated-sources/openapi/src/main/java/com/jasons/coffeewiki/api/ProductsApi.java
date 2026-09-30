@@ -40,7 +40,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-22T23:46:28.215517+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-30T13:58:41.830232700+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 @Validated
 @Tag(name = "Products", description = "the Products API")
 public interface ProductsApi {
@@ -75,6 +75,9 @@ public interface ProductsApi {
             @ApiResponse(responseCode = "500", description = "Server error", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponseWrapper.class))
             })
+        },
+        security = {
+            @SecurityRequirement(name = "bearerAuth")
         }
     )
     @RequestMapping(
@@ -138,6 +141,9 @@ public interface ProductsApi {
             @ApiResponse(responseCode = "500", description = "Server error", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponseWrapper.class))
             })
+        },
+        security = {
+            @SecurityRequirement(name = "bearerAuth")
         }
     )
     @RequestMapping(
@@ -201,6 +207,9 @@ public interface ProductsApi {
             @ApiResponse(responseCode = "500", description = "Server error", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponseWrapper.class))
             })
+        },
+        security = {
+            @SecurityRequirement(name = "bearerAuth")
         }
     )
     @RequestMapping(
@@ -264,6 +273,9 @@ public interface ProductsApi {
             @ApiResponse(responseCode = "500", description = "Server error", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponseWrapper.class))
             })
+        },
+        security = {
+            @SecurityRequirement(name = "bearerAuth")
         }
     )
     @RequestMapping(

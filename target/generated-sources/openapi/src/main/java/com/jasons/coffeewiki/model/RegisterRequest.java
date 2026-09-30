@@ -19,16 +19,16 @@ import jakarta.annotation.Generated;
  * RegisterRequest
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-22T23:46:28.215517+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-30T13:58:41.830232700+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class RegisterRequest {
 
   private @Nullable String name;
 
+  private @Nullable String email;
+
   private @Nullable String username;
 
   private @Nullable String password;
-
-  private @Nullable String roles;
 
   public RegisterRequest name(@Nullable String name) {
     this.name = name;
@@ -49,6 +49,27 @@ public class RegisterRequest {
   @JsonProperty("name")
   public void setName(@Nullable String name) {
     this.name = name;
+  }
+
+  public RegisterRequest email(@Nullable String email) {
+    this.email = email;
+    return this;
+  }
+
+  /**
+   * the email of the consumer
+   * @return email
+   */
+  @jakarta.validation.constraints.Email 
+  @Schema(name = "email", example = "johnty@example.com", description = "the email of the consumer", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("email")
+  public @Nullable String getEmail() {
+    return email;
+  }
+
+  @JsonProperty("email")
+  public void setEmail(@Nullable String email) {
+    this.email = email;
   }
 
   public RegisterRequest username(@Nullable String username) {
@@ -93,27 +114,6 @@ public class RegisterRequest {
     this.password = password;
   }
 
-  public RegisterRequest roles(@Nullable String roles) {
-    this.roles = roles;
-    return this;
-  }
-
-  /**
-   * List of user roles
-   * @return roles
-   */
-  
-  @Schema(name = "roles", example = "ADMIN, HR, USER", description = "List of user roles", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("roles")
-  public @Nullable String getRoles() {
-    return roles;
-  }
-
-  @JsonProperty("roles")
-  public void setRoles(@Nullable String roles) {
-    this.roles = roles;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -124,14 +124,14 @@ public class RegisterRequest {
     }
     RegisterRequest registerRequest = (RegisterRequest) o;
     return Objects.equals(this.name, registerRequest.name) &&
+        Objects.equals(this.email, registerRequest.email) &&
         Objects.equals(this.username, registerRequest.username) &&
-        Objects.equals(this.password, registerRequest.password) &&
-        Objects.equals(this.roles, registerRequest.roles);
+        Objects.equals(this.password, registerRequest.password);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, username, password, roles);
+    return Objects.hash(name, email, username, password);
   }
 
   @Override
@@ -139,9 +139,9 @@ public class RegisterRequest {
     StringBuilder sb = new StringBuilder();
     sb.append("class RegisterRequest {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("    password: ").append("*").append("\n");
-    sb.append("    roles: ").append(toIndentedString(roles)).append("\n");
     sb.append("}");
     return sb.toString();
   }

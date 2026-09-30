@@ -19,30 +19,30 @@ import jakarta.annotation.Generated;
  * AuthResponse
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-22T23:46:28.215517+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-30T13:58:41.830232700+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class AuthResponse {
 
-  private @Nullable String bearer;
+  private @Nullable String accessToken;
 
-  public AuthResponse bearer(@Nullable String bearer) {
-    this.bearer = bearer;
+  public AuthResponse accessToken(@Nullable String accessToken) {
+    this.accessToken = accessToken;
     return this;
   }
 
   /**
    * bearer token in the form of a JWT
-   * @return bearer
+   * @return accessToken
    */
   
-  @Schema(name = "bearer", example = "QQ7nf3Ij83qr1AgTw9hkO", description = "bearer token in the form of a JWT", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("bearer")
-  public @Nullable String getBearer() {
-    return bearer;
+  @Schema(name = "accessToken", example = "QQ7nf3Ij83qr1AgTw9hkO", description = "bearer token in the form of a JWT", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("accessToken")
+  public @Nullable String getAccessToken() {
+    return accessToken;
   }
 
-  @JsonProperty("bearer")
-  public void setBearer(@Nullable String bearer) {
-    this.bearer = bearer;
+  @JsonProperty("accessToken")
+  public void setAccessToken(@Nullable String accessToken) {
+    this.accessToken = accessToken;
   }
 
   @Override
@@ -54,19 +54,19 @@ public class AuthResponse {
       return false;
     }
     AuthResponse authResponse = (AuthResponse) o;
-    return Objects.equals(this.bearer, authResponse.bearer);
+    return Objects.equals(this.accessToken, authResponse.accessToken);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bearer);
+    return Objects.hash(accessToken);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AuthResponse {\n");
-    sb.append("    bearer: ").append(toIndentedString(bearer)).append("\n");
+    sb.append("    accessToken: ").append(toIndentedString(accessToken)).append("\n");
     sb.append("}");
     return sb.toString();
   }

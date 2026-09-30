@@ -10,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.util.InvalidUrlException;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
 
 import java.util.NoSuchElementException;
 
@@ -126,7 +127,20 @@ public class GlobalExceptionHandler {
                 .body(wrapper);
     }
 
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ErrorResponseWrapper> authenticationException(AuthenticationException ex){
+        ErrorResponseWrapper wrapper = new ErrorResponseWrapper();
+        ErrorResponse response = new ErrorResponse();
 
+        response.setMessage("User management error");
+        response.setDetails(ex.getMessage());
+
+        wrapper.setData(null);
+        wrapper.setError(response);
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(wrapper);
+    }
 
 
 }

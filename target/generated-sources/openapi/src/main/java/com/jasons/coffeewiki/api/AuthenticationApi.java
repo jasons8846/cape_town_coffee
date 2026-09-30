@@ -7,9 +7,17 @@ package com.jasons.coffeewiki.api;
 
 import com.jasons.coffeewiki.model.AuthLoginRequestWrapper;
 import com.jasons.coffeewiki.model.AuthLoginResponseWrapper;
+import com.jasons.coffeewiki.model.DeleteAccountRequestWrapper;
+import com.jasons.coffeewiki.model.DeleteAccountResponseWrapper;
 import com.jasons.coffeewiki.model.ErrorResponseWrapper;
+import com.jasons.coffeewiki.model.RegisterConfirmationRequestWrapper;
+import com.jasons.coffeewiki.model.RegisterConfirmationResponseWrapper;
 import com.jasons.coffeewiki.model.RegisterRequestWrapper;
 import com.jasons.coffeewiki.model.RegisterResponseWrapper;
+import com.jasons.coffeewiki.model.ResetPasswordConfirmationRequestWrapper;
+import com.jasons.coffeewiki.model.ResetPasswordConfirmationResponseWrapper;
+import com.jasons.coffeewiki.model.ResetPasswordRequestWrapper;
+import com.jasons.coffeewiki.model.ResetPasswordResponseWrapper;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -37,7 +45,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-22T23:46:28.215517+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-30T13:58:41.830232700+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 @Validated
 @Tag(name = "Authentication", description = "the Authentication API")
 public interface AuthenticationApi {
@@ -72,6 +80,9 @@ public interface AuthenticationApi {
             @ApiResponse(responseCode = "500", description = "Server error", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponseWrapper.class))
             })
+        },
+        security = {
+            @SecurityRequirement(name = "bearerAuth")
         }
     )
     @RequestMapping(
@@ -87,7 +98,72 @@ public interface AuthenticationApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"data\" : { \"bearer\" : \"QQ7nf3Ij83qr1AgTw9hkO\" }, \"error\" : \"{}\" }";
+                    String exampleString = "{ \"data\" : { \"accessToken\" : \"QQ7nf3Ij83qr1AgTw9hkO\" }, \"error\" : \"{}\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"data\" : \"{}\", \"error\" : { \"message\" : \"No data available\", \"details\" : \"No company data is available for the request\" } }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"data\" : \"{}\", \"error\" : { \"message\" : \"No data available\", \"details\" : \"No company data is available for the request\" } }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    String PATH_DELETE_ACCOUNT = "/v1/auth/delete-account";
+    /**
+     * POST /v1/auth/delete-account : Delete consumer account
+     * Delete consumer account
+     *
+     * @param xCorrelationId Identifier to track API requests (required)
+     * @param deleteAccountRequestWrapper  (required)
+     * @return Successful response (status code 200)
+     *         or Bad request (status code 400)
+     *         or Server error (status code 500)
+     */
+    @Operation(
+        operationId = "deleteAccount",
+        summary = "Delete consumer account",
+        description = "Delete consumer account",
+        tags = { "Authentication" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Successful response", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = DeleteAccountResponseWrapper.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Bad request", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponseWrapper.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Server error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponseWrapper.class))
+            })
+        },
+        security = {
+            @SecurityRequirement(name = "bearerAuth")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.POST,
+        value = AuthenticationApi.PATH_DELETE_ACCOUNT,
+        produces = { "application/json" },
+        consumes = { "application/json" }
+    )
+    default ResponseEntity<DeleteAccountResponseWrapper> deleteAccount(
+        @NotNull @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[7][0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$") @Parameter(name = "X-Correlation-Id", description = "Identifier to track API requests", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "X-Correlation-Id", required = true) String xCorrelationId,
+        @Parameter(name = "DeleteAccountRequestWrapper", description = "", required = true) @Valid @RequestBody DeleteAccountRequestWrapper deleteAccountRequestWrapper
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"data\" : { \"message\" : \"User account deleted\" }, \"error\" : \"{}\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -110,8 +186,8 @@ public interface AuthenticationApi {
 
     String PATH_REGISTER = "/v1/auth/register";
     /**
-     * POST /v1/auth/register : Register a new consumer
-     * Register a new consumer
+     * POST /v1/auth/register : Register as new consumer
+     * Register as new consumer
      *
      * @param xCorrelationId Identifier to track API requests (required)
      * @param registerRequestWrapper  (required)
@@ -121,8 +197,8 @@ public interface AuthenticationApi {
      */
     @Operation(
         operationId = "register",
-        summary = "Register a new consumer",
-        description = "Register a new consumer",
+        summary = "Register as new consumer",
+        description = "Register as new consumer",
         tags = { "Authentication" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Successful response", content = {
@@ -134,6 +210,9 @@ public interface AuthenticationApi {
             @ApiResponse(responseCode = "500", description = "Server error", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponseWrapper.class))
             })
+        },
+        security = {
+            @SecurityRequirement(name = "bearerAuth")
         }
     )
     @RequestMapping(
@@ -150,6 +229,201 @@ public interface AuthenticationApi {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                     String exampleString = "{ \"data\" : { \"message\" : \"User registered\" }, \"error\" : \"{}\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"data\" : \"{}\", \"error\" : { \"message\" : \"No data available\", \"details\" : \"No company data is available for the request\" } }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"data\" : \"{}\", \"error\" : { \"message\" : \"No data available\", \"details\" : \"No company data is available for the request\" } }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    String PATH_REGISTER_CONFIRMATION = "/v1/auth/register-confirmation";
+    /**
+     * POST /v1/auth/register-confirmation : Register as new consumer confirmation
+     * Register as new consumer confirmation
+     *
+     * @param xCorrelationId Identifier to track API requests (required)
+     * @param registerConfirmationRequestWrapper  (required)
+     * @return Successful response (status code 200)
+     *         or Bad request (status code 400)
+     *         or Server error (status code 500)
+     */
+    @Operation(
+        operationId = "registerConfirmation",
+        summary = "Register as new consumer confirmation",
+        description = "Register as new consumer confirmation",
+        tags = { "Authentication" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Successful response", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = RegisterConfirmationResponseWrapper.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Bad request", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponseWrapper.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Server error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponseWrapper.class))
+            })
+        },
+        security = {
+            @SecurityRequirement(name = "bearerAuth")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.POST,
+        value = AuthenticationApi.PATH_REGISTER_CONFIRMATION,
+        produces = { "application/json" },
+        consumes = { "application/json" }
+    )
+    default ResponseEntity<RegisterConfirmationResponseWrapper> registerConfirmation(
+        @NotNull @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[7][0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$") @Parameter(name = "X-Correlation-Id", description = "Identifier to track API requests", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "X-Correlation-Id", required = true) String xCorrelationId,
+        @Parameter(name = "RegisterConfirmationRequestWrapper", description = "", required = true) @Valid @RequestBody RegisterConfirmationRequestWrapper registerConfirmationRequestWrapper
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"data\" : { \"message\" : \"User confirmed\" }, \"error\" : \"{}\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"data\" : \"{}\", \"error\" : { \"message\" : \"No data available\", \"details\" : \"No company data is available for the request\" } }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"data\" : \"{}\", \"error\" : { \"message\" : \"No data available\", \"details\" : \"No company data is available for the request\" } }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    String PATH_RESET_PASSWORD = "/v1/auth/reset-password";
+    /**
+     * POST /v1/auth/reset-password : Reset consumer password
+     * Reset consumer password
+     *
+     * @param xCorrelationId Identifier to track API requests (required)
+     * @param resetPasswordRequestWrapper  (required)
+     * @return Successful response (status code 200)
+     *         or Bad request (status code 400)
+     *         or Server error (status code 500)
+     */
+    @Operation(
+        operationId = "resetPassword",
+        summary = "Reset consumer password",
+        description = "Reset consumer password",
+        tags = { "Authentication" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Successful response", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ResetPasswordResponseWrapper.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Bad request", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponseWrapper.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Server error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponseWrapper.class))
+            })
+        },
+        security = {
+            @SecurityRequirement(name = "bearerAuth")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.POST,
+        value = AuthenticationApi.PATH_RESET_PASSWORD,
+        produces = { "application/json" },
+        consumes = { "application/json" }
+    )
+    default ResponseEntity<ResetPasswordResponseWrapper> resetPassword(
+        @NotNull @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[7][0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$") @Parameter(name = "X-Correlation-Id", description = "Identifier to track API requests", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "X-Correlation-Id", required = true) String xCorrelationId,
+        @Parameter(name = "ResetPasswordRequestWrapper", description = "", required = true) @Valid @RequestBody ResetPasswordRequestWrapper resetPasswordRequestWrapper
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"data\" : { \"message\" : \"User password reset\" }, \"error\" : \"{}\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"data\" : \"{}\", \"error\" : { \"message\" : \"No data available\", \"details\" : \"No company data is available for the request\" } }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"data\" : \"{}\", \"error\" : { \"message\" : \"No data available\", \"details\" : \"No company data is available for the request\" } }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    String PATH_RESET_PASSWORD_CONFIRMATION = "/v1/auth/reset-password-confirmation";
+    /**
+     * POST /v1/auth/reset-password-confirmation : Reset consumer password confirmation
+     * Reset consumer password confirmation
+     *
+     * @param xCorrelationId Identifier to track API requests (required)
+     * @param resetPasswordConfirmationRequestWrapper  (required)
+     * @return Successful response (status code 200)
+     *         or Bad request (status code 400)
+     *         or Server error (status code 500)
+     */
+    @Operation(
+        operationId = "resetPasswordConfirmation",
+        summary = "Reset consumer password confirmation",
+        description = "Reset consumer password confirmation",
+        tags = { "Authentication" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Successful response", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ResetPasswordConfirmationResponseWrapper.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Bad request", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponseWrapper.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Server error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponseWrapper.class))
+            })
+        },
+        security = {
+            @SecurityRequirement(name = "bearerAuth")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.POST,
+        value = AuthenticationApi.PATH_RESET_PASSWORD_CONFIRMATION,
+        produces = { "application/json" },
+        consumes = { "application/json" }
+    )
+    default ResponseEntity<ResetPasswordConfirmationResponseWrapper> resetPasswordConfirmation(
+        @NotNull @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[7][0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$") @Parameter(name = "X-Correlation-Id", description = "Identifier to track API requests", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "X-Correlation-Id", required = true) String xCorrelationId,
+        @Parameter(name = "ResetPasswordConfirmationRequestWrapper", description = "", required = true) @Valid @RequestBody ResetPasswordConfirmationRequestWrapper resetPasswordConfirmationRequestWrapper
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"data\" : { \"message\" : \"User password reset\" }, \"error\" : \"{}\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

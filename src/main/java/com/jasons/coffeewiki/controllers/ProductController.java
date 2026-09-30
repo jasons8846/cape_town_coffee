@@ -77,10 +77,7 @@ public class ProductController implements ProductsApi {
             Map<String, AttributeValue> parseCursor = new HashMap<>();
 
             if(cursor != null){
-                System.out.println("Decrypting");
-                System.out.println("Cursor: " + cursor);
                 String decryptedCursor = cursorCrypto.decrypt(cursor);
-                System.out.println("Decrypted cursor: " + decryptedCursor);
                 ObjectMapper objectMapper = new ObjectMapper();
                 try {
                     ProductCursor productCursor = objectMapper.readValue(decryptedCursor, ProductCursor.class);
@@ -139,7 +136,6 @@ public class ProductController implements ProductsApi {
 
             products.add(product);
         });
-            System.out.println("Product list size: " + products.size() + "  pageSize: "+ pageSize);
             if(products.size() > pageSize) {
 
                 List<Product> displayProducts = products

@@ -22,25 +22,14 @@ public class SecurityConfig {
        http
                .csrf(csrf -> csrf.disable())
                .authorizeHttpRequests(auth -> auth
-//                        // Consumers AND admins can GET
-                        .requestMatchers(HttpMethod.GET, "/v1/**")
-                        .hasAnyAuthority("admins", "consumers")
 
-                        // Only admins can POST
-                        .requestMatchers(HttpMethod.POST, "/v1/**")
-                        .hasAuthority("admins")
+                               .requestMatchers(HttpMethod.GET, "/v1/**").permitAll()
+                               .requestMatchers(HttpMethod.POST, "/v1/**").hasAuthority("admins")
+                       .requestMatchers(HttpMethod.PUT, "/v1/**").hasAuthority("admins")
+                       .requestMatchers(HttpMethod.PATCH, "/v1/**").hasAuthority("admins")
+                       .requestMatchers(HttpMethod.DELETE, "/v1/**").hasAuthority("admins")
+                       .anyRequest().denyAll()
 
-                        // Only admins can PUT
-                        .requestMatchers(HttpMethod.PUT, "/v1/**")
-                        .hasAuthority("admins")
-
-                        // Only admins can DELETE
-                        .requestMatchers(HttpMethod.DELETE, "/v1/**")
-                        .hasAuthority("admins")
-
-                        // Everything else requires authentication
-                        .anyRequest()
-                        .authenticated()
                )
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt

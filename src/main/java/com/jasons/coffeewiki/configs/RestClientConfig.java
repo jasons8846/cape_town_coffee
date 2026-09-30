@@ -1,5 +1,6 @@
 package com.jasons.coffeewiki.configs;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestClient;
@@ -7,10 +8,14 @@ import org.springframework.web.client.RestClient;
 @Configuration
 public class RestClientConfig {
 
-    @Bean
-    public RestClient restClient() {
-        return RestClient.builder()
-                .baseUrl("https://cape-town-coffee-users-1.onrender.com")
-                .build();
-    }
+
+//    @Value("${aws.cognito}")
+//    private String awsCognito;
+//
+//    @Bean
+//    public RestClient cognito() {
+//        return RestClient.builder()
+//                .baseUrl(awsCognito)
+//                .build();
+//    }
 }

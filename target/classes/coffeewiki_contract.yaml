@@ -6,6 +6,9 @@ info:
 servers:
   - url: http://localhost:5000
 
+security: 
+  - bearerAuth: []
+
 tags:
   - name: Authentication
   - name: Company
@@ -56,8 +59,8 @@ paths:
     post:
       tags:
         - Authentication
-      summary: Register a new consumer
-      description: Register a new consumer
+      summary: Register as new consumer
+      description: Register as new consumer
       operationId: register
       parameters:
         - in: header
@@ -79,6 +82,126 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/RegisterResponseWrapper"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+
+  /v1/auth/register-confirmation:
+    post:
+      tags:
+        - Authentication
+      summary: Register as new consumer confirmation
+      description: Register as new consumer confirmation
+      operationId: registerConfirmation
+      parameters:
+        - in: header
+          name: X-Correlation-Id
+          schema:
+            $ref: '#/components/schemas/UUIDv7'
+          required: true
+          description: Identifier to track API requests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterConfirmationRequestWrapper"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RegisterConfirmationResponseWrapper"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+
+  /v1/auth/reset-password:
+    post:
+      tags:
+        - Authentication
+      summary: Reset consumer password
+      description: Reset consumer password
+      operationId: resetPassword
+      parameters:
+        - in: header
+          name: X-Correlation-Id
+          schema:
+            $ref: '#/components/schemas/UUIDv7'
+          required: true
+          description: Identifier to track API requests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResetPasswordRequestWrapper"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResetPasswordResponseWrapper"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+  
+  /v1/auth/delete-account:
+    post:
+      tags:
+        - Authentication
+      summary: Delete consumer account
+      description: Delete consumer account
+      operationId: deleteAccount
+      parameters:
+        - in: header
+          name: X-Correlation-Id
+          schema:
+            $ref: '#/components/schemas/UUIDv7'
+          required: true
+          description: Identifier to track API requests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeleteAccountRequestWrapper"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteAccountResponseWrapper"
         '400':
           description: Bad request
           content:
@@ -131,6 +254,48 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponseWrapper"
+
+  /v1/auth/reset-password-confirmation:
+    post:
+      tags:
+        - Authentication
+      summary: Reset consumer password confirmation
+      description: Reset consumer password confirmation
+      operationId: resetPasswordConfirmation
+      parameters:
+        - in: header
+          name: X-Correlation-Id
+          schema:
+            $ref: '#/components/schemas/UUIDv7'
+          required: true
+          description: Identifier to track API requests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResetPasswordConfirmationRequestWrapper"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResetPasswordConfirmationResponseWrapper"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseWrapper"
+  
+
   /v1/company:
     get:
       tags:
@@ -474,7 +639,7 @@ paths:
 
 components:
   securitySchemes:
-    bearerAuth: # Arbitrary name for the scheme
+    bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
@@ -681,6 +846,22 @@ components:
           nullable: true
           example: null
 
+    ResetPasswordRequestWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/ResetPasswordRequest"
+
+    ResetPasswordResponseWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/ResetPasswordResponse"
+        error:
+          type: object
+          nullable: true
+          example: null
+
     RegisterRequestWrapper:
       type: object
       properties:
@@ -697,6 +878,38 @@ components:
           nullable: true
           example: null
 
+    RegisterConfirmationRequestWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/RegisterConfirmationRequest"
+
+    RegisterConfirmationResponseWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/RegisterConfirmationResponse"
+        error:
+          type: object
+          nullable: true
+          example: null
+
+    ResetPasswordConfirmationRequestWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/ResetPasswordConfirmationRequest"
+
+    ResetPasswordConfirmationResponseWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/ResetPasswordConfirmationResponse"
+        error:
+          type: object
+          nullable: true
+          example: null
+
     RegisterRequest:
       type: object
       properties:
@@ -704,6 +917,11 @@ components:
           type: string
           description: the name describing the consumer
           example: "Johnty"
+        email:
+          type: string
+          description: the email of the consumer
+          format: email
+          example: "johnty@example.com"
         username:
           type: string
           description: the username of the consumer
@@ -717,10 +935,6 @@ components:
           minLength: 8
           maxLength: 36
           example: $johntyRhodes#123$
-        roles:
-          type: string
-          description: List of user roles
-          example: "ADMIN, HR, USER"
 
     RegisterResponse:
       type: object
@@ -729,6 +943,90 @@ components:
           type: string
           description: indicates if user was Successfully regisered
           example: "User registered"
+
+    RegisterConfirmationRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          description: the registered username of the consumer
+          minLength: 8
+          maxLength: 15
+          example: johntyrhodes
+        confirmationCode:
+          type: string
+          description: the confirmation code sent to the consumer's email for registration confirmation
+          example: "123456"
+
+    RegisterConfirmationResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: indicates if user was Successfully confirmed
+          example: "User confirmed"
+
+    ResetPasswordConfirmationRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          description: the registered username of the consumer
+          minLength: 8
+          maxLength: 15
+          example: johntyrhodes
+        confirmationCode:
+          type: string
+          description: the confirmation code sent to the consumer's email for password reset
+          example: "123456"
+        newPassword:
+          type: string
+          description: the new password to be set for the consumer's account
+          format: password
+          minLength: 8
+          maxLength: 36
+          example: $newPassword#123$
+
+    ResetPasswordConfirmationResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: indicates if user password was Successfully reset
+          example: "User password reset"
+
+
+    DeleteAccountRequestWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/DeleteAccountRequest"
+
+    DeleteAccountResponseWrapper:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/DeleteAccountResponse"
+        error:
+          type: object
+          nullable: true
+          example: null
+
+    DeleteAccountRequest:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          description: the access token for the consumer
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+    
+    DeleteAccountResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: indicates if user account was Successfully deleted
+          example: "User account deleted"
 
     AuthRequest:
       type: object
@@ -750,10 +1048,28 @@ components:
     AuthResponse:
       type: object
       properties:
-        bearer:
+        accessToken:
           type: string
           description: bearer token in the form of a JWT
           example: QQ7nf3Ij83qr1AgTw9hkO
+
+    ResetPasswordRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          description: the registered username of the consumer
+          minLength: 8
+          maxLength: 15
+          example: johntyrhodes
+
+    ResetPasswordResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: indicates if user password was Successfully reset
+          example: "User password reset"
 
     Company:
       type: object
