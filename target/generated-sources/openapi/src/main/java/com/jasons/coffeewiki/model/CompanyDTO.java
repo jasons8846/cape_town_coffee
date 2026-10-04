@@ -19,7 +19,7 @@ import jakarta.annotation.Generated;
  * CompanyDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-30T13:58:41.830232700+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-10-03T15:42:54.174152+02:00[Africa/Johannesburg]", comments = "Generator version: 7.25.0")
 public class CompanyDTO {
 
   private @Nullable String name;
