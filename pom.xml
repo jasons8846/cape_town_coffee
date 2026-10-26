@@ -135,7 +135,6 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<!-- Spring Security -->
 <!--		<dependency>-->
@@ -192,6 +191,8 @@
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
+							<version>1.18.42</version>
+							<optional>true</optional>
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
@@ -204,6 +205,8 @@
 						<exclude>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
+							<version>1.18.42</version>
+							<optional>true</optional>
 						</exclude>
 					</excludes>
 				</configuration>

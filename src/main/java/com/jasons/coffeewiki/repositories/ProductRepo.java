@@ -5,6 +5,7 @@ import com.jasons.coffeewiki.entities.dynamodb.CompanyDynamo;
 import com.jasons.coffeewiki.entities.dynamodb.ProductDynamo;
 import org.springframework.stereotype.Repository;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+import software.amazon.awssdk.enhanced.dynamodb.Expression;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.model.Page;
 import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
@@ -32,9 +33,17 @@ public class ProductRepo implements ProductRepository{
                         .build()
         );
 
+        Expression activeFilter = Expression.builder()
+                .expression("active = :active")
+                .putExpressionValue(
+                        ":active",
+                        AttributeValue.builder().bool(true).build())
+                .build();
+
         if (cursor.isEmpty()){
             QueryEnhancedRequest request = QueryEnhancedRequest.builder()
                     .queryConditional(condition)
+                    .filterExpression(activeFilter)
                     .limit(pageSize)
                     .exclusiveStartKey(null)
                     .build();
@@ -62,14 +71,6 @@ public class ProductRepo implements ProductRepository{
 
 
 
-
-//        return productTable.scan().
-//                        items()
-//                        .stream()
-//                        .filter(product ->
-//                        product.getCompanyCode().equals(companyCode))
-//                        .limit(pageSize)
-//                        .toList();
     }
 
     @Override

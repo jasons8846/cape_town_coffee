@@ -152,10 +152,15 @@ public class ProductServiceImpl implements ProductService {
         Map<String, String> productVariant = new HashMap<>();
         productVariant.put("description", product.getVariant().getDescription());
         productVariant.put("sequence", String.valueOf(product.getVariant().getSequence()));
+
+        Map<String, String> productSize = new HashMap<>();
+        productSize.put("description", product.getSize().getDescription());
+        productSize.put("sequence", String.valueOf(product.getSize().getSequence()));
 //
         entity.setPrice(product.getPrice());
         entity.setName(product.getName());
-//        entity.setProductVariant(productVariant);
+        entity.setProductVariant(productVariant);
+        entity.setProductSize(productSize);
         entity.setCurrency(product.getCurrency());
         entity.setSequence(product.getSequence());
 

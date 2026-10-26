@@ -32,7 +32,6 @@ public class SecurityConfig {
                        .requestMatchers(HttpMethod.PUT, "/v1/**").hasAuthority("admins")
                        .requestMatchers(HttpMethod.PATCH, "/v1/**").hasAuthority("admins")
                        .requestMatchers(HttpMethod.DELETE, "/v1/**").hasAuthority("admins")
-                       .anyRequest().denyAll()
 
                )
                 .oauth2ResourceServer(oauth2 -> oauth2

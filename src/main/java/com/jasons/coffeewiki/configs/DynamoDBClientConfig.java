@@ -10,6 +10,9 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClientBuilder;
+
+import java.net.URI;
 
 @Configuration
 public class DynamoDBClientConfig {
@@ -23,11 +26,19 @@ public class DynamoDBClientConfig {
     @Value("${aws.dynamodb.products}")
     private String awsProductsTbl;
 
+    @Value("${aws.dynamodb.endpoint:}")
+    private String awsDynamoDBEndpoint;
+
     @Bean
     public DynamoDbClient dynamoDbClient() {
-        return DynamoDbClient.builder()
-                .region(Region.of(awsRegion))
-                .build();
+        DynamoDbClientBuilder builder = DynamoDbClient.builder()
+                .region(Region.of(awsRegion));
+
+        if (awsDynamoDBEndpoint != null && !awsDynamoDBEndpoint.isBlank()) {
+            builder.endpointOverride(URI.create(awsDynamoDBEndpoint));
+        }
+
+        return builder.build();
     }
 
     @Bean
